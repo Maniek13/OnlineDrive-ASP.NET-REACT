@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TreeExplorer.Data;
 using TreeExplorer.Models;
+using TreeExplorer.Objects;
 
 namespace TreeExplorer.Controllers
 {
@@ -23,27 +23,28 @@ namespace TreeExplorer.Controllers
         // GET: Elements/Show
         public async Task<JsonResult> Show()
         {
-            return Json(await _context.Element.ToListAsync());
+            Tree tree = new Tree(_context.Element.ToListAsync().Result);
+            return Json(tree.Show());
         }
 
 
 
-        // GET: Elements/Create
+        // GET: Elements/Add
         [HttpGet]
         public async Task<Boolean> Add(string Name, string Type, int IdW)
-        {
-            Element element = new Element();
+        {   
+            Element element = new() { Name = Name, Type = Type, IdW = IdW };
 
-            element.Name = Name;
-            element.Type = Type;
-            element.IdW = IdW;
-            
-
-            if (ModelState.IsValid)
+            if (TryValidateModel(element, nameof(element)))
             {
-                _context.Add(element);
-                await _context.SaveChangesAsync();
-                return true;
+                if(Tree.Add(_context.Element.ToListAsync().Result.Last().Id + 2, Name, Type, IdW))
+                {
+                    _context.Add(element);
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+                return false;
+               
             }
             else
             {
