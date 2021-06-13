@@ -41,8 +41,6 @@ namespace TreeExplorer.Controllers
         }
 
 
-
-
         // Post: Elements/Add
         [HttpPost]
         public async Task<Boolean> Add([Bind("Name,Type,IdW")] Element element)
