@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -23,7 +24,18 @@ namespace TreeExplorer.Controllers
         // GET: Elements/Show
         public async Task<JsonResult> Show()
         {
-            Tree tree = new Tree(_context.Element.ToListAsync().Result);
+            List<Element> list = new List<Element> { };
+            try
+            {
+                list = _context.Element.ToListAsync().Result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("SQL err");
+                return Json(new { Error = "SQl"});
+            }
+
+            Tree tree = new Tree(list);
             return Json(tree.Show());
         }
 
@@ -31,17 +43,30 @@ namespace TreeExplorer.Controllers
 
         // GET: Elements/Add
         [HttpGet]
-        public async Task<Boolean> Add(string Name, string Type, int IdW)
+        public async Task<Boolean> Add(string name, string type, int idW)
         {   
-            Element element = new() { Name = Name, Type = Type, IdW = IdW };
+            Element element = new() { Name = name, Type = type, IdW = idW };
 
             if (TryValidateModel(element, nameof(element)))
             {
-                if(Tree.Add(_context.Element.ToListAsync().Result.Last().Id + 2, Name, Type, IdW))
+                int id = _context.Element.ToListAsync().Result.Last().Id + 2;
+                if (Tree.Add(id, name, type, idW))
                 {
-                    _context.Add(element);
-                    await _context.SaveChangesAsync();
-                    return true;
+                    try
+                    {
+                        _context.Add(element);
+                        await _context.SaveChangesAsync();
+                        return true;
+                    }
+                    catch(Exception e)
+                    {
+                        Console.WriteLine("Query err");
+
+                        Tree.Delete(id);
+
+                        return false;
+                    }
+               
                 }
                 return false;
                
@@ -53,16 +78,35 @@ namespace TreeExplorer.Controllers
         }
 
 
-        // GET: Elements/Delete
+        // GET: Elements/Delete?id=1
         [HttpGet]
-        public async Task<Boolean> Delete(int Id)
+        public async Task<Boolean> Delete(int id)
         {
-                return false;   
+            if (Tree.Delete(id))
+            {
+                try
+                {
+                    _context.Remove(_context.Element.SingleOrDefault(x => x.Id == id));
+                    _context.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Query err");
+
+                    var el = _context.Element.ElementAt(id);
+                    Tree.Add(el.Id, el.Name, el.Type, el.IdW);
+                    
+                    return false;
+                }
+                
+            }
+            return false;
         }
 
         // GET: Elements/Edit
         [HttpGet]
-        public async Task<Boolean> Edit(int Id)
+        public async Task<Boolean> Edit(int id)
         {
             return false;
         }
@@ -70,16 +114,16 @@ namespace TreeExplorer.Controllers
 
         // GET: Elements/Move
         [HttpGet]
-        public async Task<Boolean> Move(int Id, int IdW)
+        public async Task<Boolean> Move(int id, int idW)
         {
             return false;
         }
 
         // GET: Elements/Sort?IdW=2&Type=ASC
         [HttpGet]
-        public async Task<JsonResult> Sort(int IdW, string Type)
+        public async Task<JsonResult> Sort(int idW, string type)
         {
-            return Json(Tree.Sort(IdW, Type));
+            return Json(Tree.Sort(idW, type));
         }
     }
 }

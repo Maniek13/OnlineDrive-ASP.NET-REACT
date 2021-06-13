@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TreeExplorer.Interfaces;
@@ -24,9 +25,7 @@ namespace TreeExplorer.Objects
         public static bool Add(int id, string name, string type, int idW)
         {
             if(_list is null)
-            {
                 return false;
-            }
             else
             {
                 Element element = new() { Id = id, Name = name, Type = type, IdW = idW };
@@ -36,14 +35,34 @@ namespace TreeExplorer.Objects
            
         }
 
-        public bool Edit(int id) {
+        public static bool Edit(int id) {
             return false;
         }
-        public bool Delete(int id)
+        public static bool Delete(int id)
         {
-            return false;
+            if (_list is null)
+                return false;
+            else
+            {
+                IEnumerable<Element> query = from el in _list
+                                             where el.Id == id
+                                             select el;
+
+                try
+                {
+                    _list.Remove(query.First());
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine("Remove err");
+                    return false;
+                }
+                
+                return true;
+            }
+            
         }
-        public bool Move(int id, int idW)
+        public static bool Move(int id, int idW)
         {
             return false;
         }
@@ -67,10 +86,6 @@ namespace TreeExplorer.Objects
             }
 
             return new Element[] { };
-
-
-           
-            
         }
 
 
