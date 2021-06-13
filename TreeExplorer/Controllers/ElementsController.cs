@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,17 +21,19 @@ namespace TreeExplorer.Controllers
         }
 
         // GET: Elements/Show
-        public async Task<JsonResult> Show()
+        public JsonResult Show()
         {
             List<Element> list;
             try
             {
                 list = _context.Element.ToListAsync().Result;
             }
-            catch
+            catch (Exception e)
             {
-                Console.WriteLine("SQL err");
-                return Json(new { Error = "SQl" });
+                Console.WriteLine("Show err");
+                Console.WriteLine(e.Message);
+
+                return Json(new { Error = e.Message });
             }
 
             Tree tree = new(list);
@@ -41,16 +42,15 @@ namespace TreeExplorer.Controllers
 
 
 
-        // GET: Elements/Add
-        [HttpGet]
-        public async Task<Boolean> Add(string name, string type, int idW)
-        {   
-            Element element = new() { Name = name, Type = type, IdW = idW };
 
+        // Post: Elements/Add
+        [HttpPost]
+        public async Task<Boolean> Add([Bind("Name,Type,IdW")] Element element)
+        {
             if (TryValidateModel(element, nameof(element)))
             {
                 int id = _context.Element.ToListAsync().Result.Last().Id + 2;
-                if (Tree.Add(id, name, type, idW))
+                if (Tree.Add(id, element.Name, element.Type, element.IdW))
                 {
                     try
                     {
@@ -58,9 +58,10 @@ namespace TreeExplorer.Controllers
                         await _context.SaveChangesAsync();
                         return true;
                     }
-                    catch
+                    catch(Exception e)
                     {
-                        Console.WriteLine("Query err");
+                        Console.WriteLine("Add err");
+                        Console.WriteLine(e.Message);
 
                         Tree.Delete(id);
 
@@ -78,9 +79,9 @@ namespace TreeExplorer.Controllers
         }
 
 
-        // GET: Elements/Delete?id=1
-        [HttpGet]
-        public async Task<Boolean> Delete(int id)
+        // Post: Elements/Delete
+        [HttpPost]
+        public async Task<Boolean> Delete([Bind("Id")] int id)
         {
             if (Tree.Delete(id))
             {
@@ -90,11 +91,13 @@ namespace TreeExplorer.Controllers
                     await _context.SaveChangesAsync();
                     return true;
                 }
-                catch
+                catch(Exception e)
                 {
-                    Console.WriteLine("Query err");
+                    Console.WriteLine("Delete err");
+                    Console.WriteLine(e.Message);
 
-                    var el = _context.Element.ElementAt(id);
+
+                    Element el = _context.Element.ElementAt(id);
                     Tree.Add(el.Id, el.Name, el.Type, el.IdW);
                     
                     return false;
@@ -104,24 +107,73 @@ namespace TreeExplorer.Controllers
             return false;
         }
 
-        // GET: Elements/Edit
-        [HttpGet]
-        public async Task<Boolean> Edit(int id)
+        // Post: Elements/Edit
+        [HttpPost]
+        public async Task<Boolean> Edit([Bind("Id,Name,Type,IdW")] Element elementNew)
         {
-            return false;
+            if (Tree.Edit(elementNew))
+            {
+                var element = _context.Element.SingleOrDefault(x => x.Id == elementNew.Id);
+
+                try
+                {
+                    element.Name = elementNew.Name;
+                    element.Type = elementNew.Type;
+                    element.IdW = elementNew.IdW;
+
+                    _context.Update(element);
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Edit err");
+                    Console.WriteLine(e.Message);
+
+                    element = _context.Element.SingleOrDefault(x => x.Id == elementNew.Id);
+
+                    Tree.Edit(element);
+
+                    return false;
+                }
+            }
+            else
+                return false;
         }
 
 
-        // GET: Elements/Move
-        [HttpGet]
-        public async Task<Boolean> Move(int id, int idW)
+        // Post: Elements/Move
+        [HttpPost]
+        public async Task<Boolean> Move([Bind("Id")] int id, [Bind("IdW")] int idW)
         {
-            return false;
+            if (Tree.Move(id, idW))
+            {
+                Element element = _context.Element.SingleOrDefault(x => x.Id == id);
+                int idWOld = element.IdW;
+                try
+                {
+                    element.IdW = idW;
+                    _context.Update(element);             
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Move err");
+                    Console.WriteLine(e.Message);
+
+                    Tree.Move(id, idWOld);
+
+                    return false;
+                }
+            }
+            else
+                return false;
         }
 
-        // GET: Elements/Sort?IdW=2&Type=ASC
-        [HttpGet]
-        public async Task<JsonResult> Sort(int idW, string type)
+        // Post: Elements/Sort
+        [HttpPost]
+        public JsonResult Sort([Bind("IdW")] int idW, [Bind("type")] string type)
         {
             return Json(Tree.Sort(idW, type));
         }

@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using TreeExplorer.Interfaces;
@@ -35,8 +34,18 @@ namespace TreeExplorer.Objects
            
         }
 
-        public static bool Edit(int id) {
-            return false;
+        public static bool Edit(Element element) {
+            if (_list is null)
+                return false;
+            else
+            {
+                Element toChange = _list.Find(el => el.Id == element.Id);
+                toChange.Name = element.Name;
+                toChange.Type = element.Type;
+                toChange.IdW = element.IdW;
+
+                return true;
+            }
         }
         public static bool Delete(int id)
         {
@@ -64,7 +73,14 @@ namespace TreeExplorer.Objects
         }
         public static bool Move(int id, int idW)
         {
-            return false;
+            if (_list is null)
+                return false;
+            else
+            {
+                Element toChange = _list.Find(el => el.Id == id);
+                toChange.IdW = idW;
+                return true;
+            }
         }
         public static IEnumerable<Element> Sort(int idW, string type)
         {
