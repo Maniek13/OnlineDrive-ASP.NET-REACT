@@ -9,10 +9,10 @@ namespace TreeExplorer.Interfaces
     interface ITree
     {
         static bool Add(int id, string name, string type, int idW) => throw new NotImplementedException();
-        bool Edit(int id);
-        bool Delete(int id);
-        bool Move(int id, int idW);
-        List<Element> Sort(int idW, string type);
-        List<Element> Show();
+        static bool Edit(int id) => throw new NotImplementedException();
+        static bool Delete(int id) => throw new NotImplementedException();
+        static bool Move(int id, int idW) => throw new NotImplementedException();
+        static IEnumerable<Element> Sort(int idW, string type) => throw new NotImplementedException();
+        List<Element> Show() ;
     }
 }

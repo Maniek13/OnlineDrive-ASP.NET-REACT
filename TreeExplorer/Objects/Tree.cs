@@ -47,9 +47,30 @@ namespace TreeExplorer.Objects
         {
             return false;
         }
-        public List<Element> Sort(int idW, string type)
+        public static IEnumerable<Element> Sort(int idW, string type)
         {
-            return _list;
+            IEnumerable<Element> query;
+            switch (type)
+            {
+                case "ASC":
+                    query = from el in _list
+                                where el.IdW == idW
+                                orderby el.Name ascending
+                                select el;
+                    return query;
+                case "DESC":
+                    query = from el in _list
+                                where el.IdW == idW
+                                orderby el.Name descending
+                                select el;
+                    return query;
+            }
+
+            return new Element[] { };
+
+
+           
+            
         }
 
 

@@ -75,11 +75,11 @@ namespace TreeExplorer.Controllers
             return false;
         }
 
-        // GET: Elements/Sort
+        // GET: Elements/Sort?IdW=2&Type=ASC
         [HttpGet]
         public async Task<JsonResult> Sort(int IdW, string Type)
         {
-            return Json(new List<Element>());
+            return Json(Tree.Sort(IdW, Type));
         }
     }
 }
