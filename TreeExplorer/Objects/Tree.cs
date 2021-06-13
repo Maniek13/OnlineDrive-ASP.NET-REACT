@@ -52,7 +52,7 @@ namespace TreeExplorer.Objects
                 {
                     _list.Remove(query.First());
                 }
-                catch(Exception e)
+                catch
                 {
                     Console.WriteLine("Remove err");
                     return false;
@@ -85,7 +85,7 @@ namespace TreeExplorer.Objects
                     return query;
             }
 
-            return new Element[] { };
+            return Array.Empty<Element>();
         }
 
 

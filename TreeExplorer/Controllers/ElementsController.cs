@@ -24,18 +24,18 @@ namespace TreeExplorer.Controllers
         // GET: Elements/Show
         public async Task<JsonResult> Show()
         {
-            List<Element> list = new List<Element> { };
+            List<Element> list;
             try
             {
                 list = _context.Element.ToListAsync().Result;
             }
-            catch (Exception e)
+            catch
             {
                 Console.WriteLine("SQL err");
-                return Json(new { Error = "SQl"});
+                return Json(new { Error = "SQl" });
             }
 
-            Tree tree = new Tree(list);
+            Tree tree = new(list);
             return Json(tree.Show());
         }
 
@@ -58,7 +58,7 @@ namespace TreeExplorer.Controllers
                         await _context.SaveChangesAsync();
                         return true;
                     }
-                    catch(Exception e)
+                    catch
                     {
                         Console.WriteLine("Query err");
 
@@ -87,10 +87,10 @@ namespace TreeExplorer.Controllers
                 try
                 {
                     _context.Remove(_context.Element.SingleOrDefault(x => x.Id == id));
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                     return true;
                 }
-                catch (Exception e)
+                catch
                 {
                     Console.WriteLine("Query err");
 
