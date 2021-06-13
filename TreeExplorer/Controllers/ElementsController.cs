@@ -173,7 +173,7 @@ namespace TreeExplorer.Controllers
 
         // Post: Elements/Sort
         [HttpPost]
-        public JsonResult Sort([Bind("IdW")] int idW, [Bind("type")] string type)
+        public JsonResult Sort([Bind("IdW")] int idW, [Bind("Type")] string type)
         {
             return Json(Tree.Sort(idW, type));
         }
