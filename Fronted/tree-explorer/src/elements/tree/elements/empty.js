@@ -2,6 +2,7 @@ import React from 'react'
 import styles from '../styles/tree.module.css'
 import AddForm from '../forms/add_form'
 import Element from '../objects/element'
+import Provider from '../controller/provider'
 
 
 class Empty extends React.Component {
@@ -16,11 +17,15 @@ class Empty extends React.Component {
   }
 
   addForm(evt){
-    Element.element.IdW = evt.target.value;
-    this.setState({add : true});
+    if(Provider.modal == false){
+      Provider.modal = true;
+      Element.element.IdW = evt.target.value;
+      this.setState({add : true});
+    }  
   }
 
   onAdd(){
+    Provider.modal = false;
     this.setState({add : false});
   }
 

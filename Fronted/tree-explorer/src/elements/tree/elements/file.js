@@ -3,6 +3,7 @@ import styles from '../styles/tree.module.css'
 import EditForm from '../forms/edit_form'
 import Element from '../objects/element'
 import DelForm from '../forms/del_form'
+import Provider from '../controller/provider'
 
 class File extends React.Component {
   constructor(props){
@@ -18,27 +19,35 @@ class File extends React.Component {
 
   
   editForm(evt){
-    if(this.state.edit === false){
-      Element.element.Id = evt.target.id;
-      Element.element.IdW = evt.target.idW;
-      Element.element.Type = evt.target.fileType;
-      Element.element.Name = evt.target.name;
-      this.setState({edit : true});
-    } 
+    if(Provider.modal == false){
+      Provider.modal = true;
+      if(this.state.edit === false){
+        Element.element.Id = evt.target.id;
+        Element.element.IdW = evt.target.idW;
+        Element.element.Type = evt.target.fileType;
+        Element.element.Name = evt.target.name;
+        this.setState({edit : true});
+      } 
+    }
   }
 
   delForm(evt){
-    if(this.state.delete === false){
-      this.setState({delete : true});
+    if(Provider.modal == false){
+      Provider.modal = true;
+      if(this.state.delete === false){
+        this.setState({delete : true});
+      } 
     } 
   }
   
 
   onEdit(){
+    Provider.modal = false;
     this.setState({edit : false});
   }
 
   onDelete(){
+    Provider.modal = false;
     this.setState({delete : false});
   }
 

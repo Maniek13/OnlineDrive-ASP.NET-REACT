@@ -9,7 +9,10 @@ import GetName from '../controller/get_name'
 class EditForm extends React.Component{
     constructor(props) {
       super(props);
-      this.state = {checked : this.props.node};
+      this.state = {
+          checked : this.props.node,
+          error : false
+        };
       Element.element.Type = this.state.checked ? "node" : "file";
     }
 
@@ -43,13 +46,21 @@ class EditForm extends React.Component{
       await POST("https://localhost:5001/Elements/Edit", Element.element);
       
       if(Responde.data === true){
+        this.setState({error : false});
         this.props.callback();
       }  
+        this.setState({error : true});
+      
+    }
+
+    exit(){
+        this.props.callback();
     }
 
     render() {
         return (
             <div className={styles.add_form}>
+                <button className={styles.exit} onClick={this.exit.bind(this)}>X</button>
               <div className={styles.el_form}>
                  <label className={styles.label}>Name:</label>
                 <input id="name" type="text" defaultValue={this.props.name} onChange={this.name.bind(this)} className={styles.input}/>
@@ -63,7 +74,11 @@ class EditForm extends React.Component{
                                 { this.nodes() }
                         </select>
               </div>
-              <button className={styles.edit_form_btn} onClick={this.edit.bind(this)}>Edit</button>
+              <div className={styles.btn_div}>
+                <button className={styles.form_btn} onClick={this.edit.bind(this)}>Edit</button>
+              </div>
+              
+              {this.state.error ? <div className={styles.error}><a>Server error</a></div> : ""}
             </div>
         );
     }

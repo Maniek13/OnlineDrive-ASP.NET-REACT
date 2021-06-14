@@ -2,7 +2,7 @@
     position: absolute;
     z-index: 1;
     width: 300px;
-    height: 100px;
+    height: auto;
     background-color: aliceblue;
     margin: 0;
     top: 20%;
@@ -19,8 +19,8 @@
     margin-right: 5px;
 }
 
-.add_form_btn{
-    width: 150px;
+.form_btn{
+    width: 100%;
     height: 20px;
     background-color: wheat;
     border: 1px solid black;
@@ -56,3 +56,29 @@
     float: left!important;
 }
 
+.error{
+    width: 100%;
+    height: 20px;
+    text-align: center;
+    color: red;
+    margin-top: 10px;
+}
+
+.btn_div{
+    width: 100%;
+    height: 20px;
+}
+
+.error a{
+    padding: 10px;
+}
+
+.exit{
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    background-color: transparent;
+    border: 0px;
+    right: 10px;
+    top: 5px;
+}
