@@ -1,8 +1,9 @@
 class Element{
-    static id;
-    static name;
-    static type;
-    static idW;
+    static element = {
+        Name : "",
+        Type : "file",
+        IdW : ""
+    }
 }
 
 export default Element;

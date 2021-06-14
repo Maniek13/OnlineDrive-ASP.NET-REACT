@@ -1,20 +1,29 @@
 import React from 'react'
 import List from '../objects/list'
-import ShowAddFormsBtn from '../controllers/show_add_form_btn'
+import AddForm from '../forms/add_form';
+import styles from '../styles/tree.module.css'
+import Element from '../objects/element'
 
 
 class Tree extends React.Component {
+  constructor(props){
+    super(props)
+    
+    this.state = {
+      add: false
+    };
+  }
+
   show(){
     if(List.tree === ''){
-      return ShowAddFormsBtn(0)
+      return this.showAddFormsBtn(0)
     }
     else{
       let fields = [];
     
       List.tree.forEach(el => {
         if(el.idW === 0){
-          fields.push(ShowAddFormsBtn(el.id))
-          
+          fields.push(this.showAddFormsBtn(el.id))
         }
       });
 
@@ -22,10 +31,20 @@ class Tree extends React.Component {
     } 
   }
 
+  addForm(evt){
+    Element.element.IdW = evt.target.value;
+    this.setState({add : true});
+  }
+  
+  showAddFormsBtn(id){
+    return (<button value={id} className={styles.add_btn} onClick={this.addForm.bind(this)}></button>);
+  }
+
   render() {
     return (
       <React.Fragment>
           {this.show()}
+          {this.state.add ? <AddForm/> : ""}
       </React.Fragment>
       
     );

@@ -1,10 +1,15 @@
 import Responde from './objects/responde'
 
 async function POST(adres, object) {
+    const formData = new FormData()
+
+    for (var i in object){
+        formData.append(i, object[i]);
+    }
+
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json'},
-        body: JSON.stringify(object)
+        body: formData
     };
     try{
      await fetch(adres, requestOptions)
@@ -19,8 +24,6 @@ async function POST(adres, object) {
         Responde.code = 420;
         Responde.data = {Error : 'server error'};
     }
-   
-
 }
 
 export default POST;
