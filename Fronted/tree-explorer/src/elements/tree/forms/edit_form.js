@@ -36,13 +36,18 @@ class EditForm extends React.Component{
     }
 
     getName(id){
-        return List.tree.forEach(el =>
+
+        let name = "root";
+        List.tree.forEach(el =>
             {
                 if(el.id === id ){
-                    return el.name;
+                    
+                    name = el.name;
                 }
             }
         )
+
+        return name;
     }
 
     nodes(){
@@ -53,13 +58,13 @@ class EditForm extends React.Component{
                 fields.push(  <option value={el.name} id={el.id}>{el.name} </option> )
             }
         })
+
+        fields.push(  <option value="root" disabled>Root</option> )
         return fields;
     }
 
 
     render() {
-    
-
         return (
             <div className={styles.add_form}>
               <div className={styles.el_form}>

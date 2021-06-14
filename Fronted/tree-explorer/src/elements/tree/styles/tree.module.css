@@ -20,7 +20,7 @@
 }
 
 .add_form_btn{
-    width: 100px;
+    width: 150px;
     height: 20px;
     background-color: wheat;
     border: 1px solid black;
@@ -28,7 +28,7 @@
 
 .file{
     background-color: rgb(199, 222, 235);
-    width: 100px;
+    width: 150px;
 }
 
 .file + .file, .folder + .file, .folder + .folder{
@@ -40,7 +40,7 @@
     border: 1px solid black;
     font-size: 10px;
     height: 20px;
-    width: 100px;    
+    width: 150px;    
 }
 
 .empty, .add_btn, .edit_btn{
