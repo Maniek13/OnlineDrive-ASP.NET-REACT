@@ -38,7 +38,7 @@ class EditForm extends React.Component{
             }
         })
 
-        fields.push(  <option value="root" disabled>Root</option> )
+        fields.push(  <option value="root" id={0} >Root</option> )
         return fields;
     }
 
