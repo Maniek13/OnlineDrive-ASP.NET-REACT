@@ -78,7 +78,7 @@ class EditForm extends React.Component{
                 <button className={styles.form_btn} onClick={this.edit.bind(this)}>Edit</button>
               </div>
               
-              {this.state.error ? <div className={styles.error}><a>Server error</a></div> : ""}
+              {this.state.error ? <div className={styles.error}><a>Plese enter name </a></div> : ""}
             </div>
         );
     }

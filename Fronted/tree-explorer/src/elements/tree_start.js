@@ -22,7 +22,7 @@ class Start extends React.Component {
         Responde.code = 200;
         Responde.data = Responde.data.Error;
       }
-      this.setState({loaded : true})
+      this.setState({loaded : true})   
   }
 
 

@@ -23,7 +23,7 @@ class Folder extends React.Component {
   }
 
   addForm(evt){
-    if(Provider.modal == false){
+    if(Provider.modal === false){
       Provider.modal = true;
       if(this.state.add === false){
           Element.element.IdW = evt.target.value;
@@ -33,7 +33,7 @@ class Folder extends React.Component {
   }
 
   editForm(evt){
-    if(Provider.modal == false){
+    if(Provider.modal === false){
       Provider.modal = true;
       if(this.state.edit === false){
           Element.element.Id = evt.target.id;
@@ -46,7 +46,7 @@ class Folder extends React.Component {
   }
 
   delForm(evt){
-    if(Provider.modal == false){
+    if(Provider.modal === false){
       Provider.modal = true;
       if(this.state.delete === false){
         this.setState({delete : true});

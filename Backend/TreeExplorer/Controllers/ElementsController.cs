@@ -118,34 +118,43 @@ namespace TreeExplorer.Controllers
         [HttpPost]
         public async Task<Boolean> Edit([Bind("Id,Name,Type,IdW")] Element elementNew)
         {
-            if (Tree.Edit(elementNew))
+          
+
+            if (elementNew.Name != null)
             {
-                var element = _context.Element.SingleOrDefault(x => x.Id == elementNew.Id);
-
-                try
+                if (Tree.Edit(elementNew))
                 {
-                    element.Name = elementNew.Name;
-                    element.Type = elementNew.Type;
-                    element.IdW = elementNew.IdW;
+                    var element = _context.Element.SingleOrDefault(x => x.Id == elementNew.Id);
 
-                    _context.Update(element);
-                    await _context.SaveChangesAsync();
-                    return true;
+                    try
+                    {
+                        element.Name = elementNew.Name;
+                        element.Type = elementNew.Type;
+                        element.IdW = elementNew.IdW;
+
+                        _context.Update(element);
+                        await _context.SaveChangesAsync();
+                        return true;
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Edit err");
+                        Console.WriteLine(e.Message);
+
+                        element = _context.Element.SingleOrDefault(x => x.Id == elementNew.Id);
+
+                        Tree.Edit(element);
+
+                        return false;
+                    }
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Edit err");
-                    Console.WriteLine(e.Message);
-
-                    element = _context.Element.SingleOrDefault(x => x.Id == elementNew.Id);
-
-                    Tree.Edit(element);
-
+                else
                     return false;
-                }
             }
-            else
-                return false;
+            return false;
+
+
+            
         }
 
 

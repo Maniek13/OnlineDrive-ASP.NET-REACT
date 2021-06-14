@@ -17,7 +17,7 @@ class Empty extends React.Component {
   }
 
   addForm(evt){
-    if(Provider.modal == false){
+    if(Provider.modal === false){
       Provider.modal = true;
       Element.element.IdW = evt.target.value;
       this.setState({add : true});

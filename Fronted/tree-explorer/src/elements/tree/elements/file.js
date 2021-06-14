@@ -19,7 +19,7 @@ class File extends React.Component {
 
   
   editForm(evt){
-    if(Provider.modal == false){
+    if(Provider.modal === false){
       Provider.modal = true;
       if(this.state.edit === false){
         Element.element.Id = evt.target.id;
@@ -32,7 +32,7 @@ class File extends React.Component {
   }
 
   delForm(evt){
-    if(Provider.modal == false){
+    if(Provider.modal === false){
       Provider.modal = true;
       if(this.state.delete === false){
         this.setState({delete : true});

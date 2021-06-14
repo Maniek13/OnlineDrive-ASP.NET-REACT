@@ -8,8 +8,15 @@ async function GET(adres){
                data: data
            }))
            .then(res => {
-               Responde.code = 1;
-               Responde.data = res.data;
+               if(typeof res.data.error == 'undefined'){
+                Responde.code = 1;
+                Responde.data = res.data;
+               }
+               else{
+                Responde.code = 420;
+                Responde.data = res.data;
+               }
+               
            });
        }
        catch(err){
