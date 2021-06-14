@@ -1,0 +1,28 @@
+.add_form{
+    position: absolute;
+    z-index: 1;
+    width: 300px;
+    height: 100px;
+    background-color: aliceblue;
+    margin: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+}
+
+.el_form{
+    padding: 10px;
+}
+
+.label{
+    margin-right: 5px;
+}
+
+.add_form_btn{
+    width: 100px;
+    height: 20px;
+    float: center;
+    background-color: white;
+    border: 1px solid black;
+}
