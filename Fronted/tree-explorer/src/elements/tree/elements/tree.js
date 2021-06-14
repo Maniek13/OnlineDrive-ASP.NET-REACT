@@ -15,9 +15,8 @@ class Tree extends React.Component {
   }
 
   show(){
-    console.log(List.tree)
     if(List.tree.length === 0){
-      return <Empty id={0}/> }
+      return <Empty id={0} key={"empty"}/> }
     else{
       let fields = [];
 
@@ -26,17 +25,16 @@ class Tree extends React.Component {
 
           switch(el.type){
             case "file":
-                fields.push(<File name={el.name}/>)
+                fields.push(<File id={el.id} name={el.name} idW={el.idW} fileType={el.type} key={el.id}/>)
               break;
             case "node":
-                fields.push(<Folder id={el.id} name={el.name}/>)
+                fields.push(<Folder id={el.id} name={el.name} idW={el.idW} fileType={el.type} key={el.id}/>)
               break;
           }
         }
       });
 
-      fields.push(<Empty id={0}/>)
-      console.log(fields)
+      fields.push(<Empty id={0} key={"empty"}/>)
       return fields;
     } 
   }
