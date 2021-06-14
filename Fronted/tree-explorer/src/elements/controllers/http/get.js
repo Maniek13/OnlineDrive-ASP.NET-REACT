@@ -13,14 +13,13 @@ async function GET(adres){
                 Responde.data = res.data;
                }
                else{
-                Responde.code = 420;
-                Responde.data = res.data;
+                Responde.code = 200;
+                Responde.data = res.data.error;
                }
-               
            });
        }
        catch(err){
-           Responde.code = 420;
+           Responde.code = 500;
            Responde.data = {error : 'server error'};
        }
 }

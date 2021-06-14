@@ -43,7 +43,7 @@ namespace TreeExplorer.Controllers
 
         // Post: Elements/Add
         [HttpPost]
-        public async Task<Boolean> Add([Bind("Name,Type,IdW")] Element element)
+        public async Task<JsonResult> Add([Bind("Name,Type,IdW")] Element element)
         {
             if (TryValidateModel(element, nameof(element)))
             {
@@ -57,13 +57,14 @@ namespace TreeExplorer.Controllers
                     id = _context.Element.ToListAsync().Result.Last().Id+1;
                 }
 
-                if (Tree.Add(id, element.Name, element.Type, element.IdW))
+                Responde responde = Tree.Add(id, element.Name, element.Type, element.IdW);
+                if (responde.Error == false)
                 {
                     try
                     {
                         _context.Add(element);
                         await _context.SaveChangesAsync();
-                        return true;
+                        return Json(new { Ok = true });
                     }
                     catch(Exception e)
                     {
@@ -72,31 +73,32 @@ namespace TreeExplorer.Controllers
 
                         Tree.Delete(id);
 
-                        return false;
+                        return Json(new { Error = e.Message });
                     }
                
                 }
-                return false;
+                return Json(new { Error = responde.Message }); 
                
             }
             else
             {
-                return false;
+                return Json(new { Ok = false });
             }
         }
 
 
         // Post: Elements/Delete
         [HttpPost]
-        public async Task<Boolean> Delete([Bind("Id")] int id)
+        public async Task<JsonResult> Delete([Bind("Id")] int id)
         {
-            if (Tree.Delete(id))
+            Responde responde = Tree.Delete(id);
+            if (responde.Error == false )
             {
                 try
                 {
                     _context.Remove(_context.Element.SingleOrDefault(x => x.Id == id));
                     await _context.SaveChangesAsync();
-                    return true;
+                    return Json(new { Ok = true });
                 }
                 catch(Exception e)
                 {
@@ -106,25 +108,24 @@ namespace TreeExplorer.Controllers
 
                     Element el = _context.Element.ElementAt(id);
                     Tree.Add(el.Id, el.Name, el.Type, el.IdW);
-                    
-                    return false;
-                }
+
+                    return Json(new { Error = "Delete err" });
+                    }
                 
             }
-            return false;
+            return Json(new { Error  = responde.Message });
         }
 
         // Post: Elements/Edit
         [HttpPost]
-        public async Task<Boolean> Edit([Bind("Id,Name,Type,IdW")] Element elementNew)
+        public async Task<JsonResult> Edit([Bind("Id,Name,Type,IdW")] Element elementNew)
         {
-          
-
             if (elementNew.Name != null)
             {
-                if (Tree.Edit(elementNew))
+                Responde responde = Tree.Edit(elementNew);
+                if (responde.Error == false)
                 {
-                    var element = _context.Element.SingleOrDefault(x => x.Id == elementNew.Id);
+                    Element element = _context.Element.SingleOrDefault(x => x.Id == elementNew.Id);
 
                     try
                     {
@@ -134,7 +135,7 @@ namespace TreeExplorer.Controllers
 
                         _context.Update(element);
                         await _context.SaveChangesAsync();
-                        return true;
+                        return Json(new { Ok = true });
                     }
                     catch (Exception e)
                     {
@@ -145,24 +146,25 @@ namespace TreeExplorer.Controllers
 
                         Tree.Edit(element);
 
-                        return false;
+                        return Json(new { Error = "Edit err" });
                     }
                 }
                 else
-                    return false;
+                    return Json(new { Error = responde.Message });
             }
-            return false;
+            return Json(new { Ok = false });
 
 
-            
+
         }
 
 
         // Post: Elements/Move
         [HttpPost]
-        public async Task<Boolean> Move([Bind("Id")] int id, [Bind("IdW")] int idW)
+        public async Task<JsonResult> Move([Bind("Id")] int id, [Bind("IdW")] int idW)
         {
-            if (Tree.Move(id, idW))
+            Responde responde = Tree.Move(id, idW);
+            if (responde.Error == false)
             {
                 Element element = _context.Element.SingleOrDefault(x => x.Id == id);
                 int idWOld = element.IdW;
@@ -171,7 +173,7 @@ namespace TreeExplorer.Controllers
                     element.IdW = idW;
                     _context.Update(element);             
                     await _context.SaveChangesAsync();
-                    return true;
+                    return Json(new { Ok = true });
                 }
                 catch (Exception e)
                 {
@@ -180,18 +182,18 @@ namespace TreeExplorer.Controllers
 
                     Tree.Move(id, idWOld);
 
-                    return false;
+                    return Json(new { Error = "Move err" });
                 }
             }
             else
-                return false;
+                return Json(new { Error = responde.Message });
         }
 
         // Post: Elements/Sort
         [HttpPost]
         public JsonResult Sort([Bind("IdW")] int idW, [Bind("Type")] string type)
         {
-            return Json(Tree.Sort(idW, type));
+            return Json(new { Ok = Tree.Sort(idW, type)});
         }
     }
 }

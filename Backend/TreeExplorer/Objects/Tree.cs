@@ -30,22 +30,34 @@ namespace TreeExplorer.Objects
             return _list;
         }
 
-        public static bool Add(int id, string name, string type, int idW)
+        public static Responde Add(int id, string name, string type, int idW)
         {
-            if(_list is null)
-                return false;
+            Responde responde = new();
+            if (_list is null)
+            {
+                responde.Message = "No list (Server error)";
+                responde.Error = true;
+            }
             else
             {
                 Element element = new() { Id = id, Name = name, Type = type, IdW = idW };
                 _list.Add(element);
-                return true;
+                responde.Message = "Ok";
+                responde.Error = false;
             }
-           
+
+            return responde;
+
         }
 
-        public static bool Edit(Element element) {
+        public static Responde Edit(Element element) 
+        {
+            Responde responde = new();
             if (_list is null)
-                return false;
+            {
+                responde.Message = "No list (Server error)";
+                responde.Error = true;
+            }
             else
             {
                 Element toChange = _list.Find(el => el.Id == element.Id);
@@ -53,13 +65,19 @@ namespace TreeExplorer.Objects
                 toChange.Type = element.Type;
                 toChange.IdW = element.IdW;
 
-                return true;
+                responde.Message = "Ok";
+                responde.Error = false;
             }
+            return responde;
         }
-        public static bool Delete(int id)
+        public static Responde Delete(int id)
         {
+            Responde responde = new();
             if (_list is null)
-                return false;
+            {
+                responde.Message = "No list (Server error)";
+                responde.Error = true;
+            }
             else
             {
                 IEnumerable<Element> query = from el in _list
@@ -73,23 +91,32 @@ namespace TreeExplorer.Objects
                 catch
                 {
                     Console.WriteLine("Remove err");
-                    return false;
+
+                    responde.Message = "Remove err";
+                    responde.Error = true;
                 }
-                
-                return true;
+
+                responde.Message = "Ok";
+                responde.Error = false;
             }
-            
+            return responde;
         }
-        public static bool Move(int id, int idW)
+        public static Responde Move(int id, int idW)
         {
+            Responde responde = new();
             if (_list is null)
-                return false;
+            {
+                responde.Message = "No list (Server error)";
+                responde.Error = true;
+            }
             else
             {
                 Element toChange = _list.Find(el => el.Id == id);
                 toChange.IdW = idW;
-                return true;
+                responde.Message = "Ok";
+                responde.Error = false;
             }
+            return responde;
         }
         public static IEnumerable<Element> Sort(int idW, string type)
         {

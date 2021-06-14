@@ -35,11 +35,10 @@ class Folder extends React.Component {
   editForm(evt){
     if(Provider.modal === false){
       Provider.modal = true;
+      Element.element.Id = this.props.id;
+      Element.element.IdW = this.props.idW;
+      Element.element.Name = this.props.name;
       if(this.state.edit === false){
-          Element.element.Id = evt.target.id;
-          Element.element.IdW = evt.target.idW;
-          Element.element.Type = evt.target.fileType;
-          Element.element.Name = evt.target.name;
           this.setState({edit : true});
       } 
     }
@@ -79,7 +78,7 @@ class Folder extends React.Component {
               <button id={this.props.id} idW={this.props.idW} name={this.props.name} fileType={this.props.fileType}  className={styles.edit_btn} onClick={this.editForm.bind(this)}>edit</button>
         </div>
           {this.state.add ? <AddForm callback = {this.onAdd}/> : ""}
-         {this.state.edit ? <EditForm idW={this.props.idW} name={this.props.name} node={true} callback = {this.onEdit}/> : ""}
+         {this.state.edit ? <EditForm id={this.props.id} idW={this.props.idW} name={this.props.name} node={true} callback = {this.onEdit}/> : ""}
          {this.state.delete ? <DelForm id={this.props.id} name={this.props.name} callback = {this.onDelete}/> : ""}
         
       </React.Fragment> 
