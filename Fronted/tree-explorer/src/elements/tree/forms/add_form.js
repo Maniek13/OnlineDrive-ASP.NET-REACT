@@ -30,12 +30,11 @@ class AddForm extends React.Component{
      
     }
 
-
     render() {
         return (
             <div className={styles.add_form}>
               <div className={styles.el_form}>
-                 <label className={styles.label}>Name:</label>
+                 <label defaultValue={this.props.name} className={styles.label}>Name:</label>
                 <input id="name" type="text" onChange={this.name.bind(this)} className={styles.input}/>
               </div>
               <div className={styles.el_form}>

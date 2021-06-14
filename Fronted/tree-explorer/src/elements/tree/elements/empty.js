@@ -12,7 +12,7 @@ class Empty extends React.Component {
       add: false
     };
 
-    this.onAdd = this.onAdd.bind(this); 
+    this.onAdd = this.onAdd.bind(this);
   }
 
   addForm(evt){

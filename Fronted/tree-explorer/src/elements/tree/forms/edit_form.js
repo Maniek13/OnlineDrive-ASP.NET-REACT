@@ -4,6 +4,7 @@ import styles from '../styles/tree.module.css'
 import POST from '../../controllers/http/post'
 import Responde from '../../controllers/http/objects/responde'
 import List from '../objects/list'
+import GetName from '../controller/get_name'
 
 class EditForm extends React.Component{
     constructor(props) {
@@ -25,31 +26,6 @@ class EditForm extends React.Component{
         Element.element.IdW = evt.target.value;
     }
 
-    async edit(){
-      await POST("https://localhost:5001/Elements/Edit", Element.element);
-      
-      if(Responde.data === true){
-        this.props.callback();
-      }
-      
-      
-    }
-
-    getName(id){
-
-        let name = "root";
-        List.tree.forEach(el =>
-            {
-                if(el.id === id ){
-                    
-                    name = el.name;
-                }
-            }
-        )
-
-        return name;
-    }
-
     nodes(){
         let fields = [];
 
@@ -63,20 +39,27 @@ class EditForm extends React.Component{
         return fields;
     }
 
+    async edit(){
+      await POST("https://localhost:5001/Elements/Edit", Element.element);
+      
+      if(Responde.data === true){
+        this.props.callback();
+      }  
+    }
 
     render() {
         return (
             <div className={styles.add_form}>
               <div className={styles.el_form}>
                  <label className={styles.label}>Name:</label>
-                <input id="name" type="text" onChange={this.name.bind(this)} className={styles.input}/>
+                <input id="name" type="text" defaultValue={this.props.name} onChange={this.name.bind(this)} className={styles.input}/>
               </div>
               <div className={styles.el_form}>
                 <label className={styles.label}>Is folder?</label> 
                 <input value={this.state.checked} type="checkbox" id="type"  defaultChecked={this.props.node} onChange={this.type.bind(this)} className={styles.input}/>
               </div>
               <div className={styles.el_form}>
-                        <select id="node" className={styles.type } defaultValue={this.getName(this.props.idw)}  onChange={this.node.bind(this)} >
+                        <select id="node" className={styles.type } defaultValue={GetName(this.props.idw)}  onChange={this.node.bind(this)} >
                                 { this.nodes() }
                         </select>
               </div>
