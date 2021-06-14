@@ -37,7 +37,7 @@ namespace TreeExplorer.Controllers
             }
 
             Tree tree = new(list);
-            return Json(tree.Show());
+            return Json(tree.Set());
         }
 
 
@@ -47,7 +47,16 @@ namespace TreeExplorer.Controllers
         {
             if (TryValidateModel(element, nameof(element)))
             {
-                int id = _context.Element.ToListAsync().Result.Last().Id + 2;
+                int id;
+                if(Tree.Show().Count == 0)
+                {
+                    id = 0;
+                }
+                else
+                {
+                    id = _context.Element.ToListAsync().Result.Last().Id+1;
+                }
+
                 if (Tree.Add(id, element.Name, element.Type, element.IdW))
                 {
                     try

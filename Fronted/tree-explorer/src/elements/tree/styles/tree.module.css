@@ -22,7 +22,33 @@
 .add_form_btn{
     width: 100px;
     height: 20px;
-    float: center;
-    background-color: white;
+    background-color: wheat;
     border: 1px solid black;
 }
+
+.file{
+    background-color: rgb(199, 222, 235);
+    width: 100px;
+}
+
+.file + .file, .folder + .file, .folder + .folder{
+    margin-top: 5px;
+}
+
+.folder{
+    background-color: orange;
+    border: 1px solid black;
+    font-size: 10px;
+    height: 20px;
+    width: 100px;    
+}
+
+.empty, .add_btn{
+    background-color: transparent;
+    border: 0px;
+}
+
+.add_btn{
+    float: right;
+}
+

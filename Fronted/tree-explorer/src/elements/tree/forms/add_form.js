@@ -12,8 +12,8 @@ class AddForm extends React.Component{
     }
 
     type(evt){
-      Element.element.Type = this.state.checked ? "node" : "file";
-      this.setState({checked : !this.state.checked});
+      Element.element.Type = this.state.checked ? "file" : "node";
+      this.setState({checked : !evt.target.value});
     }
 
     name(evt){
@@ -21,9 +21,8 @@ class AddForm extends React.Component{
     }
 
     async add(){
-    
       await POST("https://localhost:5001/Elements/Add", Element.element);
-      console.log(Responde.data);
+      if(Responde.data === true){}
     }
 
 

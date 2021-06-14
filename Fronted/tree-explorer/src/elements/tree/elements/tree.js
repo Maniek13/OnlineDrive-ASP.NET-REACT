@@ -1,8 +1,8 @@
 import React from 'react'
 import List from '../objects/list'
-import AddForm from '../forms/add_form';
-import styles from '../styles/tree.module.css'
-import Element from '../objects/element'
+import Folder from './folder'
+import Empty from './empty'
+import File from './file'
 
 
 class Tree extends React.Component {
@@ -15,36 +15,36 @@ class Tree extends React.Component {
   }
 
   show(){
-    if(List.tree === ''){
-      return this.showAddFormsBtn(0)
-    }
+    console.log(List.tree)
+    if(List.tree.length === 0){
+      return <Empty id={0}/> }
     else{
       let fields = [];
-    
+
       List.tree.forEach(el => {
         if(el.idW === 0){
-          fields.push(this.showAddFormsBtn(el.id))
+
+          switch(el.type){
+            case "file":
+                fields.push(<File name={el.name}/>)
+              break;
+            case "node":
+                fields.push(<Folder id={el.id} name={el.name}/>)
+              break;
+          }
         }
       });
 
+      fields.push(<Empty id={0}/>)
+      console.log(fields)
       return fields;
     } 
-  }
-
-  addForm(evt){
-    Element.element.IdW = evt.target.value;
-    this.setState({add : true});
-  }
-  
-  showAddFormsBtn(id){
-    return (<button value={id} className={styles.add_btn} onClick={this.addForm.bind(this)}></button>);
   }
 
   render() {
     return (
       <React.Fragment>
           {this.show()}
-          {this.state.add ? <AddForm/> : ""}
       </React.Fragment>
       
     );

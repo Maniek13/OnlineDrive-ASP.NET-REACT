@@ -11,6 +11,8 @@ namespace TreeExplorer.Interfaces
         virtual bool Delete(int id) => throw new NotImplementedException();
         virtual bool Move(int id, int idW) => throw new NotImplementedException();
         virtual IEnumerable<Element> Sort(int idW, string type) => throw new NotImplementedException();
-        List<Element> Show();
+        List<Element> Set();
+
+        virtual List<Element> Show() => throw new NotImplementedException();
     }
 }

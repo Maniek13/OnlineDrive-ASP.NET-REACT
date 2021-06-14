@@ -13,10 +13,19 @@ namespace TreeExplorer.Objects
 
         public Tree(List<Element> list)
         {
-            _list = list;
+            IEnumerable<Element> query = from el in list
+                                         orderby el.Type descending
+                                         select el;
+
+            _list = query.ToList();
         }
 
-        public List<Element> Show()
+        public List<Element> Set()
+        {
+            return _list;
+        }
+
+        public static List<Element> Show()
         {
             return _list;
         }
