@@ -7,8 +7,8 @@ import Responde from '../../controllers/http/objects/responde'
 class AddForm extends React.Component{
     constructor(props) {
       super(props);
-
       this.state = {checked : false};
+      Element.element.Type = this.state.checked ? "node" : "file";
     }
 
     type(evt){
@@ -24,8 +24,10 @@ class AddForm extends React.Component{
       await POST("https://localhost:5001/Elements/Add", Element.element);
       
       if(Responde.data === true){
+        this.props.callback();
+        
       }
-      this.props.callback();
+     
     }
 
 

@@ -8,8 +8,8 @@ import List from '../objects/list'
 class EditForm extends React.Component{
     constructor(props) {
       super(props);
-
-      this.state = {checked : false};
+      this.state = {checked : this.props.node};
+      Element.element.Type = this.state.checked ? "node" : "file";
     }
 
     type(evt){
@@ -25,12 +25,13 @@ class EditForm extends React.Component{
         Element.element.IdW = evt.target.value;
     }
 
-    async add(){
-      await POST("https://localhost:5001/Elements/Add", Element.element);
+    async edit(){
+      await POST("https://localhost:5001/Elements/Edit", Element.element);
       
       if(Responde.data === true){
+        this.props.callback();
       }
-      this.props.callback();
+      
       
     }
 
@@ -67,14 +68,14 @@ class EditForm extends React.Component{
               </div>
               <div className={styles.el_form}>
                 <label className={styles.label}>Is folder?</label> 
-                <input value={this.props.node} type="checkbox" id="type"  defaultChecked={this.props.node} onChange={this.type.bind(this)} className={styles.input}/>
+                <input value={this.state.checked} type="checkbox" id="type"  defaultChecked={this.props.node} onChange={this.type.bind(this)} className={styles.input}/>
               </div>
               <div className={styles.el_form}>
                         <select id="node" className={styles.type } defaultValue={this.getName(this.props.idw)}  onChange={this.node.bind(this)} >
                                 { this.nodes() }
                         </select>
               </div>
-              <button className={styles.edit_form_btn} onClick={this.add.bind(this)}>Edit</button>
+              <button className={styles.edit_form_btn} onClick={this.edit.bind(this)}>Edit</button>
             </div>
         );
     }

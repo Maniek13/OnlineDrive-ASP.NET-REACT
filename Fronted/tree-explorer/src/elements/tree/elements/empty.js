@@ -11,6 +11,8 @@ class Empty extends React.Component {
     this.state = {
       add: false
     };
+
+    this.onAdd = this.onAdd.bind(this); 
   }
 
   addForm(evt){
@@ -18,11 +20,15 @@ class Empty extends React.Component {
     this.setState({add : true});
   }
 
+  onAdd(){
+    this.setState({add : false});
+  }
+
   render() {
     return (
         <div className={styles.empty}>
             <button value={this.props.id} className={styles.add_btn} onClick={this.addForm.bind(this)}>+</button>
-            {this.state.add ? <AddForm/> : ""}
+            {this.state.add ? <AddForm callback = {this.onAdd} /> : ""}
         </div>
     );
   }
