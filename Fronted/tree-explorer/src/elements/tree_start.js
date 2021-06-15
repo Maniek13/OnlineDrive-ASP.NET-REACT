@@ -9,8 +9,7 @@ class Start extends React.Component {
     super(props)
     
     this.state = {
-      loaded: false,
-      error: false
+      loaded: false
     };
   }
 

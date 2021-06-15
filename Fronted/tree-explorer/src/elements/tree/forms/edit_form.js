@@ -50,7 +50,7 @@ class EditForm extends React.Component{
       if(Responde.data === true){
         await TreeController.get_tree();
     
-        if(typeof Responde.data.error == 'undefined'){
+        if(typeof Responde.data.error === 'undefined'){
           this.setState({error : false});
           this.props.callback();
           Provider.show = true;
@@ -88,7 +88,7 @@ class EditForm extends React.Component{
               <div className={styles.btn_div}>
                 <button className={styles.form_btn} onClick={this.edit.bind(this)}>Edit</button>
               </div>
-              {this.state.error ? <div className={styles.error}><a>{Responde.data == false? "Enter name": Responde.data}</a></div> : ""}
+              {this.state.error ? <div className={styles.error}><a>{Responde.data === false? "Enter name": Responde.data}</a></div> : ""}
             </div>
         );
     }
