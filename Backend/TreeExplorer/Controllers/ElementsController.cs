@@ -153,9 +153,6 @@ namespace TreeExplorer.Controllers
                     return Json(new { Error = responde.Message });
             }
             return Json(new { Ok = false });
-
-
-
         }
 
 

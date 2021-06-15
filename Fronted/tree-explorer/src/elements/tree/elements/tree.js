@@ -4,25 +4,24 @@ import Folder from './folder'
 import Empty from './empty'
 import File from './file'
 import Responde from '../../controllers/http/objects/responde'
-import styles from '../styles/tree.module.css'
-
+import Error from './error'
 
 class Tree extends React.Component {
   constructor(props){
     super(props)
     
     this.state = {
-      add: false
+      add: false,
+      error: false
     };
   }
 
   show(){
     if(Responde.code === 1){
+      let fields = [];
       if(List.tree.length === 0){
           return <Empty id={0} key={"empty"}/> }
       else{
-        let fields = [];
-
         List.tree.forEach(el => {
         if(el.idW === 0){
 
@@ -42,7 +41,7 @@ class Tree extends React.Component {
       }
     } 
     else{
-      return <div className={styles.error}><a>{Responde.data}</a></div>
+      this.setState({error : true})
     }
   }
 
@@ -50,6 +49,7 @@ class Tree extends React.Component {
     return (
       <React.Fragment>
           {this.show()}
+          {this.state.error ? <Error/> : ""}
       </React.Fragment>
       
     );

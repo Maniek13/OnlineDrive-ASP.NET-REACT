@@ -3,7 +3,6 @@ import Start from './tree_start'
 
 
 class Tree extends React.Component {
-
   render() {
     return (
       <Start/>
