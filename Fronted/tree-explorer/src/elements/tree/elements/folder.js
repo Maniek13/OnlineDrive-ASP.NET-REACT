@@ -9,8 +9,6 @@ import Branch from '../forms/branch_form'
 import TreeController from '../../controllers/tree/tree_controller'
 import Responde from '../../controllers/http/objects/responde'
 
-import List from '../objects/list'
-
 
 class Folder extends React.Component {
   constructor(props){

@@ -8,7 +8,7 @@ async function GET(adres){
                data: data
            }))
            .then(res => {
-               if(typeof res.data.error == 'undefined'){
+               if(typeof res.data.error === 'undefined'){
                 Responde.code = 1;
                 Responde.data = res.data;
                }
