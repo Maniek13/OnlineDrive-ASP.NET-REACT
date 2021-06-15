@@ -16,7 +16,7 @@ async function POST(adres, object) {
         .then(response => response.json().then(data => ({
             data: data
         })).then(res => {
-            if(typeof res.data.error == 'undefined'){
+            if(typeof res.data.error === 'undefined'){
                 Responde.code = 1;
                 Responde.data = res.data.ok;
             }
@@ -28,7 +28,7 @@ async function POST(adres, object) {
     }
     catch(err){
         Responde.code = 500;
-        Responde.data = {Error : 'server error'};
+        Responde.data = 'server error';
     }
 }
 

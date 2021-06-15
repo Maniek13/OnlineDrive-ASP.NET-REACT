@@ -16,8 +16,8 @@ class Start extends React.Component {
 
   async componentDidMount(){
     await TreeController.get_tree();
-      if(typeof Responde.data.error == 'undefined'){
-        this.setState({error : false});
+      if( Responde.data !== "server error"){
+        console.log(Responde.data)
       }
       else{
         this.setState({error : true});

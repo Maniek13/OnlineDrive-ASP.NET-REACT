@@ -10,7 +10,7 @@ class TreeController{
     static async get_tree(){
         await GET("https://localhost:5001/Elements/Show");
 
-        if(typeof Responde.data.error == 'undefined'){
+        if(Responde.data !== "server error"){
             List.tree = Responde.data;
         }
         else{
@@ -35,7 +35,7 @@ class TreeController{
 
     static async sort_brand(id, type){
         await POST("https://localhost:5001/Elements/Sort", {Id : id, Type : type});
-        if(typeof Responde.data.error == 'undefined'){
+        if(Responde.data !== "server error"){
             List.tree = Responde.data;
             Responde.data = true;
         }
