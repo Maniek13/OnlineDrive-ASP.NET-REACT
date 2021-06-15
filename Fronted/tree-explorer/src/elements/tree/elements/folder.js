@@ -68,7 +68,7 @@ class Folder extends React.Component {
   async sortBranch(){
     await TreeController.sort_brand(this.props.id, this.state.sortType? "ASC" : "DESC");
       if(Responde.data === true){
-        if(typeof Responde.data.Error == 'undefined'){
+        if(typeof Responde.data.error == 'undefined'){
           this.setState({show : true})
           this.setState({sortType : !this.state.sortType})
         }

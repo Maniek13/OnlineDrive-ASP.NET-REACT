@@ -10,12 +10,12 @@ class TreeController{
     static async get_tree(){
         await GET("https://localhost:5001/Elements/Show");
 
-        if(typeof Responde.data.Error == 'undefined'){
+        if(typeof Responde.data.error == 'undefined'){
             List.tree = Responde.data;
         }
         else{
             Responde.code = 200;
-            Responde.data = Responde.data.Error;
+            Responde.data = Responde.data.error;
         }
 
         return true;
@@ -37,13 +37,13 @@ class TreeController{
         await POST("https://localhost:5001/Elements/Sort", {Id : id, Type : type});
 
         console.log(List.tree);
-        if(typeof Responde.data.Error == 'undefined'){
+        if(typeof Responde.data.error == 'undefined'){
             List.tree = Responde.data;
             Responde.data = true;
         }
         else{
             Responde.code = 200;
-            Responde.data = Responde.data.Error;
+            Responde.data = Responde.data.error;
         }
     }
 }

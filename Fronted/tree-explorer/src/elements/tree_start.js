@@ -9,13 +9,14 @@ class Start extends React.Component {
     super(props)
     
     this.state = {
-      loaded: false
+      loaded: false,
+      error: false
     };
   }
 
   async componentDidMount(){
     await TreeController.get_tree();
-      if(typeof Responde.data.Error == 'undefined'){
+      if(typeof Responde.data.error == 'undefined'){
         this.setState({error : false});
       }
       else{

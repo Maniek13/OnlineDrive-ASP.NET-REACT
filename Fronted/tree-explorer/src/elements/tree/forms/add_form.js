@@ -32,7 +32,7 @@ class AddForm extends React.Component{
         
         await TreeController.get_tree();
     
-        if(typeof Responde.data.Error == 'undefined'){
+        if(typeof Responde.data.error == 'undefined'){
           this.setState({error : false});
           this.props.callback();
           Provider.show = true;
