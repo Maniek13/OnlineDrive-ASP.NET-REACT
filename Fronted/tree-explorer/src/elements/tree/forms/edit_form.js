@@ -54,6 +54,10 @@ class EditForm extends React.Component{
           this.setState({error : false});
           this.props.callback();
           Provider.show = true;
+          Element.element.Name = "";
+          Element.element.Id = "";
+          Element.element.IdW = "";
+          Element.element.Type = "file";
           this.props.tree_calback();
         }
         else{
