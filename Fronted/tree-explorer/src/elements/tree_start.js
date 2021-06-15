@@ -1,8 +1,8 @@
 import React from 'react'
-import GET from './controllers/http/get'
 import Responde from './controllers/http/objects/responde'
-import List from './tree/objects/list'
 import Tree from './tree/elements/tree'
+import Error from './tree/elements/error'
+import GetList from './tree/controller/get_list'
 
 class Start extends React.Component {
   constructor(props){
@@ -14,15 +14,15 @@ class Start extends React.Component {
   }
 
   async componentDidMount(){
-    await GET("https://localhost:5001/Elements/Show");
-      if(typeof Responde.data.Error == 'undefined'){
-        List.tree = Responde.data;
-      }
-      else{
-        Responde.code = 200;
-        Responde.data = Responde.data.Error;
-      }
-      
+    await GetList();
+
+    if(typeof Responde.data.Error == 'undefined'){
+      this.setState({error : false});
+    }
+    else{
+      this.setState({error : true});
+    }
+
     this.setState({loaded : true})  
   }
 
@@ -30,7 +30,8 @@ class Start extends React.Component {
   render() {
     return (
       <React.Fragment >
-        {this.state.loaded ? <Tree/> : "loading"}
+        {this.state.loaded ?  "" : "loading"}
+        {this.state.error === false ? <Tree/> : this.state.error === true ? <Error/> : ""}
       </React.Fragment>
     );
   }

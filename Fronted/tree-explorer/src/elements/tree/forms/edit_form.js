@@ -4,6 +4,9 @@ import styles from '../styles/tree.module.css'
 import POST from '../../controllers/http/post'
 import Responde from '../../controllers/http/objects/responde'
 import List from '../objects/list'
+import Provider from '../controller/provider'
+import GetList from '../controller/get_list'
+
 
 class EditForm extends React.Component{
     constructor(props) {
@@ -47,8 +50,17 @@ class EditForm extends React.Component{
       await POST("https://localhost:5001/Elements/Edit", Element.element);
       
       if(Responde.data === true){
-        this.setState({error : false});
-        this.props.callback();
+        await GetList();
+    
+        if(typeof Responde.data.Error == 'undefined'){
+          this.setState({error : false});
+          this.props.callback();
+          Provider.show = true;
+          this.props.tree_calback();
+        }
+        else{
+          this.setState({error : true});
+        }
       }  
         this.setState({error : true});
       

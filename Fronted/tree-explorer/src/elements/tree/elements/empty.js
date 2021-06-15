@@ -14,6 +14,7 @@ class Empty extends React.Component {
     };
 
     this.onAdd = this.onAdd.bind(this);
+    this.tree_calback = this.props.tree_calback.bind(this);
   }
 
   addForm(evt){
@@ -33,7 +34,7 @@ class Empty extends React.Component {
     return (
         <div className={styles.empty}>
             <button value={this.props.id} className={styles.add_btn} onClick={this.addForm.bind(this)}>+</button>
-            {this.state.add ? <AddForm callback = {this.onAdd} /> : ""}
+            {this.state.add ? <AddForm tree_calback = {this.tree_calback} callback = {this.onAdd} /> : ""}
         </div>
     );
   }
