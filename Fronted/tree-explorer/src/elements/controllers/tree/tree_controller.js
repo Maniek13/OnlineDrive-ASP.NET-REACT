@@ -35,8 +35,6 @@ class TreeController{
 
     static async sort_brand(id, type){
         await POST("https://localhost:5001/Elements/Sort", {Id : id, Type : type});
-
-        console.log(List.tree);
         if(typeof Responde.data.error == 'undefined'){
             List.tree = Responde.data;
             Responde.data = true;
