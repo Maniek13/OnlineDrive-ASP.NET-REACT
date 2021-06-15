@@ -1,6 +1,7 @@
 import React , { useState } from 'react'
-import Provider from '../controller/provider';
-import Branch from '../forms/breach_form'
+import Provider from '../controller/provider'
+import Branch from '../forms/branch_form'
+import styles from '../styles/tree.module.css'
 
 
 class Tree extends React.Component {
@@ -13,22 +14,18 @@ class Tree extends React.Component {
     
   }
 
-
-
   onChange(){
    if(Provider.show == true){
-    this.setState({show : false})
+    this.setState({show : true})
     Provider.show = false;
    }
-
-   this.setState({show : true})
   }
 
   render() {
     return (
-    <React.Fragment>
-      {this.state.show ? <Branch id={0} tree_calback={this.onChange}/> : ""}
-    </React.Fragment>
+      <div className={styles.tree} >
+        {this.state.show ? <Branch id={0} tree_calback={this.onChange}/> : ""}
+      </div>
     );
   }
 }

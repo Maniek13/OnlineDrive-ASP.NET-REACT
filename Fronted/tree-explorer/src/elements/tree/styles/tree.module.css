@@ -1,6 +1,6 @@
 .add_form{
     position: absolute;
-    z-index: 1;
+    z-index: 10;
     width: 300px;
     height: auto;
     background-color: aliceblue;
@@ -10,6 +10,7 @@
     transform: translate(-50%, -50%);
     padding: 20px;
 }
+
 
 .el_form{
     padding: 10px;
@@ -29,6 +30,7 @@
 .file{
     background-color: rgb(199, 222, 235);
     width: 150px;
+    margin-left: 8px;
 }
 
 .file + .file, .folder + .file, .folder + .folder{
@@ -39,21 +41,36 @@
     background-color: orange;
     border: 1px solid black;
     font-size: 10px;
-    height: 20px;
-    width: 150px;    
+    width: 150px;  
+    height: 20px;  
 }
 
-.empty, .add_btn, .edit_btn, .del_btn{
+.empty, .add_btn, .edit_btn, .del_btn, .show_btn{
     background-color: transparent;
     border: 0px;
 }
 
-.add_btn, .edit_btn, .del_btn{
+.add_btn, .edit_btn, .del_btn, .show_btn{
     float: right;
+}
+
+.edit_btn{
+    width: 10px;
+    height: 18px;
+    background: url('../../../icons/edit.png');
+    background-repeat: no-repeat;
+    background-size: 10px, 10px;
+    background-position: 0, 0px;
+}
+
+.empty{
+    height: 20px;
 }
 
 .empty button{
     float: left!important;
+    width: 150px;
+    text-align: right;
 }
 
 .error{
@@ -81,4 +98,16 @@
     border: 0px;
     right: 10px;
     top: 5px;
+}
+
+.branch div{
+    padding-left: 10px;
+}
+
+div{
+    margin-bottom: 5px;
+}
+
+.tree{
+    margin-left: 2px;
 }
