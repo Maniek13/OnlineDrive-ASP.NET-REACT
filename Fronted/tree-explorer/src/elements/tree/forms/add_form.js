@@ -1,10 +1,10 @@
 import React from 'react'
 import Element from '../objects/element'
 import styles from '../styles/tree.module.css'
-import POST from '../../controllers/http/post'
 import Responde from '../../controllers/http/objects/responde'
 import Provider from '../controller/provider'
-import GetList from '../controller/get_list'
+import TreeController from '../../controllers/tree/tree_controller'
+
 
 class AddForm extends React.Component{
     constructor(props) {
@@ -26,11 +26,11 @@ class AddForm extends React.Component{
     }
 
     async add(){
-      await POST("https://localhost:5001/Elements/Add", Element.element);
+      await TreeController.add_tree_element();
       
       if(Responde.data === true){
         
-        await GetList();
+        await TreeController.get_tree();
     
         if(typeof Responde.data.Error == 'undefined'){
           this.setState({error : false});
@@ -55,7 +55,7 @@ class AddForm extends React.Component{
             <div className={styles.add_form}>
               <button className={styles.exit} onClick={this.exit.bind(this)}>X</button>
               <div className={styles.el_form}>
-                 <label defaultValue={this.props.name} className={styles.label}>Name:</label>
+                 <label className={styles.label}>Name:</label>
                 <input id="name" type="text" onChange={this.name.bind(this)} className={styles.input}/>
               </div>
               <div className={styles.el_form}>
@@ -66,7 +66,7 @@ class AddForm extends React.Component{
                 <button className={styles.form_btn} onClick={this.add.bind(this)}>Add</button>
               </div>
               
-              {this.state.error ? <div className={styles.error}><a>Plese enter name</a></div> : ""}
+              {this.state.error ? <div className={styles.error}><a>{Responde.data == false? "Enter name": Responde.data}</a></div> : ""}
             </div>
         );
     }

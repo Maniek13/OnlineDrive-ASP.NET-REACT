@@ -1,4 +1,4 @@
-import React , { useState } from 'react'
+import React from 'react'
 import Provider from '../controller/provider'
 import Branch from '../forms/branch_form'
 import styles from '../styles/tree.module.css'
@@ -15,7 +15,7 @@ class Tree extends React.Component {
   }
 
   onChange(){
-   if(Provider.show == true){
+   if(Provider.show === true){
     this.setState({show : true})
     Provider.show = false;
    }

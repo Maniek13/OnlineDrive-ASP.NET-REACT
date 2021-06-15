@@ -2,7 +2,7 @@ import React from 'react'
 import Responde from './controllers/http/objects/responde'
 import Tree from './tree/elements/tree'
 import Error from './tree/elements/error'
-import GetList from './tree/controller/get_list'
+import TreeController from './controllers/tree/tree_controller'
 
 class Start extends React.Component {
   constructor(props){
@@ -14,14 +14,13 @@ class Start extends React.Component {
   }
 
   async componentDidMount(){
-    await GetList();
-
-    if(typeof Responde.data.Error == 'undefined'){
-      this.setState({error : false});
-    }
-    else{
-      this.setState({error : true});
-    }
+    await TreeController.get_tree();
+      if(typeof Responde.data.Error == 'undefined'){
+        this.setState({error : false});
+      }
+      else{
+        this.setState({error : true});
+      }
 
     this.setState({loaded : true})  
   }

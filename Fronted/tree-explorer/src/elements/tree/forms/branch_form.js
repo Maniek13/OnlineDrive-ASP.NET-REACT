@@ -17,7 +17,7 @@ class Branch extends React.Component{
     let fields = [];
 
     if(List.tree.length === 0){
-      fields.push(<Empty tree_calback = {this.tree_calback} id={this.props.id} key={"empty"}/> )
+      fields.push(<Empty tree_calback = {this.tree_calback} id={this.props.id} name="aaa" key={"empty"}/> )
     }
     else{
       List.tree.forEach(el => {
@@ -29,11 +29,13 @@ class Branch extends React.Component{
             case "node":
               fields.push(<Folder tree_calback = {this.tree_calback} id={el.id} name={el.name} idW={el.idW} fileType={el.type} key={el.id}/>)
               break;
+            default:
+              break;
           }
         }
       });
 
-      fields.push(<Empty tree_calback = {this.tree_calback} id={this.props.id} key={"empty"}/>)
+      fields.push(<Empty tree_calback = {this.tree_calback} id={this.props.id} name="aaa" key={"empty"}/>)
     }
     
     return fields;

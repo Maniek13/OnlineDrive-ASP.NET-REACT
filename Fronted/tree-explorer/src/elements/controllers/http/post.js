@@ -6,7 +6,7 @@ async function POST(adres, object) {
     for (var i in object){
         formData.append(i, object[i]);
     }
-
+    
     const requestOptions = {
         method: 'POST',
         body: formData

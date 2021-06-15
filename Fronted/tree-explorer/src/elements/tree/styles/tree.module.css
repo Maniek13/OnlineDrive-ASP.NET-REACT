@@ -30,7 +30,8 @@
 .file{
     background-color: rgb(199, 222, 235);
     width: 150px;
-    margin-left: 8px;
+    margin-left: 10px;
+    margin-top: 5px;
 }
 
 .file + .file, .folder + .file, .folder + .folder{
@@ -70,7 +71,8 @@
 .empty button{
     float: left!important;
     width: 150px;
-    text-align: right;
+    text-align: left;
+    margin-left: 10px;
 }
 
 .error{
@@ -86,9 +88,6 @@
     height: 20px;
 }
 
-.error a{
-    padding: 10px;
-}
 
 .exit{
     width: 15px;
@@ -100,12 +99,16 @@
     top: 5px;
 }
 
-.branch div{
-    padding-left: 10px;
+.folder_contener{
+    display: inline-flex;
+}
+.folder_add{
+    width: 20px;
+    height: 20px
 }
 
-div{
-    margin-bottom: 5px;
+.branch {
+    padding-left: 10px;
 }
 
 .tree{

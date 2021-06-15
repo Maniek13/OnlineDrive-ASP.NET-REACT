@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using TreeExplorer.Data;
 using TreeExplorer.Models;
 using TreeExplorer.Objects;
@@ -96,8 +97,16 @@ namespace TreeExplorer.Controllers
             {
                 try
                 {
-                    _context.Remove(_context.Element.SingleOrDefault(x => x.Id == id));
-                    await _context.SaveChangesAsync();
+                    List<Element> listToDel = JsonConvert.DeserializeObject<List<Element>>(responde.Message);
+
+                    listToDel.ForEach(el =>
+                    {
+                        _context.Element.RemoveRange(listToDel);
+                        _context.SaveChangesAsync();
+
+                    });
+
+               
                     return Json(new { Ok = true });
                 }
                 catch(Exception e)
@@ -188,9 +197,9 @@ namespace TreeExplorer.Controllers
 
         // Post: Elements/Sort
         [HttpPost]
-        public JsonResult Sort([Bind("IdW")] int idW, [Bind("Type")] string type)
+        public async Task<JsonResult> Sort([Bind("Id")] int id, [Bind("Type")] string type)
         {
-            return Json(new { Ok = Tree.Sort(idW, type)});
+            return Json(new { Ok = Tree.Sort(id, type)});
         }
     }
 }

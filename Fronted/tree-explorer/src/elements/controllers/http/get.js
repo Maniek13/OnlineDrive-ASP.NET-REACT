@@ -16,12 +16,12 @@ async function GET(adres){
                 Responde.code = 200;
                 Responde.data = res.data.error;
                }
-           });
-       }
-       catch(err){
-           Responde.code = 500;
-           Responde.data = {error : 'server error'};
-       }
+            });
+    }
+    catch(err){
+        Responde.code = 500;
+        Responde.data = {error : 'server error'};
+    }
 }
 
 

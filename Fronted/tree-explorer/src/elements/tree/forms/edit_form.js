@@ -1,11 +1,10 @@
 import React from 'react'
 import Element from '../objects/element'
 import styles from '../styles/tree.module.css'
-import POST from '../../controllers/http/post'
 import Responde from '../../controllers/http/objects/responde'
 import List from '../objects/list'
 import Provider from '../controller/provider'
-import GetList from '../controller/get_list'
+import TreeController from '../../controllers/tree/tree_controller'
 
 
 class EditForm extends React.Component{
@@ -38,7 +37,6 @@ class EditForm extends React.Component{
                 if(el.id !== this.props.id){
                   fields.push(  <option value={el.id} id={el.name}>{el.name} </option> )
                 }
-                
             }
         })
 
@@ -47,10 +45,10 @@ class EditForm extends React.Component{
     }
 
     async edit(){
-      await POST("https://localhost:5001/Elements/Edit", Element.element);
+      await TreeController.edit();
       
       if(Responde.data === true){
-        await GetList();
+        await TreeController.get_tree();
     
         if(typeof Responde.data.Error == 'undefined'){
           this.setState({error : false});
@@ -67,6 +65,10 @@ class EditForm extends React.Component{
     }
 
     exit(){
+        Element.element.Name = "";
+        Element.element.Id = "";
+        Element.element.IdW = "";
+        Element.element.Type = "file";
         this.props.callback();
     }
 
@@ -86,7 +88,7 @@ class EditForm extends React.Component{
               <div className={styles.btn_div}>
                 <button className={styles.form_btn} onClick={this.edit.bind(this)}>Edit</button>
               </div>
-              {this.state.error ? <div className={styles.error}><a>Plese enter name </a></div> : ""}
+              {this.state.error ? <div className={styles.error}><a>{Responde.data == false? "Enter name": Responde.data}</a></div> : ""}
             </div>
         );
     }

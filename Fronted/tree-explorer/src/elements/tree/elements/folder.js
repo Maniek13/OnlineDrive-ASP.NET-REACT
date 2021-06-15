@@ -6,6 +6,10 @@ import DelForm from '../forms/del_form'
 import Element from '../objects/element'
 import Provider from '../controller/provider'
 import Branch from '../forms/branch_form'
+import TreeController from '../../controllers/tree/tree_controller'
+import Responde from '../../controllers/http/objects/responde'
+
+import List from '../objects/list'
 
 
 class Folder extends React.Component {
@@ -16,7 +20,8 @@ class Folder extends React.Component {
       add: false,
       edit: false,
       delete: false,
-      show: false
+      show: false,
+      sortType: true
     };
 
     this.onAdd = this.onAdd.bind(this);
@@ -60,6 +65,17 @@ class Folder extends React.Component {
     this.setState({show : !this.state.show});
   }
 
+  async sortBranch(){
+    await TreeController.sort_brand(this.props.id, this.state.sortType? "ASC" : "DESC");
+      if(Responde.data === true){
+        if(typeof Responde.data.Error == 'undefined'){
+          this.setState({show : true})
+          this.setState({sortType : !this.state.sortType})
+        }
+        console.log(List.tree);
+      }
+  }
+
   onAdd(){
     Provider.modal = false;
     this.setState({add : false});
@@ -82,13 +98,21 @@ class Folder extends React.Component {
     return (
       <React.Fragment>
         <div className={styles.branch}>
-          <div className={styles.folder} >
+          
+          <div className={styles.folder_contener}>
+            <div className={styles.folder} >
               <a className={styles.label}>{this.props.name}</a>
               <button className={styles.show_btn} onClick={this.showBranch.bind(this)}>&lsaquo;&rsaquo;</button>  
-              <button value={this.props.id}  className={styles.add_btn} onClick={this.addForm.bind(this)}>+</button>
-              <button id={this.props.id}  name={this.props.name} className={styles.del_btn} onClick={this.delForm.bind(this)}>-</button>
+              <button className={styles.show_btn} onClick={this.sortBranch.bind(this)}>&uarr;&darr;</button>  
               <button id={this.props.id} idW={this.props.idW} name={this.props.name} fileType={this.props.fileType}  className={styles.edit_btn} onClick={this.editForm.bind(this)}></button> 
+            </div>
+
+            <div className={styles.folder_add}>
+              <button value={this.props.id}  className={styles.add_btn} onClick={this.addForm.bind(this)}>+</button>
+            </div>
+
           </div>
+
           {this.state.show ? <Branch tree_calback = {this.tree_calback} id={this.props.id} /> : ""}
         </div>
 

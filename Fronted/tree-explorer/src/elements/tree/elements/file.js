@@ -58,7 +58,7 @@ class File extends React.Component {
         <div>
           <div className={styles.file}>
             <a className={styles.label}>{this.props.name}</a>
-            <button id={this.props.id}  name={this.props.name} className={styles.del_btn} onClick={this.delForm.bind(this)}>-</button>
+            <button id={this.props.id}  name={this.props.name} className={styles.del_btn} onClick={this.delForm.bind(this)}>x</button>
             <button id={this.props.id} idW={this.props.idW} name={this.props.name} fileType={this.props.fileType}  className={styles.edit_btn} onClick={this.editForm.bind(this)}></button>
           </div>
         </div>

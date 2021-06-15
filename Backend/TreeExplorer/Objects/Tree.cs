@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using TreeExplorer.Interfaces;
 using TreeExplorer.Models;
 
@@ -80,13 +81,54 @@ namespace TreeExplorer.Objects
             }
             else
             {
-                IEnumerable<Element> query = from el in _list
-                                             where el.Id == id
-                                             select el;
-
                 try
                 {
+                    IEnumerable<Element> query = from el in _list
+                                                 where el.Id == id
+                                                 select el;
+
+                    List<Element> listToDel = new List<Element>();
+                    listToDel.Add(query.First());
+
                     _list.Remove(query.First());
+
+                    List<Element> list = _list;
+
+                    bool end = false;
+
+                    while (end == false)
+                    {
+                        int next = 0;
+
+                        int i = 0;
+                        list.ForEach(elem =>
+                        {
+                            List<Element> elToAddtoDel = new List<Element>();
+                            listToDel.ForEach(el =>
+                            {
+                                if (list.ElementAt(i).IdW == el.Id)
+                                {
+
+                                    elToAddtoDel.Add(list.ElementAt(i));
+                                    next++;
+                                }
+                            });
+                            i++;
+
+                            elToAddtoDel.ForEach(element =>
+                            {
+                                listToDel.Add(element);
+                            });
+                        });
+
+
+                        if (next > 0)
+                        {
+                            end = true;
+                        }
+                    }
+                    responde.Message = JsonSerializer.Serialize(listToDel);
+                    responde.Error = false;
                 }
                 catch
                 {
@@ -95,9 +137,6 @@ namespace TreeExplorer.Objects
                     responde.Message = "Remove err";
                     responde.Error = true;
                 }
-
-                responde.Message = "Ok";
-                responde.Error = false;
             }
             return responde;
         }
@@ -120,7 +159,7 @@ namespace TreeExplorer.Objects
         }
         public static IEnumerable<Element> Sort(int idW, string type)
         {
-            IEnumerable<Element> query;
+            IEnumerable<Element> query = Array.Empty<Element>();
             switch (type)
             {
                 case "ASC":
@@ -128,16 +167,32 @@ namespace TreeExplorer.Objects
                                 where el.IdW == idW
                                 orderby el.Name ascending
                                 select el;
-                    return query;
+                    break;
                 case "DESC":
                     query = from el in _list
                                 where el.IdW == idW
                                 orderby el.Name descending
                                 select el;
-                    return query;
+                    break;
+             
             }
 
-            return Array.Empty<Element>();
+
+            IEnumerable<Element> list;
+
+            list = from el in _list
+                   where el.IdW != idW
+                   orderby el.Type descending
+                   select el;
+
+            query = from el in query
+                    orderby el.Type descending
+                    select el;
+
+            list = list.Concat(query);
+
+
+            return list;
         }
 
 

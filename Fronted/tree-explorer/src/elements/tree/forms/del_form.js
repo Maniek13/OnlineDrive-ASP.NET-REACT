@@ -1,9 +1,8 @@
 import React from 'react'
 import styles from '../styles/tree.module.css'
-import POST from '../../controllers/http/post'
 import Responde from '../../controllers/http/objects/responde'
 import Provider from '../controller/provider'
-import GetList from '../controller/get_list'
+import TreeController from '../../controllers/tree/tree_controller'
 
 class DelForm extends React.Component{
     constructor(props) {
@@ -16,11 +15,11 @@ class DelForm extends React.Component{
 
 
     async delete(){
-      await POST("https://localhost:5001/Elements/Delete", {Id : this.props.id});
+      await TreeController.delete(this.props.id);
       
       if(Responde.data === true){
         
-        await GetList();
+        await TreeController.get_tree();
     
         if(typeof Responde.data.Error == 'undefined'){
           this.setState({error : false});
@@ -48,7 +47,7 @@ class DelForm extends React.Component{
                     <button className={styles.form_btn} onClick={this.delete.bind(this)}>Delete</button>
                 </div>
                 
-                {this.state.error ? <div className={styles.error}><a>Server error</a></div> : ""}
+                {this.state.error ? <div className={styles.error}><a>{Responde.data}</a></div> : ""}
             </div>
         );
     }
