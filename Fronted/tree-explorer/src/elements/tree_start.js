@@ -9,7 +9,8 @@ class Start extends React.Component {
     super(props)
     
     this.state = {
-      loaded: false
+      loaded: false,
+      error: false
     };
   }
 
@@ -29,8 +30,7 @@ class Start extends React.Component {
   render() {
     return (
       <React.Fragment >
-        {this.state.loaded ?  "" : "loading"}
-        {this.state.error === false ? <Tree/> : this.state.error === true ? <Error/> : ""}
+        {this.state.error === false && this.state.loaded === true ? <Tree/> : this.state.loaded === true && this.state.error === true ? <Error/> : "loading"}
       </React.Fragment>
     );
   }
