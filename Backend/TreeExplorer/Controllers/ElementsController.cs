@@ -132,16 +132,21 @@ namespace TreeExplorer.Controllers
 
 
                 bool ok = true;
-                branch.ForEach(el =>
+
+                if(elementNew.IdW != element.IdW)
                 {
-                    if(el.Id != element.Id)
+                    branch.ForEach(el =>
                     {
-                        if(el.IdW == element.Id)
+                        if(el.Id != element.Id)
                         {
-                            ok =  false;
+                            if(el.IdW == element.Id)
+                            {
+                                ok =  false;
+                            }
                         }
-                    }
-                });
+                    });
+                }
+                
 
                 if(ok == true)
                 {
