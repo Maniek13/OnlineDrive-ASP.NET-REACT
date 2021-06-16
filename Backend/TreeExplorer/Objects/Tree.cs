@@ -12,18 +12,16 @@ namespace TreeExplorer.Objects
 
         private static List<Element> _list;
 
-        public static List<Element> Set(List<Element> list)
+        public static void Set(List<Element> list)
         {
             IEnumerable<Element> query = from el in list
                                          orderby el.Type descending
                                          select el;
 
             _list = query.ToList();
-
-            return _list;
         }
 
-        public static List<Element> Show()
+        public static List<Element> Get()
         {
             return _list;
         }

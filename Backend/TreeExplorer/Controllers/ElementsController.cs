@@ -36,8 +36,8 @@ namespace TreeExplorer.Controllers
 
                 return Json(new { Error = e.Message });
             }
-
-            return Json(Tree.Set(new(list)));
+            Tree.Set(new(list));
+            return Json(Tree.Get());
         }
 
 
@@ -48,7 +48,7 @@ namespace TreeExplorer.Controllers
             if (TryValidateModel(element, nameof(element)))
             {
                 int id;
-                if(Tree.Show().Count == 0)
+                if(Tree.Get().Count == 0)
                 {
                     id = 0;
                 }
