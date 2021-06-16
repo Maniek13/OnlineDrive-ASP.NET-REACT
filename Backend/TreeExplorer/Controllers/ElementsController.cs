@@ -37,8 +37,7 @@ namespace TreeExplorer.Controllers
                 return Json(new { Error = e.Message });
             }
 
-            Tree tree = new(list);
-            return Json(tree.Set());
+            return Json(Tree.Set(new(list)));
         }
 
 

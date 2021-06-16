@@ -12,17 +12,14 @@ namespace TreeExplorer.Objects
 
         private static List<Element> _list;
 
-        public Tree(List<Element> list)
+        public static List<Element> Set(List<Element> list)
         {
             IEnumerable<Element> query = from el in list
                                          orderby el.Type descending
                                          select el;
 
             _list = query.ToList();
-        }
 
-        public List<Element> Set()
-        {
             return _list;
         }
 
