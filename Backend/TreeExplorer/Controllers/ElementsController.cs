@@ -90,7 +90,7 @@ namespace TreeExplorer.Controllers
 
         // Post: Elements/Delete
         [HttpPost]
-        public async Task<JsonResult> Delete([Bind("Id")] int id)
+        public JsonResult Delete([Bind("Id")] int id)
         {
             Responde responde = Tree.Delete(id);
             if (responde.Error == false )
@@ -197,7 +197,7 @@ namespace TreeExplorer.Controllers
 
         // Post: Elements/Sort
         [HttpPost]
-        public async Task<JsonResult> Sort([Bind("Id")] int id, [Bind("Type")] string type)
+        public JsonResult Sort([Bind("Id")] int id, [Bind("Type")] string type)
         {
             return Json(new { Ok = Tree.Sort(id, type)});
         }

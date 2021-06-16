@@ -114,3 +114,8 @@
 .tree{
     margin-left: 2px;
 }
+
+.sort{
+    background-color: transparent;
+    border: 0px;
+}

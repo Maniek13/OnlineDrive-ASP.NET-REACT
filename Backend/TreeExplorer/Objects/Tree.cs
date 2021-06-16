@@ -87,7 +87,7 @@ namespace TreeExplorer.Objects
                                                  where el.Id == id
                                                  select el;
 
-                    List<Element> listToDel = new List<Element>();
+                    List<Element> listToDel = new();
                     listToDel.Add(query.First());
 
                     _list.Remove(query.First());
@@ -103,7 +103,7 @@ namespace TreeExplorer.Objects
                         int i = 0;
                         list.ForEach(elem =>
                         {
-                            List<Element> elToAddtoDel = new List<Element>();
+                            List<Element> elToAddtoDel = new ();
                             listToDel.ForEach(el =>
                             {
                                 if (list.ElementAt(i).IdW == el.Id)

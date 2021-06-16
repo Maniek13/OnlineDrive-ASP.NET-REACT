@@ -18,8 +18,7 @@ class Folder extends React.Component {
       add: false,
       edit: false,
       delete: false,
-      show: false,
-      sortType: true
+      show: false
     };
 
     this.onAdd = this.onAdd.bind(this);
@@ -63,15 +62,6 @@ class Folder extends React.Component {
     this.setState({show : !this.state.show});
   }
 
-  async sortBranch(){
-    await TreeController.sort_brand(this.props.id, this.state.sortType? "ASC" : "DESC");
-      if(Responde.data === true){
-        if(Responde.data !== "server error"){
-          this.setState({show : true})
-          this.setState({sortType : !this.state.sortType})
-        }
-      }
-  }
 
   onAdd(){
     Provider.modal = false;
@@ -101,7 +91,6 @@ class Folder extends React.Component {
               <a className={styles.label}>{this.props.name}</a>
               <button id={this.props.id}  name={this.props.name} className={styles.del_btn} onClick={this.delForm.bind(this)}>x</button>
               <button className={styles.show_btn} onClick={this.showBranch.bind(this)}>&lsaquo;&rsaquo;</button>  
-              <button className={styles.show_btn} onClick={this.sortBranch.bind(this)}>&uarr;&darr;</button>  
               <button id={this.props.id} idW={this.props.idW} name={this.props.name} fileType={this.props.fileType}  className={styles.edit_btn} onClick={this.editForm.bind(this)}></button> 
             </div>
 
