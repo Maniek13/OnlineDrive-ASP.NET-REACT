@@ -92,7 +92,7 @@ class EditForm extends React.Component{
               <div className={styles.btn_div}>
                 <button className={styles.form_btn} onClick={this.edit.bind(this)}>Edit</button>
               </div>
-              {this.state.error ? <div className={styles.error}><a>{Responde.data === false? "Enter name": Responde.data}</a></div> : ""}
+              {this.state.error ? <div className={styles.error}><a>{Responde.data === false? "Enter wrong data": Responde.data}</a></div> : ""}
             </div>
         );
     }

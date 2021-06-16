@@ -90,7 +90,7 @@ namespace TreeExplorer.Controllers
 
         // Post: Elements/Delete
         [HttpPost]
-        public JsonResult Delete([Bind("Id")] int id)
+        public async Task<JsonResult> Delete([Bind("Id")] int id)
         {
             Responde responde = Tree.Delete(id);
             if (responde.Error == false )
@@ -99,14 +99,9 @@ namespace TreeExplorer.Controllers
                 {
                     List<Element> listToDel = JsonConvert.DeserializeObject<List<Element>>(responde.Message);
 
-                    listToDel.ForEach(el =>
-                    {
-                        _context.Element.RemoveRange(listToDel);
-                        _context.SaveChangesAsync();
+                    _context.Element.RemoveRange(listToDel);
+                    await _context.SaveChangesAsync();
 
-                    });
-
-               
                     return Json(new { Ok = true });
                 }
                 catch(Exception e)
@@ -131,35 +126,57 @@ namespace TreeExplorer.Controllers
         {
             if (elementNew.Name != null)
             {
-                Responde responde = Tree.Edit(elementNew);
-                if (responde.Error == false)
+                Element element = _context.Element.SingleOrDefault(x => x.Id == elementNew.Id);
+
+                List<Element> branch = Tree.Branch(elementNew.Id);
+
+
+                bool ok = true;
+                branch.ForEach(el =>
                 {
-                    Element element = _context.Element.SingleOrDefault(x => x.Id == elementNew.Id);
-
-                    try
+                    if(el.Id != element.Id)
                     {
-                        element.Name = elementNew.Name;
-                        element.Type = elementNew.Type;
-                        element.IdW = elementNew.IdW;
-
-                        _context.Update(element);
-                        await _context.SaveChangesAsync();
-                        return Json(new { Ok = true });
+                        if(el.IdW == element.Id)
+                        {
+                            ok =  false;
+                        }
                     }
-                    catch (Exception e)
+                });
+
+                if(ok == true)
+                {
+                    Responde responde = Tree.Edit(elementNew);
+                    if (responde.Error == false)
                     {
-                        Console.WriteLine("Edit err");
-                        Console.WriteLine(e.Message);
+                        try
+                        {
+                            element.Name = elementNew.Name;
+                            element.Type = elementNew.Type;
+                            element.IdW = elementNew.IdW;
 
-                        element = _context.Element.SingleOrDefault(x => x.Id == elementNew.Id);
+                            _context.Update(element);
+                            await _context.SaveChangesAsync();
+                            return Json(new { Ok = true });
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine("Edit err");
+                            Console.WriteLine(e.Message);
 
-                        Tree.Edit(element);
+                            element = _context.Element.SingleOrDefault(x => x.Id == elementNew.Id);
 
-                        return Json(new { Error = "Edit err" });
+                            Tree.Edit(element);
+
+                            return Json(new { Error = "Edit err" });
+                        }
                     }
+                    else
+                        return Json(new { Error = responde.Message });
                 }
-                else
-                    return Json(new { Error = responde.Message });
+
+
+                return Json(new { Ok = false });
+                
             }
             return Json(new { Ok = false });
         }
@@ -174,22 +191,43 @@ namespace TreeExplorer.Controllers
             {
                 Element element = _context.Element.SingleOrDefault(x => x.Id == id);
                 int idWOld = element.IdW;
-                try
-                {
-                    element.IdW = idW;
-                    _context.Update(element);             
-                    await _context.SaveChangesAsync();
-                    return Json(new { Ok = true });
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Move err");
-                    Console.WriteLine(e.Message);
 
-                    Tree.Move(id, idWOld);
+                List<Element> branch = Tree.Branch(id);
 
-                    return Json(new { Error = "Move err" });
+
+                bool ok = true;
+                branch.ForEach(el =>
+                {
+                    if (el.Id != element.Id)
+                    {
+                        if (el.IdW == element.Id)
+                        {
+                            ok = false;
+                        }
+                    }
+                });
+                
+                if(ok == true)
+                {
+                    try
+                    {
+                        element.IdW = idW;
+                        _context.Element.Update(element);
+                        await _context.SaveChangesAsync();
+                        return Json(new { Ok = true });
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Move err");
+                        Console.WriteLine(e.Message);
+
+                        Tree.Move(id, idWOld);
+
+                        return Json(new { Error = "Move err" });
+                    }
                 }
+                return Json(new { Ok = false });
+
             }
             else
                 return Json(new { Error = responde.Message });
@@ -201,6 +239,7 @@ namespace TreeExplorer.Controllers
         {
             return Json(new { Ok = Tree.Sort(id, type)});
         }
+
     }
 }
 

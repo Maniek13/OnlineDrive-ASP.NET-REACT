@@ -31,6 +31,8 @@ class TreeController{
 
     static async edit(){
         await POST("https://localhost:5001/Elements/Edit", Element.element);
+
+        console.log(Responde.data)
     }
 
     static async sort_brand(id, type){

@@ -51,6 +51,66 @@ namespace TreeExplorer.Objects
 
         }
 
+        public static List<Element> Branch(int id)
+        {
+            IEnumerable<Element> query = from el in _list
+                                         where el.Id == id
+                                         select el;
+
+            List<Element> branch = new();
+            branch.Add(query.First());
+
+            List<Element> list = new();
+            _list.ForEach(el =>
+            {
+                list.Add(el);
+            });
+            list.Remove(query.First());
+
+            bool end = false;
+
+            while (end == false)
+            {
+                int next = 0;
+
+                int i = 0;
+                List<Element> temp = new();
+                list.ForEach(elem =>
+                {
+                    List<Element> branchEl = new();
+                    branch.ForEach(el =>
+                    {
+                        if (list.ElementAt(i).IdW == el.Id)
+                        {
+
+                            branchEl.Add(list.ElementAt(i));
+                            next++;
+                        }
+                    });
+                    i++;
+
+                    branchEl.ForEach(element =>
+                    {
+                        temp.Add(element);
+                        branch.Add(element);
+                    });
+                });
+
+                temp.ForEach(e =>
+                {
+                    list.Remove(e);
+                });
+
+
+                if (next == 0)
+                {
+                    end = true;
+                }
+            }
+
+            return branch;
+        }
+
         public static Responde Edit(Element element) 
         {
             Responde responde = new();
@@ -83,51 +143,15 @@ namespace TreeExplorer.Objects
             {
                 try
                 {
-                    IEnumerable<Element> query = from el in _list
-                                                 where el.Id == id
-                                                 select el;
+                    List<Element> toDel = Branch(id);
 
-                    List<Element> listToDel = new();
-                    listToDel.Add(query.First());
-
-                    _list.Remove(query.First());
-
-                    List<Element> list = _list;
-
-                    bool end = false;
-
-                    while (end == false)
+                    toDel.ForEach(el =>
                     {
-                        int next = 0;
-
-                        int i = 0;
-                        list.ForEach(elem =>
-                        {
-                            List<Element> elToAddtoDel = new ();
-                            listToDel.ForEach(el =>
-                            {
-                                if (list.ElementAt(i).IdW == el.Id)
-                                {
-
-                                    elToAddtoDel.Add(list.ElementAt(i));
-                                    next++;
-                                }
-                            });
-                            i++;
-
-                            elToAddtoDel.ForEach(element =>
-                            {
-                                listToDel.Add(element);
-                            });
-                        });
+                        _list.Remove(el);
+                    });
 
 
-                        if (next > 0)
-                        {
-                            end = true;
-                        }
-                    }
-                    responde.Message = JsonSerializer.Serialize(listToDel);
+                    responde.Message = JsonSerializer.Serialize(toDel);
                     responde.Error = false;
                 }
                 catch
@@ -150,10 +174,38 @@ namespace TreeExplorer.Objects
             }
             else
             {
+               
+
                 Element toChange = _list.Find(el => el.Id == id);
-                toChange.IdW = idW;
-                responde.Message = "Ok";
-                responde.Error = false;
+
+                List<Element> branch = Branch(id);
+
+
+                bool ok = true;
+                branch.ForEach(el =>
+                {
+                    if (el != toChange)
+                    {
+                        if (el.IdW == toChange.Id)
+                        {
+                            ok = false;
+                        }
+                    }
+                });
+
+                if(ok == true)
+                {
+                    toChange.IdW = idW;
+                    responde.Message = "Ok";
+                    responde.Error = false;
+                }
+                else
+                {
+                    responde.Message = "New node is in branch";
+                    responde.Error = true;
+                }
+
+               
             }
             return responde;
         }
