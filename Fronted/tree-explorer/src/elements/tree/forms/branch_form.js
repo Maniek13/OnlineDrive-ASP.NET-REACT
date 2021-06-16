@@ -8,8 +8,6 @@ import TreeController from '../../controllers/tree/tree_controller'
 import Responde from '../../controllers/http/objects/responde'
 
 
-
-
 class Branch extends React.Component{
   constructor(props) {
     super(props);

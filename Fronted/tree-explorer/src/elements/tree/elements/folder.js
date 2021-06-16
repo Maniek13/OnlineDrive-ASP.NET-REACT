@@ -6,8 +6,6 @@ import DelForm from '../forms/del_form'
 import Element from '../objects/element'
 import Provider from '../controller/provider'
 import Branch from '../forms/branch_form'
-import TreeController from '../../controllers/tree/tree_controller'
-import Responde from '../../controllers/http/objects/responde'
 
 
 class Folder extends React.Component {
