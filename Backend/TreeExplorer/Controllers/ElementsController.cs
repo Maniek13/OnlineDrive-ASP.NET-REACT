@@ -21,6 +21,11 @@ namespace TreeExplorer.Controllers
             _context = context;
         }
 
+        public string Index()
+        {
+            return "Welcome to server";
+        }
+
         // GET: Elements/Show
         public JsonResult Show()
         {

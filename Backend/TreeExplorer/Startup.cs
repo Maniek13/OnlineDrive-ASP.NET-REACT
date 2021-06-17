@@ -58,7 +58,7 @@ namespace TreeExplorer
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Elements}/{action=Index}");
             });
         }
     }
