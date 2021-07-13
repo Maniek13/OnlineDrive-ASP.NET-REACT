@@ -16,6 +16,14 @@ class EditForm extends React.Component{
         error : false
       };
 
+      this.id = this.props.id;
+      this.idW = this.props.idW;
+      this.name = this.props.name;
+
+      
+      this.tree_calback = this.props.tree_calback.bind(this);
+      this.callback = this.props.callback.bind(this);
+
       Element.element.Type = this.state.checked ? "node" : "file";
     }
 
@@ -24,7 +32,7 @@ class EditForm extends React.Component{
       this.setState({checked : !evt.target.value});
     }
 
-    name(evt){
+    getName(evt){
       Element.element.Name = evt.target.value;
     }
 
@@ -36,7 +44,7 @@ class EditForm extends React.Component{
         let fields = [];
         List.tree.forEach(el => {
             if(el.type === "node"){
-                if(el.id !== this.props.id){
+                if(el.id !== this.id){
                   fields.push(  <option value={el.id} id={el.name}>{el.name} </option> )
                 }
             }
@@ -53,13 +61,13 @@ class EditForm extends React.Component{
 
         if(Responde.code === 1){
           this.setState({error : false});
-          this.props.callback();
+          this.callback();
           Provider.show = true;
           Element.element.Name = "";
           Element.element.Id = "";
           Element.element.IdW = "";
           Element.element.Type = "file";
-          this.props.tree_calback();
+          this.tree_calback();
         }
         else{
           this.setState({error : true});
@@ -74,7 +82,7 @@ class EditForm extends React.Component{
         Element.element.Id = "";
         Element.element.IdW = "";
         Element.element.Type = "file";
-        this.props.callback();
+        this.callback();
     }
 
     render() {
@@ -83,10 +91,10 @@ class EditForm extends React.Component{
                 <button className={styles.exit} onClick={this.exit.bind(this)}>X</button>
               <div className={styles.el_form}>
                 <label className={styles.label}>Name:</label>
-                <input id="name" type="text" defaultValue={this.props.name} onChange={this.name.bind(this)} className={styles.input}/>
+                <input id="name" type="text" defaultValue={this.name} onChange={this.getName.bind(this)} className={styles.input}/>
               </div>
               <div className={styles.el_form}>
-                <select id="node" className={styles.type } defaultValue={this.props.idW}  onChange={this.node.bind(this)} >
+                <select id="node" className={styles.type } defaultValue={this.idW}  onChange={this.node.bind(this)} >
                   {this.nodes()}
                 </select>
               </div>

@@ -11,11 +11,17 @@ class DelForm extends React.Component{
       this.state = {
         error : false
       };
+
+      this.id = this.props.id;
+      this.name = this.props.name;
+      
+      this.tree_calback = this.props.tree_calback.bind(this);
+      this.callback = this.props.callback.bind(this);
     }
 
 
     async delete(){
-      await TreeController.delete(this.props.id);
+      await TreeController.delete(this.id);
       
       if(Responde.data === true){
         
@@ -23,9 +29,9 @@ class DelForm extends React.Component{
     
         if(Responde.code === 1){
           this.setState({error : false});
-          this.props.callback();
+          this.callback();
           Provider.show = true;
-          this.props.tree_calback();
+          this.tree_calback();
         }
         else{
           this.setState({error : true});
@@ -35,14 +41,14 @@ class DelForm extends React.Component{
     }
 
     exit(){
-        this.props.callback();
+        this.callback();
     }
 
     render() {
         return (
             <div className={styles.add_form}>
                 <button className={styles.exit} onClick={this.exit.bind(this)}>X</button>
-                <p id="name" className={styles.input}>{this.props.name}</p>
+                <p id="name" className={styles.input}>{this.name}</p>
                 <div className={styles.btn_div}>
                     <button className={styles.form_btn} onClick={this.delete.bind(this)}>Delete</button>
                 </div>

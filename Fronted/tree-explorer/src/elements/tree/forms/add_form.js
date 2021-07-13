@@ -15,6 +15,9 @@ class AddForm extends React.Component{
         error : false
       };
 
+      this.tree_calback = this.props.tree_calback.bind(this);
+      this.callback = this.props.callback.bind(this);
+
       Element.element.Type = this.state.checked ? "node" : "file";
     }
 
@@ -36,9 +39,9 @@ class AddForm extends React.Component{
     
         if(Responde.code === 1){
           this.setState({error : false});
-          this.props.callback();
+          this.callback();
           Provider.show = true;
-          this.props.tree_calback();
+          this.tree_calback();
         }
         else{
           this.setState({error : true});
@@ -49,7 +52,7 @@ class AddForm extends React.Component{
     }
 
     exit(){
-      this.props.callback();
+      this.callback();
     }
 
     render() {
