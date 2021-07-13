@@ -139,14 +139,11 @@ namespace TreeExplorer.Controllers
 
                 if(elementNew.IdW != element.IdW)
                 {
-                    branch.ForEach(el =>
+                   branch.ForEach(el =>
                     {
-                        if(el.Id != element.Id)
+                        if (el.Id == elementNew.IdW)
                         {
-                            if(el.IdW == element.Id)
-                            {
-                                ok =  false;
-                            }
+                            ok =  false;
                         }
                     });
                 }
@@ -207,12 +204,9 @@ namespace TreeExplorer.Controllers
                 bool ok = true;
                 branch.ForEach(el =>
                 {
-                    if (el.Id != element.Id)
+                    if (el.Id == idW)
                     {
-                        if (el.IdW == element.Id)
-                        {
-                            ok = false;
-                        }
+                        ok = false;
                     }
                 });
                 

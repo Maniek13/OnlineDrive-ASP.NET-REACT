@@ -48,10 +48,9 @@ class EditForm extends React.Component{
 
     async edit(){
       await TreeController.edit();
-      
       if(Responde.data === true){
         await TreeController.get_tree();
-    
+
         if(Responde.code === 1){
           this.setState({error : false});
           this.props.callback();

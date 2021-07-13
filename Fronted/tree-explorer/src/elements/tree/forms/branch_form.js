@@ -34,10 +34,10 @@ class Branch extends React.Component{
   show(){
     let fields = [];
     if(List.tree.length === 0){
-      fields.push(<Empty tree_calback = {this.tree_calback} id={this.id} key={"first"}/> )
+      fields.push(<Empty tree_calback = {this.tree_calback} id={this.id} key={"empty"}/> )
     }
     else{
-      fields.push(<button className={styles.sort} key={this.id} onClick={this.sortBranch.bind(this)}>&uarr;&darr;</button>);
+      fields.push(<button className={styles.sort} onClick={this.sortBranch.bind(this)}>&uarr;&darr;</button>);
       List.tree.forEach(el => {
         if(el.idW === this.id){
           switch(el.type){
@@ -52,7 +52,7 @@ class Branch extends React.Component{
           }
         }
       });
-      fields.push(<Empty tree_calback = {this.tree_calback} id={this.id} key={"last"}/>)
+      fields.push(<Empty tree_calback = {this.tree_calback} id={this.id} key={"empty"}/>)
     }
     
     return fields;
