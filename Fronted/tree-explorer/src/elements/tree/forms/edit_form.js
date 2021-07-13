@@ -52,7 +52,7 @@ class EditForm extends React.Component{
       if(Responde.data === true){
         await TreeController.get_tree();
     
-        if(Responde.code == 1){
+        if(Responde.code === 1){
           this.setState({error : false});
           this.props.callback();
           Provider.show = true;

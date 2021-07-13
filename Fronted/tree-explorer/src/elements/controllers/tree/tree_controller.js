@@ -12,6 +12,11 @@ class TreeController{
         if(Responde.code === 1){
             List.tree = Responde.data;
         }
+        else{
+            Responde.data = Responde.data;
+        }
+    
+        return true;
     }
     
     static async add_tree_element(){
