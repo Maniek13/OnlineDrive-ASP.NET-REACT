@@ -18,7 +18,6 @@ class Start extends React.Component {
     await TreeController.get_tree();
       if(Responde.data !== "server error"){
         this.setState({error : false});
-        console.log(Responde.data)
       }
       else{
         this.setState({error : true});

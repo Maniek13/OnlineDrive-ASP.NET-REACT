@@ -7,11 +7,12 @@ import styles from '../styles/tree.module.css'
 class Tree extends React.Component {
   constructor(props){
     super(props)
+    
     this.state = {
       show: true
     };
+
     this.onChange = this.onChange.bind(this);
-    
   }
 
   onChange(){

@@ -11,15 +11,19 @@ import Responde from '../../controllers/http/objects/responde'
 class Branch extends React.Component{
   constructor(props) {
     super(props);
+
+    this.id = this.props.id;
+
     this.state = {
       add: false,
       sortType: true
     };
+    
     this.tree_calback = this.props.tree_calback.bind(this);
   }
 
   async sortBranch(){
-    await TreeController.sort_brand(this.props.id, this.state.sortType? "ASC" : "DESC");
+    await TreeController.sort_brand(this.id, this.state.sortType? "ASC" : "DESC");
       if(Responde.data === true){
         if(Responde.data !== "server error"){
           this.setState({sortType : !this.state.sortType})
@@ -30,25 +34,25 @@ class Branch extends React.Component{
   show(){
     let fields = [];
     if(List.tree.length === 0){
-      fields.push(<Empty tree_calback = {this.tree_calback} id={this.props.id} name="aaa" key={"empty"}/> )
+      fields.push(<Empty tree_calback = {this.tree_calback} id={this.id} key={"empty"}/> )
     }
     else{
       fields.push(<button className={styles.sort} onClick={this.sortBranch.bind(this)}>&uarr;&darr;</button>);
       List.tree.forEach(el => {
-        if(el.idW === this.props.id){
+        if(el.idW === this.id){
           switch(el.type){
             case "file":
-              fields.push(<File tree_calback = {this.tree_calback} id={el.id} name={el.name} idW={el.idW} fileType={el.type} key={el.id}/>)
+              fields.push(<File tree_calback = {this.tree_calback} id={el.id} name={el.name} idW={el.idW} key={el.id}/>)
               break;
             case "node":
-              fields.push(<Folder tree_calback = {this.tree_calback} id={el.id} name={el.name} idW={el.idW} fileType={el.type} key={el.id}/>)
+              fields.push(<Folder tree_calback = {this.tree_calback} id={el.id} name={el.name} idW={el.idW} key={el.id}/>)
               break;
             default:
               break;
           }
         }
       });
-      fields.push(<Empty tree_calback = {this.tree_calback} id={this.props.id} name="aaa" key={"empty"}/>)
+      fields.push(<Empty tree_calback = {this.tree_calback} id={this.id} key={"empty"}/>)
     }
     
     return fields;

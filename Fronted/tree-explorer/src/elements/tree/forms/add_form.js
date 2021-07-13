@@ -9,10 +9,12 @@ import TreeController from '../../controllers/tree/tree_controller'
 class AddForm extends React.Component{
     constructor(props) {
       super(props);
+      
       this.state = {
         checked : false,
         error : false
       };
+
       Element.element.Type = this.state.checked ? "node" : "file";
     }
 

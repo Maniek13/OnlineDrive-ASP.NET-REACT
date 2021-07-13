@@ -10,10 +10,12 @@ import TreeController from '../../controllers/tree/tree_controller'
 class EditForm extends React.Component{
     constructor(props) {
       super(props);
+
       this.state = {
-          checked : this.props.node,
-          error : false
-        };
+        checked : this.props.node,
+        error : false
+      };
+
       Element.element.Type = this.state.checked ? "node" : "file";
     }
 

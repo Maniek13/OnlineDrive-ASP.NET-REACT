@@ -10,15 +10,9 @@ class TreeController{
     static async get_tree(){
         await GET("https://localhost:5001/Elements/Show");
 
-        if(Responde.data.error !== 'server error'){
+        if(Responde.code === 1){
             List.tree = Responde.data;
         }
-        else{
-            Responde.code = 200;
-            Responde.data = Responde.data;
-        }
-
-        return true;
     }
     
     static async add_tree_element(){
@@ -31,8 +25,6 @@ class TreeController{
 
     static async edit(){
         await POST("https://localhost:5001/Elements/Edit", Element.element);
-
-        console.log(Responde.data)
     }
 
     static async sort_brand(id, type){
@@ -42,10 +34,6 @@ class TreeController{
         if(Responde.data !== 'server error'){
             List.tree = Responde.data;
             Responde.data = true;
-        }
-        else{
-            Responde.code = 200;
-            Responde.data = Responde.data;
         }
     }
 }
