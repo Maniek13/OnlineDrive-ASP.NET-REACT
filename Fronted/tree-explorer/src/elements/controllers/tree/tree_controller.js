@@ -31,7 +31,7 @@ class TreeController{
         await POST("https://localhost:5001/Elements/Sort", {Id : id, Type : type});
 
 
-        if(Responde.data !== 'server error'){
+        if(Responde.code === 1){
             List.tree = Responde.data;
             Responde.data = true;
         }
