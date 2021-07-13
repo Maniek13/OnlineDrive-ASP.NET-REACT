@@ -25,7 +25,7 @@ class Branch extends React.Component{
   async sortBranch(){
     await TreeController.sort_brand(this.id, this.state.sortType? "ASC" : "DESC");
       if(Responde.data === true){
-        if(Responde.data !== "server error"){
+        if(Responde.code === 1){
           this.setState({sortType : !this.state.sortType})
         }
       }

@@ -16,7 +16,7 @@ class Start extends React.Component {
 
   async componentDidMount(){
     await TreeController.get_tree();
-      if(Responde.data !== "server error"){
+      if(Responde.code === 1){
         this.setState({error : false});
       }
       else{

@@ -6,7 +6,6 @@ import List from '../../tree/objects/list'
 
 
 class TreeController{
-
     static async get_tree(){
         await GET("https://localhost:5001/Elements/Show");
 
@@ -29,7 +28,6 @@ class TreeController{
 
     static async sort_brand(id, type){
         await POST("https://localhost:5001/Elements/Sort", {Id : id, Type : type});
-
 
         if(Responde.code === 1){
             List.tree = Responde.data;
