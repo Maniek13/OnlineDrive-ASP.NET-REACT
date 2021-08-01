@@ -5,6 +5,7 @@ import Responde from '../../controllers/http/objects/responde'
 import List from '../objects/list'
 import Provider from '../controller/provider'
 import TreeController from '../../controllers/tree/tree_controller'
+import ClickAwayListener from 'react-click-away-listener'
 
 
 class EditForm extends React.Component{
@@ -87,7 +88,8 @@ class EditForm extends React.Component{
 
     render() {
         return (
-            <div className={styles.add_form}>
+          <ClickAwayListener onClickAway={this.exit.bind(this)}>
+             <div className={styles.add_form}>
                 <button className={styles.exit} onClick={this.exit.bind(this)}>X</button>
               <div className={styles.el_form}>
                 <label className={styles.label}>Name:</label>
@@ -103,6 +105,7 @@ class EditForm extends React.Component{
               </div>
               {this.state.error ? <div className={styles.error}><a>{Responde.data === false? "Enter wrong data": Responde.data}</a></div> : ""}
             </div>
+          </ClickAwayListener> 
         );
     }
 }

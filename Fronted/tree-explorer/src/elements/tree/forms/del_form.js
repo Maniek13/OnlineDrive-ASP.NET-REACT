@@ -3,6 +3,7 @@ import styles from '../styles/tree.module.css'
 import Responde from '../../controllers/http/objects/responde'
 import Provider from '../controller/provider'
 import TreeController from '../../controllers/tree/tree_controller'
+import ClickAwayListener from 'react-click-away-listener'
 
 class DelForm extends React.Component{
     constructor(props) {
@@ -46,6 +47,7 @@ class DelForm extends React.Component{
 
     render() {
         return (
+          <ClickAwayListener onClickAway={this.exit.bind(this)}>
             <div className={styles.add_form}>
                 <button className={styles.exit} onClick={this.exit.bind(this)}>X</button>
                 <p id="name" className={styles.input}>{this.name}</p>
@@ -55,6 +57,7 @@ class DelForm extends React.Component{
                 
                 {this.state.error ? <div className={styles.error}><a>{Responde.data}</a></div> : ""}
             </div>
+          </ClickAwayListener>
         );
     }
 }
