@@ -37,13 +37,25 @@ namespace TreeExplorer.Objects
             else
             {
                 Element element = new() { Id = id, Name = name, Type = type, IdW = idW };
-                _list.Add(element);
-                responde.Message = "Ok";
-                responde.Error = false;
+
+                List<Element> els = Folder(idW, type);
+
+                if(els.Find(el => el.Name == name) == null)
+                {
+                    _list.Add(element);
+                    responde.Message = "Ok";
+                    responde.Error = false;
+                }
+                else
+                {
+                    responde.Message = "Object alredy exist";
+                    responde.Error = true;
+                }
+                
+        
             }
 
             return responde;
-
         }
 
         public static List<Element> Branch(int id)
@@ -106,6 +118,15 @@ namespace TreeExplorer.Objects
             return branch;
         }
 
+        private static List<Element> Folder(int idW, string type)
+        {
+            IEnumerable<Element> query = from el in _list
+                                         where el.IdW == idW && el.Type == type
+                                         select el;
+
+            return query.ToList<Element>();
+        }
+
         public static Responde Edit(Element element) 
         {
             Responde responde = new();
@@ -117,12 +138,26 @@ namespace TreeExplorer.Objects
             else
             {
                 Element toChange = _list.Find(el => el.Id == element.Id);
-                toChange.Name = element.Name;
-                toChange.Type = element.Type;
-                toChange.IdW = element.IdW;
 
-                responde.Message = "Ok";
-                responde.Error = false;
+                List<Element> els = Folder(element.IdW, element.Type);
+
+                if (els.Find(el => el.Name == element.Name) == null)
+                {
+                    toChange.Name = element.Name;
+                    toChange.Type = element.Type;
+                    toChange.IdW = element.IdW;
+
+                    responde.Message = "Ok";
+                    responde.Error = false;
+                }
+                else
+                {
+                    responde.Message = "Element alredy exist";
+                    responde.Error = true;
+                }
+
+
+                    
             }
             return responde;
         }
@@ -190,9 +225,20 @@ namespace TreeExplorer.Objects
 
                 if(ok == true)
                 {
-                    toChange.IdW = idW;
-                    responde.Message = "Ok";
-                    responde.Error = false;
+                    List<Element> els = Folder(idW, toChange.Type);
+
+                    if (els.Find(el => el.Name == toChange.Name) == null)
+                    {
+                        toChange.IdW = idW;
+                        responde.Message = "Ok";
+                        responde.Error = false;
+                    }
+                    else
+                    {
+                        responde.Message = "Element alredy exist in this folder";
+                        responde.Error = true;
+                    }
+           
                 }
                 else
                 {
