@@ -14,7 +14,8 @@ node -v: 14.4.0
 
 1. Create new React project: npx create-react-app tree-explorer
 2. Delete folders public and src
-3. Copy files from repo to your app folder
-4. Start server: npm start
+3. Instal ClickAwayListener: npm i react-click-away-listener
+4. Copy files from repo to your app folder
+5. Start server: npm start
 
 ![image](https://user-images.githubusercontent.com/47826375/127783882-39a26514-1526-4158-99a1-0c6b3bb859da.png)
