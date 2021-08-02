@@ -1,3 +1,29 @@
+.sort_bar:first-child{
+    width: 250px;
+    border-bottom: 1px solid black;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    margin-top: 0px;
+}
+
+.sort_bar:first-child::before{
+    content: "Tree explorer";
+}
+
+
+.sort_bar{
+    font-weight: bold;
+    color: #5d5a5a;
+    text-align: center;
+    display: inline-block;
+    float: right;
+    margin-top: 5px;
+}
+
+.sort{
+    float: right;
+}
+
 .add_form{
     position: absolute;
     z-index: 10;
@@ -113,6 +139,9 @@
 
 .tree{
     margin-left: 2px;
+    width: 250px;
+    height: 100vh;
+    border: 1px solid black;
 }
 
 .sort{
