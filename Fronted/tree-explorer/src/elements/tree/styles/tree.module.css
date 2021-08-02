@@ -17,7 +17,7 @@
     text-align: center;
     display: inline-block;
     float: right;
-    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .sort{
@@ -61,8 +61,11 @@ input{
 .file{
     background-color: rgb(199, 222, 235);
     width: 150px;
+    height: 18px;
     margin-left: 10px;
-    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 12px;
+    position: relative;
 }
 
 .file + .file, .folder + .file, .folder + .folder{
@@ -70,9 +73,10 @@ input{
 }
 
 .folder{
+    position: relative;
     background-color: orange;
     border: 1px solid black;
-    font-size: 10px;
+    font-size: 14px;
     width: 150px;  
     height: 20px;  
 }
@@ -86,6 +90,14 @@ input{
     float: right;
 }
 
+.add_btn{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .edit_btn{
     width: 10px;
     height: 18px;
@@ -96,14 +108,18 @@ input{
 }
 
 .empty{
-    height: 20px;
+    height: 10px;
+    position: relative;
 }
 
 .empty button{
+    top: 50%;
+    left: 0px;
+    transform: translate(0%, -50%);
     float: left!important;
     width: 150px;
     text-align: left;
-    margin-left: 10px;
+    margin-left: 5px;
 }
 
 .error{
@@ -133,9 +149,11 @@ input{
 .folder_contener{
     display: inline-flex;
 }
+
 .folder_add{
     width: 20px;
-    height: 20px
+    height: 20px;
+    position: relative;
 }
 
 .branch {
@@ -143,7 +161,7 @@ input{
 }
 
 .tree{
-    margin-left: 0px;
+    margin-left: -10px;
     width: 250px;
     height: 100vh;
     border: 1px solid black;
@@ -152,4 +170,12 @@ input{
 .sort{
     background-color: transparent;
     border: 0px;
+}
+
+.name{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translate(0%, -50%);
 }

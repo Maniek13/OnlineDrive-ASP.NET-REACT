@@ -58,7 +58,7 @@ class File extends React.Component {
       <React.Fragment>
         <div>
           <div className={styles.file}>
-            <a className={styles.label}>{this.props.name}</a>
+            <p className={styles.name}>{this.props.name}</p>
             <button id={this.props.id}  name={this.props.name} className={styles.del_btn} onClick={this.delForm.bind(this)}>x</button>
             <button id={this.props.id} idW={this.props.idW} name={this.props.name} className={styles.edit_btn} onClick={this.editForm.bind(this)}></button>
           </div>

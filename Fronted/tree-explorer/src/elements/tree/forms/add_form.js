@@ -65,7 +65,7 @@ class AddForm extends React.Component{
                 <input id="name" type="text" onChange={this.name.bind(this)} className={styles.input}/>
               </div>
               <div className={styles.el_form}>
-                <label className={styles.label}>Is folder?</label> 
+                <label>Is folder?</label> 
                 <input value={this.state.checked} type="checkbox" id="type"  defaultChecked={false} onChange={this.type.bind(this)} className={styles.input}/>
               </div>
               <div className={styles.btn_div}>
