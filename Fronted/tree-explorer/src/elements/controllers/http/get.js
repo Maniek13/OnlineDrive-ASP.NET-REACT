@@ -17,8 +17,10 @@ async function GET(adres){
                 Responde.data = res.data.error;
                }
             });
+            
     }
     catch(err){
+        
         Responde.code = 500;
         Responde.data = 'server error';
     }

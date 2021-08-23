@@ -6,10 +6,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TreeExplorer.Data;
+using TreeExplorer.Models;
+using TreeExplorer.Middleware;
 
 namespace TreeExplorer
 {
@@ -53,6 +53,11 @@ namespace TreeExplorer
 
 
             app.UseAuthorization();
+
+            app.UseContentLengthRestriction(new ContentLengthRestrictionOptions
+            {
+                ContentLengthLimit = 500
+            });
 
             app.UseEndpoints(endpoints =>
             {

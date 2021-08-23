@@ -16,7 +16,13 @@ async function POST(adres, object) {
         .then(response => response.json().then(data => ({
             data: data
         })).then(res => {
-            if(typeof res.data.error === 'undefined'){
+           
+            if(res.data.status == 413){
+                Responde.code = 413;
+                Responde.data = "Name is to longer";
+            }
+            else if(typeof res.data.error === 'undefined'){
+                console.log(res.data);
                 Responde.code = 1;
                 Responde.data = res.data.ok;
             }
