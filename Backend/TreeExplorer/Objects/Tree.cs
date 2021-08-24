@@ -26,7 +26,12 @@ namespace TreeExplorer.Objects
             return _list;
         }
 
-        public static Responde Add(int id, string name, string type, int idW)
+        public static List<Element> Get(int userId)
+        {
+            return _list.Where(el => el.UsserId == userId).ToList();
+        }
+
+        public static Responde Add(int id, string name, string type, int idW, int userId)
         {
             Responde responde = new();
             if (_list is null)
@@ -36,7 +41,7 @@ namespace TreeExplorer.Objects
             }
             else
             {
-                Element element = new() { Id = id, Name = name, Type = type, IdW = idW };
+                Element element = new() { Id = id, Name = name, Type = type, IdW = idW, UsserId = userId };
 
                 List<Element> els = Folder(idW, type);
 

@@ -26,8 +26,7 @@ namespace TreeExplorer.Controllers
             return "Welcome to server";
         }
 
-        // GET: Elements/Show
-        public JsonResult Show()
+        public void Set()
         {
             List<Element> list;
             try
@@ -38,17 +37,29 @@ namespace TreeExplorer.Controllers
             {
                 Console.WriteLine("Show err");
                 Console.WriteLine(e.Message);
-
-                return Json(new { Error = e.Message });
+                list = new List<Element>();
             }
             Tree.Set(new(list));
+        }
+
+        // GET: Elements/Show
+        public JsonResult Show()
+        {
+            this.Set();
             return Json(Tree.Get());
+        }
+
+        [HttpPost]
+        public JsonResult Show([Bind("UserId")] int userId)
+        {
+            this.Set();
+            return Json(Tree.Get(userId));
         }
 
 
         // Post: Elements/Add
         [HttpPost]
-        public async Task<JsonResult> Add([Bind("Name,Type,IdW")] Element element)
+        public async Task<JsonResult> Add([Bind("Name,Type,IdW, UsserId")] Element element)
         {
             if (TryValidateModel(element, nameof(element)))
             {
@@ -62,7 +73,7 @@ namespace TreeExplorer.Controllers
                     id = _context.Element.ToListAsync().Result.Last().Id+1;
                 }
 
-                Responde responde = Tree.Add(id, element.Name, element.Type, element.IdW);
+                Responde responde = Tree.Add(id, element.Name, element.Type, element.IdW, element.UsserId);
                 if (responde.Error == false)
                 {
                     try
@@ -96,6 +107,7 @@ namespace TreeExplorer.Controllers
         [HttpPost]
         public async Task<JsonResult> Delete([Bind("Id")] int id)
         {
+
             Responde responde = Tree.Delete(id);
             if (responde.Error == false )
             {
@@ -115,7 +127,7 @@ namespace TreeExplorer.Controllers
 
 
                     Element el = _context.Element.ElementAt(id);
-                    Tree.Add(el.Id, el.Name, el.Type, el.IdW);
+                    Tree.Add(el.Id, el.Name, el.Type, el.IdW, el.UsserId);
 
                     return Json(new { Error = "Delete err" });
                     }
@@ -126,7 +138,7 @@ namespace TreeExplorer.Controllers
 
         // Post: Elements/Edit
         [HttpPost]
-        public async Task<JsonResult> Edit([Bind("Id,Name,Type,IdW")] Element elementNew)
+        public async Task<JsonResult> Edit([Bind("Id,Name,Type,IdW, UsserId")] Element elementNew)
         {
             if (elementNew.Name != null)
             {

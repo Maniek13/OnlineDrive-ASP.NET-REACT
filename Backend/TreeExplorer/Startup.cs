@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using TreeExplorer.Data;
 using TreeExplorer.Objects;
@@ -30,6 +27,9 @@ namespace TreeExplorer
 
             services.AddDbContext<TreeExplorerContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("TreeExplorerContext")));
+
+            services.AddDbContext<UsserContext>(options =>
+                   options.UseSqlServer(Configuration.GetConnectionString("TreeExplorerContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
