@@ -1,6 +1,6 @@
 ﻿using TreeExplorer.Interfaces;
 
-namespace TreeExplorer.Models
+namespace TreeExplorer.Objects
 {
     public class ContentLengthRestrictionOptions : IContentLengthRestrictionOptions
     {

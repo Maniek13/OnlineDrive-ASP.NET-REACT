@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using TreeExplorer.Data;
-using TreeExplorer.Models;
+using TreeExplorer.Objects;
 using TreeExplorer.Middleware;
 
 namespace TreeExplorer
