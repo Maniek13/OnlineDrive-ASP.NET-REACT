@@ -29,7 +29,7 @@ If want more chars in response (longer name of files/folder) please change Conte
 _____________________________IN PROGRES___________________________________________________
 
 
-To add users database (But this is in progres on fronted, but workin without. Mayby I add this tomorow)
+To add users database (But this is in progres... On fronted don't add yet, but workin without. Mayby I add this tomorow)
 
 In menager nuget packet console run: 
 

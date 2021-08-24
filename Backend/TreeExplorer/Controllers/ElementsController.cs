@@ -26,7 +26,8 @@ namespace TreeExplorer.Controllers
             return "Welcome to server";
         }
 
-        public void Set()
+        // GET: Elements/Set
+        public JsonResult Set()
         {
             List<Element> list;
             try
@@ -37,23 +38,29 @@ namespace TreeExplorer.Controllers
             {
                 Console.WriteLine("Show err");
                 Console.WriteLine(e.Message);
-                list = new List<Element>();
+                return Json(new { Error = e.Message });
             }
             Tree.Set(new(list));
+            return Json(new { Ok = true });
         }
 
         // GET: Elements/Show
         public JsonResult Show()
         {
-            this.Set();
             return Json(Tree.Get());
         }
 
         [HttpPost]
-        public JsonResult Show([Bind("UserId")] int userId)
+        public JsonResult Show([Bind("UserId")] int usserId)
         {
-            this.Set();
-            return Json(Tree.Get(userId));
+            if (usserId != 0)
+            {
+                return Json(Tree.Get(usserId));
+            }
+            else
+            {
+                return Json(new { Ok = false });
+            }
         }
 
 
@@ -138,7 +145,7 @@ namespace TreeExplorer.Controllers
 
         // Post: Elements/Edit
         [HttpPost]
-        public async Task<JsonResult> Edit([Bind("Id,Name,Type,IdW, UsserId")] Element elementNew)
+        public async Task<JsonResult> Edit([Bind("Id,Name,Type,IdW")] Element elementNew)
         {
             if (elementNew.Name != null)
             {

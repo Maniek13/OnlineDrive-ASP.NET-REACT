@@ -15,13 +15,21 @@ class Start extends React.Component {
   }
 
   async componentDidMount(){
-    await TreeController.get_tree();
+    await TreeController.set_tree();
+    if(Responde.code === 1){
+      await TreeController.get_tree();
       if(Responde.code === 1){
         this.setState({error : false});
       }
       else{
         this.setState({error : true});
       }
+    }
+    else{
+      this.setState({error : true});
+    }
+
+    
 
     this.setState({loaded : true})  
   }

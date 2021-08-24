@@ -6,6 +6,10 @@ import List from '../../tree/objects/list'
 
 
 class TreeController{
+    static async set_tree(){
+        await GET("https://localhost:5001/Elements/Set");
+    }
+
     static async get_tree(){
         await GET("https://localhost:5001/Elements/Show");
 
