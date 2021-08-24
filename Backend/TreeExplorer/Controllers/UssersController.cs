@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using TreeExplorer.Data;
 using TreeExplorer.Models;
-
+using TreeExplorer.Objects;
 
 namespace TreeExplorer.Controllers
 {
@@ -28,10 +29,12 @@ namespace TreeExplorer.Controllers
                 {
                     try
                     {
-                        Usser finded = _context.Usser.Where(el => el.Name == usser.Name && el.Password == usser.Password).First();
+                        Usser finded = _context.Usser.Where(el => el.Name == usser.Name).FirstOrDefault();
 
                         if (finded == null)
                         {
+                            string password = Crypto.EncryptSha256(usser.Password);
+                            usser.Password = password;
                             _context.Add(usser);
                             await _context.SaveChangesAsync();
                             return Json(new { Ok = true });
@@ -64,7 +67,8 @@ namespace TreeExplorer.Controllers
                 {
                     try
                     {
-                        Usser finded = _context.Usser.Where(el => el.Name == usser.Name && el.Password == usser.Password).First();
+                        string password = Crypto.EncryptSha256(usser.Password);
+                        Usser finded = _context.Usser.Where(el => el.Name == usser.Name && el.Password == password).FirstOrDefault();
                         
                         if(finded != null)
                         {
