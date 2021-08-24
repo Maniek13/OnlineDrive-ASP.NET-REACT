@@ -26,8 +26,10 @@ node -v: 14.4.0
 If want more chars in response (longer name of files/folder) please change ContentLengthLimit in startup.cs 
 
 
-To add users database
+To add users database (But this is in progres on fronted, but workin without. Mayby I add this tomorow)
 
-3. In menager nuget packet console run:  (But this is in progres on fronted, but workin without. Mayby I add this tomorow)
+In menager nuget packet console run: 
+
 Add-Migration InitialCreate -Context UsserContext
+
 Update-Database -Context UsserContext
