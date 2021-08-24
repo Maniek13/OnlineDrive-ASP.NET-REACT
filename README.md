@@ -4,9 +4,10 @@ Backend
 1. Create new project: ASP.NET Core (Model-View-Controller) instal pasckage: use this from nuget console: Install-Package Microsoft.EntityFrameworkCore.Design
 2. Copy files from repo
 3. In menager nuget packet console run: 
-Add-Migration InitialCreate -Context TreeExplorerContext
 
+Add-Migration InitialCreate -Context TreeExplorerContext
 Update-Database -Context TreeExplorerContext
+
 4. Start app
 
 Frontend
