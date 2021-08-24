@@ -6,6 +6,7 @@ Backend
 3. In menager nuget packet console run: 
 
 Add-Migration InitialCreate -Context TreeExplorerContext
+
 Update-Database -Context TreeExplorerContext
 
 4. Start app
