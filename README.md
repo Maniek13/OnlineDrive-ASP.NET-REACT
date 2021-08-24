@@ -25,6 +25,6 @@ If want more chars in response (longer name of files/folder) please change Conte
 
 To add users database
 
-3. In menager nuget packet console run:  (But this is in progres on fronted, but workin without)
+3. In menager nuget packet console run:  (But this is in progres on fronted, but workin without. Mayby I add this tomorow)
 Add-Migration InitialCreate -Context UsserContext
 Update-Database -Context UsserContext
