@@ -83,13 +83,14 @@ namespace TreeExplorer.Controllers
             if (TryValidateModel(element, nameof(element)))
             {
                 int id;
-                if(Tree.Get().Count == 0)
+
+                if (Tree.Get().Count == 0)
                 {
                     id = 0;
                 }
                 else
                 {
-                    id = _context.Element.ToListAsync().Result.Last().Id+1;
+                    id = _context.Element.ToListAsync().Result.Last().Id + 1;
                 }
 
                 Responde responde = Tree.Add(id, element.Name, element.Type, element.IdW, element.UsserId);
@@ -276,9 +277,9 @@ namespace TreeExplorer.Controllers
 
         // Post: Elements/Sort
         [HttpPost]
-        public JsonResult Sort([Bind("Id")] int id, [Bind("Type")] string type)
+        public JsonResult Sort([Bind("Id")] int id, [Bind("Type")] string type, [Bind("UsserId")] int usserId)
         {
-            return Json(new { Message = Tree.Sort(id, type), Status = 200});
+            return Json(new { Message = Tree.Sort(id, type, usserId), Status = 200});
         }
 
     }

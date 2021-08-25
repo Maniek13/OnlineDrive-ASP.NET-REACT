@@ -30,7 +30,7 @@ class Form extends React.Component {
         this.login_callback();
       }
       else{
-        this.state.error = true;
+        this.setState({error : true});
       }
   }
 
@@ -40,7 +40,7 @@ class Form extends React.Component {
       this.login_callback();
     }
     else{
-      this.state.error = true;
+      this.setState({error : true});
     }
   }
 

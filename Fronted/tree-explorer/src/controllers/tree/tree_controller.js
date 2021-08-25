@@ -26,7 +26,7 @@ class TreeController{
     }
 
     static async sort_brand(id, type){
-        await POST("https://localhost:5001/Elements/Sort", {Id : id, Type : type});
+        await POST("https://localhost:5001/Elements/Sort", {Id : id, Type : type, UsserId : Element.element.UsserId});
 
         if(Responde.code === 200){
             List.tree = Responde.data;

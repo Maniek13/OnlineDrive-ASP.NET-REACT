@@ -38,9 +38,7 @@ namespace TreeExplorer.Objects
                 list = null;
             }
 
-
             return list;
-           
         }
 
         public static Responde Add(int id, string name, string type, int idW, int userId)
@@ -68,8 +66,6 @@ namespace TreeExplorer.Objects
                     responde.Message = "Object alredy exist";
                     responde.Error = true;
                 }
-                
-        
             }
 
             return responde;
@@ -264,21 +260,21 @@ namespace TreeExplorer.Objects
             }
             return responde;
         }
-        public static IEnumerable<Element> Sort(int idW, string type)
+        public static IEnumerable<Element> Sort(int idW, string type, int usserId)
         {
             IEnumerable<Element> query = Array.Empty<Element>();
             switch (type)
             {
                 case "ASC":
                     query = from el in _list
-                                where el.IdW == idW
+                                where el.IdW == idW && el.UsserId == usserId
                                 orderby el.Name ascending
                                 select el;
                     break;
                 case "DESC":
                     query = from el in _list
-                                where el.IdW == idW
-                                orderby el.Name descending
+                                where el.IdW == idW && el.UsserId == usserId
+                            orderby el.Name descending
                                 select el;
                     break;
              
@@ -288,7 +284,7 @@ namespace TreeExplorer.Objects
             IEnumerable<Element> list;
 
             list = from el in _list
-                   where el.IdW != idW
+                   where el.IdW != idW && el.UsserId == usserId
                    orderby el.Type descending
                    select el;
 
