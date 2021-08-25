@@ -34,6 +34,6 @@ If want more chars in response (longer name of files/folder) please change Conte
 
 _____________________________IN PROGRES___________________________________________________
 
-- add error in login
+- don;t show error in login page
 - add save and download files
 
