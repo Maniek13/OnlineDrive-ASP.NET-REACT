@@ -22,25 +22,25 @@ async function POST(adres, object) {
             }
             else if(typeof res.data.usser !== 'undefined'){
                 if(res.data.usser != false){
-                    Responde.code = 1;
+                    Responde.code = 200;
                     Responde.data = res.data.usser; 
                 }
                 else{
-                    Responde.code = 420;
+                    Responde.code = 400;
                     Responde.data = res.data.message;
                 }
                
             }
             else if(typeof res.data.tree !== 'undefined'){
-                Responde.code = 1;
+                Responde.code = 200;
                 Responde.data = res.data.tree;
             }
             else if(typeof res.data.error === 'undefined'){
-                Responde.code = 1;
+                Responde.code = 200;
                 Responde.data = res.data.ok;
             }
             else{
-                Responde.code = 200;
+                Responde.code = 400;
                 Responde.data = res.data.error;
             }    
         }));

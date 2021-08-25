@@ -26,7 +26,7 @@ class Form extends React.Component {
 
   async login(evt){
     await AccountController.confirm();
-      if(Usser.id.Id !== "" && Responde.code === 1){
+      if(Usser.id.Id !== "" && Responde.code === 200){
         this.login_callback();
       }
       else{
@@ -36,7 +36,7 @@ class Form extends React.Component {
 
   async register(evt){
     await AccountController.add();
-    if(Usser.id.Id !== "" && Responde.code === 1){
+    if(Usser.id.Id !== "" && Responde.code === 200){
       this.login_callback();
     }
     else{

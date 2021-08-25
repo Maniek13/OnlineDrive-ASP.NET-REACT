@@ -28,7 +28,7 @@ class DelForm extends React.Component{
         
         await TreeController.get_tree();
     
-        if(Responde.code === 1){
+        if(Responde.code === 200){
           this.setState({error : false});
           this.callback();
           Provider.show = true;

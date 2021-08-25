@@ -8,7 +8,7 @@ class TreeController{
     static async get_tree(){
         await POST("https://localhost:5001/Elements/Show", {UsserId : Element.element.UsserId});
         
-        if(Responde.code === 1){
+        if(Responde.code === 200){
             List.tree = Responde.data;
         }
     }

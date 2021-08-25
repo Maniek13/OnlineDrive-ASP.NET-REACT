@@ -9,11 +9,11 @@ async function GET(adres){
            }))
            .then(res => {
                if(typeof res.data.error === 'undefined'){
-                Responde.code = 1;
+                Responde.code = 200;
                 Responde.data = res.data;
                }
                else{
-                Responde.code = 200;
+                Responde.code = 400;
                 Responde.data = res.data.error;
                }
             });
