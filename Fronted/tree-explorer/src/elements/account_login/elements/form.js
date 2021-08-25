@@ -41,7 +41,6 @@ class Form extends React.Component {
     }
     else{
       this.state.error = true;
-      console.log(Responde.data)
     }
   }
 
