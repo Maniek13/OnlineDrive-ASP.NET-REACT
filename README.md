@@ -34,7 +34,5 @@ node -v: 14.4.0
 If want more chars in response (longer name of files/folder) please change ContentLengthLimit in startup.cs 
 
 
-_____________________________IN PROGRES___________________________________________________
 
-- add save and download files
 
