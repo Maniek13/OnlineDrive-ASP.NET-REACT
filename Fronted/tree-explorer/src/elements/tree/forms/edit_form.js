@@ -97,7 +97,7 @@ class EditForm extends React.Component{
                 <input id="name" type="text" defaultValue={this.name} onChange={this.getName.bind(this)} className={styles.input}/>
               </div>
               <div className={styles.el_form}>
-                <select id="node" className={styles.type } defaultValue={this.idW}  onChange={this.node.bind(this)} >
+                <select id="node" className={styles.type } defaultValue={this.idw}  onChange={this.node.bind(this)} >
                   {this.nodes()}
                 </select>
               </div>
