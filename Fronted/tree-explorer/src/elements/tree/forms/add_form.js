@@ -72,7 +72,7 @@ class AddForm extends React.Component{
                 <button className={styles.form_btn} onClick={this.add.bind(this)}>Add</button>
               </div>
               
-              {this.state.error ? <div className={styles.error}><a>{Responde.data == false? "Enter name": Responde.data}</a></div> : ""}
+              {this.state.error ? <div className={styles.error}><a>{Responde.data === false? "Enter name": Responde.data}</a></div> : ""}
             </div>
           </ClickAwayListener>
         );

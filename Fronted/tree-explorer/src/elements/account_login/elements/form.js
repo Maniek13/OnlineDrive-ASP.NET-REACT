@@ -24,7 +24,7 @@ class Form extends React.Component {
     Usser.usser.Password = evt.target.value;
   }
 
-  async login(evt){
+  async login(){
     await AccountController.confirm();
       if(Usser.id.Id !== "" && Responde.code === 200){
         this.login_callback();
@@ -34,13 +34,14 @@ class Form extends React.Component {
       }
   }
 
-  async register(evt){
+  async register(){
     await AccountController.add();
     if(Usser.id.Id !== "" && Responde.code === 200){
       this.login_callback();
     }
     else{
       this.state.error = true;
+      console.log(Responde.data)
     }
   }
 

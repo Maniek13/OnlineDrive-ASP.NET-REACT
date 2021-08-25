@@ -40,7 +40,7 @@ class Folder extends React.Component {
     if(Provider.modal === false){
       Provider.modal = true;
       Element.element.Id = this.props.id;
-      Element.element.IdW = this.props.idW;
+      Element.element.IdW = this.props.idw;
       Element.element.Name = this.props.name;
       if(this.state.edit === false){
           this.setState({edit : true});
@@ -91,7 +91,7 @@ class Folder extends React.Component {
               <p className={styles.name}>{this.props.name}</p>
               <button id={this.props.id}  name={this.props.name} className={styles.del_btn} onClick={this.delForm.bind(this)}>x</button>
               <button className={styles.show_btn} onClick={this.showBranch.bind(this)}>&lsaquo;&rsaquo;</button>  
-              <button id={this.props.id} idW={this.props.idW} name={this.props.name} className={styles.edit_btn} onClick={this.editForm.bind(this)}></button> 
+              <button id={this.props.id} idw={this.props.idw} name={this.props.name} className={styles.edit_btn} onClick={this.editForm.bind(this)}></button> 
             </div>
 
             <div className={styles.folder_add}>
@@ -104,7 +104,7 @@ class Folder extends React.Component {
         </div>
 
         {this.state.add ? <AddForm  tree_calback = {this.tree_calback} callback = {this.onAdd}/> : ""}
-        {this.state.edit ? <EditForm tree_calback = {this.tree_calback} id={this.props.id} idW={this.props.idW} name={this.props.name} node={true} callback = {this.onEdit}/> : ""}
+        {this.state.edit ? <EditForm tree_calback = {this.tree_calback} id={this.props.id} idw={this.props.idw} name={this.props.name} node={true} callback = {this.onEdit}/> : ""}
         {this.state.delete ? <DelForm tree_calback = {this.tree_calback}  id={this.props.id} name={this.props.name} callback = {this.onDelete}/> : ""}
       </React.Fragment> 
     );

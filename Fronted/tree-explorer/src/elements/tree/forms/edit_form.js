@@ -18,7 +18,7 @@ class EditForm extends React.Component{
       };
 
       this.id = this.props.id;
-      this.idW = this.props.idW;
+      this.idW = this.props.idw;
       this.name = this.props.name;
 
       

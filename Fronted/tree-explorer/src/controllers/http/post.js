@@ -16,7 +16,7 @@ async function POST(adres, object) {
         .then(response => response.json().then(data => ({
             data: data
         })).then(res => {
-            if(res.data.status == 413){
+            if(res.data.status === 413){
                 Responde.code = 413;
                 Responde.data = "Name is to longer";
             }
