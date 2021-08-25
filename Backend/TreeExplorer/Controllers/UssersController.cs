@@ -41,7 +41,7 @@ namespace TreeExplorer.Controllers
                         }
                         else
                         {
-                            return Json(new { Usser = false, message = "Usser alredy exist" });
+                            return Json(new { Usser = false, Message = "Usser alredy exist" });
                         }
 
 
@@ -56,7 +56,7 @@ namespace TreeExplorer.Controllers
                 }
                 else
                 {
-                    return Json(new { Usser = false, message = "Usser no valid" });
+                    return Json(new { Usser = false, Message = "Usser no valid" });
                 }
             }
 
@@ -75,7 +75,7 @@ namespace TreeExplorer.Controllers
                             return Json(new { Usser = finded.Id });
                         }
 
-                        return Json(new { Usser = false, message = "Usser no exist" });
+                        return Json(new { Usser = false, Message = "Usser no exist" });
                     }
                     catch (Exception e)
                     {
@@ -86,7 +86,7 @@ namespace TreeExplorer.Controllers
                 }
                 else
                 {
-                    return Json(new { Usser = false, message = "Usser no valid" });
+                    return Json(new { Usser = false, Message = "Usser no valid" });
                 }
             }
         }

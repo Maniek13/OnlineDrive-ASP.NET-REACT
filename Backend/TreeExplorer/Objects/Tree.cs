@@ -26,9 +26,21 @@ namespace TreeExplorer.Objects
             return _list;
         }
 
-        public static List<Element> Get(int userId)
+        public static List<Element>? Get(int userId)
         {
-            return _list.Where(el => el.UsserId == userId).ToList();
+            List<Element> list = new();
+            try
+            {
+                list =  _list.Where(el => el.UsserId == userId).ToList();
+            }
+            catch
+            {
+                list = null;
+            }
+
+
+            return list;
+           
         }
 
         public static Responde Add(int id, string name, string type, int idW, int userId)

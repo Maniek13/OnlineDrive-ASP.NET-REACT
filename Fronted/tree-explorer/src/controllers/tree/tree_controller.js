@@ -1,5 +1,4 @@
 import POST from '../http/post'
-import GET from '../http/get'
 import Responde from '../../objects/responde'
 import Element from "../../elements/tree/objects/element"
 import List from '../../elements/tree/objects/list'
@@ -7,8 +6,8 @@ import List from '../../elements/tree/objects/list'
 
 class TreeController{
     static async get_tree(){
-        await GET("https://localhost:5001/Elements/Show");
-
+        await POST("https://localhost:5001/Elements/Show", {UsserId : Element.element.UsserId});
+        
         if(Responde.code === 1){
             List.tree = Responde.data;
         }

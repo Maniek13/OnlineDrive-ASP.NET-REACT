@@ -1,11 +1,11 @@
 import POST from '../http/post'
-import Usser from '../../account/objects/usser';
+import Usser from '../../elements/account/objects/usser';
 import Responde from '../../objects/responde';
 
 
-class TreeController{
+class AccountController{
     static async add(){
-        await Post("https://localhost:5001/Users/Add", Usser.usser);
+        await POST("https://localhost:5001/Ussers/Add", Usser.usser);
 
         if(Responde.code == 1){
             Usser.id.Id = Responde.data;
@@ -13,11 +13,12 @@ class TreeController{
     }
     
     static async confirm(){
-        await POST("https://localhost:5001/Elements/Add", Usser.usser);
+        await POST("https://localhost:5001/Ussers/Confirm", Usser.usser);
+        
         if(Responde.code == 1){
             Usser.id.Id = Responde.data;
         }
     }
 }
 
-export default TreeController;
+export default AccountController;

@@ -1,9 +1,10 @@
 class Element{
     static element = {
-        Id : "",
-        Name : "",
-        Type : "file",
-        IdW : ""
+        Id: "",
+        Name: "",
+        Type: "file",
+        IdW: "",
+        UsserId: ""
     }
 }
 

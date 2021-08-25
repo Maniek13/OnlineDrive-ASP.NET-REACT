@@ -5,9 +5,14 @@ Backend
 2. Copy files from repo
 3. In menager nuget packet console run: 
 
+a.
 Add-Migration InitialCreate -Context TreeExplorerContext
 
 Update-Database -Context TreeExplorerContext
+b.
+Add-Migration InitialCreate -Context UsserContext
+
+Update-Database -Context UsserContext
 
 4. Start app
 5. Please set data first
@@ -29,11 +34,6 @@ If want more chars in response (longer name of files/folder) please change Conte
 
 _____________________________IN PROGRES___________________________________________________
 
+- add error in login
+- add save and download files
 
-To add users database (But this is in progres... On fronted don't add yet, but workin without. Mayby I add this tomorow)
-
-In menager nuget packet console run: 
-
-Add-Migration InitialCreate -Context UsserContext
-
-Update-Database -Context UsserContext

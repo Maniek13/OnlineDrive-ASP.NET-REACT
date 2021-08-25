@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using TreeExplorer.Models;
 
+#nullable enable
+
 namespace TreeExplorer.Interfaces
 {
     interface ITree
@@ -14,6 +16,6 @@ namespace TreeExplorer.Interfaces
         virtual IEnumerable<Element> Sort(int idW, string type) => throw new NotImplementedException();
         virtual void Set() => throw new NotImplementedException();
         virtual List<Element> Get() => throw new NotImplementedException();
-        virtual List<Element> Get(int userId) => throw new NotImplementedException();
+        virtual List<Element>? Get(int userId) => throw new NotImplementedException();
     }
 }

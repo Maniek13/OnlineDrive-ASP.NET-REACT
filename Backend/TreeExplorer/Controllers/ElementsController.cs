@@ -52,15 +52,25 @@ namespace TreeExplorer.Controllers
         }
 
         [HttpPost]
-        public JsonResult Show([Bind("UserId")] int usserId)
+        public JsonResult Show([Bind("UsserId")] int usserId)
         {
             if (usserId != 0)
             {
-                return Json(Tree.Get(usserId));
+                List<Element> list = Tree.Get(usserId);
+
+                if(list != null)
+                {
+                    return Json(new { Tree = list});
+                }
+                else
+                {
+                    return Json(new { Error = "Server not responde. If you are administrator please set the data first" });
+                }
+              
             }
             else
             {
-                return Json(new { Ok = false });
+                return Json(new { Error = "Wrong index of usser" });
             }
         }
 
