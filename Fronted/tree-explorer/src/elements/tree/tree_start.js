@@ -25,7 +25,6 @@ class Start extends React.Component {
     this.setState({loaded : true})  
   }
 
-
   render() {
     return (
       <React.Fragment >

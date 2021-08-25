@@ -20,7 +20,6 @@ class DelForm extends React.Component{
       this.callback = this.props.callback.bind(this);
     }
 
-
     async delete(){
       await TreeController.delete(this.id);
       

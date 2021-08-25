@@ -46,13 +46,13 @@ class Form extends React.Component {
 
   render() {
     return (
-        <div className={styles.login_form}>
-            <input className={styles.input_form} id="login" placeholder="Login" onChange={this.login_data.bind(this)}></input>
-            <input className={styles.input_form} id="password" placeholder="Password" onChange={this.password_data.bind(this)}></input>
-            <button className={styles.btn} onClick={this.login.bind(this)}>Login</button>
-            <button className={styles.btn} onClick={this.register.bind(this)}>Register</button>
-            {this.state.error === true ? <Error/> : ""}
-        </div>
+      <div className={styles.login_form}>
+          <input className={styles.input_form} id="login" placeholder="Login" onChange={this.login_data.bind(this)}></input>
+          <input className={styles.input_form} id="password" placeholder="Password" onChange={this.password_data.bind(this)}></input>
+          <button className={styles.btn} onClick={this.login.bind(this)}>Login</button>
+          <button className={styles.btn} onClick={this.register.bind(this)}>Register</button>
+          {this.state.error ? <Error/> : ""}
+      </div>
     );
   }
 }

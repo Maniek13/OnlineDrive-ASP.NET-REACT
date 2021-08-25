@@ -7,8 +7,6 @@ import Element from '../objects/element'
 import Provider from '../controller/provider'
 import Branch from '../forms/branch_form'
 
-
-
 class Folder extends React.Component {
   constructor(props){
     super(props)
@@ -79,7 +77,6 @@ class Folder extends React.Component {
     this.setState({delete : false});
     this.showBranch();
   }
-
 
   render() {
     return (

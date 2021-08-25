@@ -18,7 +18,6 @@ class File extends React.Component {
     this.onDelete = this.onDelete.bind(this);
     this.tree_calback = this.props.tree_calback.bind(this);
   }
-
   
   editForm(evt){
     if(Provider.modal === false){
@@ -40,8 +39,6 @@ class File extends React.Component {
       } 
     } 
   }
-  
-
   onEdit(){
     Provider.modal = false;
     this.setState({edit : false});
@@ -53,7 +50,6 @@ class File extends React.Component {
   }
 
   render() {
-    
     return (
       <React.Fragment>
         <div>

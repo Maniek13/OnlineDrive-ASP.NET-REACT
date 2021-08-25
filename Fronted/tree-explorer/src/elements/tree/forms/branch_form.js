@@ -7,7 +7,6 @@ import styles from '../styles/tree.module.css'
 import TreeController from '../../../controllers/tree/tree_controller'
 import Responde from '../../../objects/responde'
 
-
 class Branch extends React.Component{
   constructor(props) {
     super(props);
@@ -58,8 +57,7 @@ class Branch extends React.Component{
     
     return fields;
   } 
-        
-
+       
   render() {
       return (
         <React.Fragment>

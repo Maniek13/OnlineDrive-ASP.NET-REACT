@@ -7,7 +7,6 @@ import Provider from '../controller/provider'
 import TreeController from '../../../controllers/tree/tree_controller'
 import ClickAwayListener from 'react-click-away-listener'
 
-
 class EditForm extends React.Component{
     constructor(props) {
       super(props);
@@ -42,17 +41,17 @@ class EditForm extends React.Component{
     }
 
     nodes(){
-        let fields = [];
-        List.tree.forEach(el => {
-            if(el.type === "node"){
-                if(el.id !== this.id){
-                  fields.push(  <option value={el.id} id={el.name}>{el.name} </option> )
-                }
-            }
-        })
+      let fields = [];
+      List.tree.forEach(el => {
+          if(el.type === "node"){
+              if(el.id !== this.id){
+                fields.push(  <option value={el.id} id={el.name}>{el.name} </option> )
+              }
+          }
+      })
 
-        fields.push(  <option value={0} id="root" >Root</option> )
-        return fields;
+      fields.push(  <option value={0} id="root" >Root</option> )
+      return fields;
     }
 
     async edit(){
@@ -76,38 +75,37 @@ class EditForm extends React.Component{
         }
       }  
       this.setState({error : true});
-      
     }
 
     exit(){
-        Element.element.Name = "";
-        Element.element.Id = "";
-        Element.element.IdW = "";
-        Element.element.Type = "file";
-        this.callback();
+      Element.element.Name = "";
+      Element.element.Id = "";
+      Element.element.IdW = "";
+      Element.element.Type = "file";
+      this.callback();
     }
 
     render() {
-        return (
-          <ClickAwayListener onClickAway={this.exit.bind(this)}>
-             <div className={styles.add_form}>
-                <button className={styles.exit} onClick={this.exit.bind(this)}>X</button>
-              <div className={styles.el_form}>
-                <label className={styles.label}>Name:</label>
-                <input id="name" type="text" defaultValue={this.name} onChange={this.getName.bind(this)} className={styles.input}/>
-              </div>
-              <div className={styles.el_form}>
-                <select id="node" className={styles.type } defaultValue={this.idw}  onChange={this.node.bind(this)} >
-                  {this.nodes()}
-                </select>
-              </div>
-              <div className={styles.btn_div}>
-                <button className={styles.form_btn} onClick={this.edit.bind(this)}>Edit</button>
-              </div>
-              {this.state.error ? <div className={styles.error}><a>{Responde.data === false? "Enter wrong data": Responde.data}</a></div> : ""}
+      return (
+        <ClickAwayListener onClickAway={this.exit.bind(this)}>
+            <div className={styles.add_form}>
+              <button className={styles.exit} onClick={this.exit.bind(this)}>X</button>
+            <div className={styles.el_form}>
+              <label className={styles.label}>Name:</label>
+              <input id="name" type="text" defaultValue={this.name} onChange={this.getName.bind(this)} className={styles.input}/>
             </div>
-          </ClickAwayListener> 
-        );
+            <div className={styles.el_form}>
+              <select id="node" className={styles.type } defaultValue={this.idw}  onChange={this.node.bind(this)} >
+                {this.nodes()}
+              </select>
+            </div>
+            <div className={styles.btn_div}>
+              <button className={styles.form_btn} onClick={this.edit.bind(this)}>Edit</button>
+            </div>
+            {this.state.error ? <div className={styles.error}><a>{Responde.data === false? "Enter wrong data": Responde.data}</a></div> : ""}
+          </div>
+        </ClickAwayListener> 
+      );
     }
 }
 

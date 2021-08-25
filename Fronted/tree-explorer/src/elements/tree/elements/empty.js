@@ -4,7 +4,6 @@ import AddForm from '../forms/add_form'
 import Element from '../objects/element'
 import Provider from '../controller/provider'
 
-
 class Empty extends React.Component {
   constructor(props){
     super(props)
