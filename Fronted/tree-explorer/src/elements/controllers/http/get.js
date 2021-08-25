@@ -20,7 +20,6 @@ async function GET(adres){
             
     }
     catch(err){
-        
         Responde.code = 500;
         Responde.data = 'server error';
     }

@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>@ViewData["Title"]</title>
+        <link rel="stylesheet" href="~/css/server/index.css" />
+    </head>
+    <body>
+        <div class="welcome">
+            <h1>Welcome to the server</h1>
+            <h2>Please set the data</h2>
+            <p class="responde" id="responde"></p>
+            <div class="btn_container">
+                <button class="set_btn" id="set_button" onClick="set()">Set data</button>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+
+<script language="javascript">
+    function set() {
+        fetch('https://localhost:5001/Elements/Set')
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok === true) {
+                    document.getElementById("responde").innerText = "Data is set";
+                    document.getElementById("set_button").disabled = true;
+                }
+                else {
+                    document.getElementById("responde").innerText = "Server not responde";
+                }
+            });
+    }
+</script>

@@ -21,9 +21,9 @@ namespace TreeExplorer.Controllers
             _context = context;
         }
 
-        public string Index()
+        public IActionResult Index()
         {
-            return "Welcome to server";
+            return View("Views/Server/Index.cshtml");
         }
 
         // GET: Elements/Set
@@ -33,6 +33,7 @@ namespace TreeExplorer.Controllers
             try
             {
                 list = _context.Element.ToListAsync().Result;
+                Tree.Set(new(list));
             }
             catch (Exception e)
             {
@@ -40,7 +41,7 @@ namespace TreeExplorer.Controllers
                 Console.WriteLine(e.Message);
                 return Json(new { Error = e.Message });
             }
-            Tree.Set(new(list));
+            
             return Json(new { Ok = true });
         }
 
