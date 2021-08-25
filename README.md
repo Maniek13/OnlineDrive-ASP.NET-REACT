@@ -10,6 +10,7 @@ Add-Migration InitialCreate -Context TreeExplorerContext
 Update-Database -Context TreeExplorerContext
 
 4. Start app
+5. Please set data first
 
 Frontend
 npm -v: 6.14.5
