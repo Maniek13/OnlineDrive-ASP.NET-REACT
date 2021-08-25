@@ -37,11 +37,11 @@ namespace TreeExplorer.Controllers
                             usser.Password = password;
                             _context.Add(usser);
                             await _context.SaveChangesAsync();
-                            return Json(new { Ok = true });
+                            return Json(new { Usser = usser.Id });
                         }
                         else
                         {
-                            return Json(new { Ok = false, message = "Usser alredy exist" });
+                            return Json(new { Usser = false, message = "Usser alredy exist" });
                         }
 
 
@@ -56,7 +56,7 @@ namespace TreeExplorer.Controllers
                 }
                 else
                 {
-                    return Json(new { Ok = false });
+                    return Json(new { Usser = false, message = "Usser no valid" });
                 }
             }
 
@@ -72,10 +72,10 @@ namespace TreeExplorer.Controllers
                         
                         if(finded != null)
                         {
-                            return Json(new { Ok = true });
+                            return Json(new { Usser = finded.Id });
                         }
 
-                        return Json(new { Ok = false });
+                        return Json(new { Usser = false, message = "Usser no exist" });
                     }
                     catch (Exception e)
                     {
@@ -86,7 +86,7 @@ namespace TreeExplorer.Controllers
                 }
                 else
                 {
-                    return Json(new { Ok = false });
+                    return Json(new { Usser = false, message = "Usser no valid" });
                 }
             }
         }

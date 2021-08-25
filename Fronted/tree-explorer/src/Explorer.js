@@ -1,8 +1,12 @@
 import Tree from './elements/tree'
+import Account from './elements/account'
+import React from 'react';
 
 function Explorer() {
   return (
-    <Tree/>
+    <React.Fragment>
+      <Tree/>
+    </React.Fragment>
   );
 }
 

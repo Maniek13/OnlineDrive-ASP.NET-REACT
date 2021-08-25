@@ -1,0 +1,18 @@
+.login_form{
+    padding: 20px;
+}
+
+.input_form{
+    padding: 2px;
+    width: 150px;
+    height: 20px;
+    background-color: transparent;
+}
+
+.btn{
+    width: 100px;
+    height: 20px;
+    background-color: transparent;
+    border: 1px solid black;
+    border-radius: 2px;
+}

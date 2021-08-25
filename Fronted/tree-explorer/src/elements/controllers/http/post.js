@@ -21,8 +21,11 @@ async function POST(adres, object) {
                 Responde.code = 413;
                 Responde.data = "Name is to longer";
             }
+            else if(typeof res.usser !== 'undefined'){
+                Responde.code = 1;
+                Responde.data = res.usser;
+            }
             else if(typeof res.data.error === 'undefined'){
-                console.log(res.data);
                 Responde.code = 1;
                 Responde.data = res.data.ok;
             }
