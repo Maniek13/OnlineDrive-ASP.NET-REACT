@@ -53,7 +53,7 @@ namespace TreeExplorer.Controllers
                         Console.WriteLine("Add err");
                         Console.WriteLine(e.Message);
 
-                        return Json(new { Message = e.Message, Status = 500 });
+                        return Json(new { e.Message, Status = 500 });
                     }
                 }
                 else
@@ -84,7 +84,7 @@ namespace TreeExplorer.Controllers
                         Console.WriteLine("Add err");
                         Console.WriteLine(e.Message);
 
-                        return Json(new { Message = e.Message, Status = 500 });
+                        return Json(new { e.Message, Status = 500 });
                     }
                 }
                 else

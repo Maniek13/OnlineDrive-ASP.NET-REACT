@@ -40,7 +40,7 @@ namespace TreeExplorer.Controllers
                 Console.WriteLine("Show err");
                 Console.WriteLine(e.Message);
 
-                return Json(new { Message = e.Message, Status = 500 });
+                return Json(new { e.Message, Status = 500 });
             }
             
             return Json(new { Message = true, Status = 200 });
@@ -110,11 +110,11 @@ namespace TreeExplorer.Controllers
 
                         Tree.Delete(id);
 
-                        return Json(new { Message = e.Message, Status = 500 });
+                        return Json(new { e.Message, Status = 500 });
                     }
                
                 }
-                return Json(new { Message = responde.Message, Status = 400 }); 
+                return Json(new { responde.Message, Status = 400 }); 
                
             }
             else
@@ -154,7 +154,7 @@ namespace TreeExplorer.Controllers
                 }
                 
             }
-            return Json(new { Message  = responde.Message, Status = 400 });
+            return Json(new { responde.Message, Status = 400 });
         }
 
         // Post: Elements/Edit
@@ -212,7 +212,7 @@ namespace TreeExplorer.Controllers
                     }
                     else
                     {
-                        return Json(new { Message = responde.Message, Status = 400 });
+                        return Json(new { responde.Message, Status = 400 });
                     }
                         
                 }
@@ -270,7 +270,7 @@ namespace TreeExplorer.Controllers
             }
             else
             {
-                return Json(new { Message = responde.Message, Status = 400 });
+                return Json(new { responde.Message, Status = 400 });
             }
                
         }
