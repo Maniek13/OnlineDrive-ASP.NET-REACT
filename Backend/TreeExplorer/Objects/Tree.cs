@@ -26,12 +26,12 @@ namespace TreeExplorer.Objects
             return _list;
         }
 
-        public static List<Element>? Get(int userId)
+        public static List<Element>? Get(int usserId)
         {
             List<Element> list = new();
             try
             {
-                list =  _list.Where(el => el.UsserId == userId).ToList();
+                list =  _list.Where(el => el.UsserId == usserId).ToList();
             }
             catch
             {
@@ -55,7 +55,7 @@ namespace TreeExplorer.Objects
 
                 List<Element> els = Folder(idW, type);
 
-                if(els.Find(el => el.Name == name) == null)
+                if(els.Find(el => el.Name == name && el.IdW == idW) == null)
                 {
                     _list.Add(element);
                     responde.Message = "Ok";

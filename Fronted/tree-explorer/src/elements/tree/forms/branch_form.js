@@ -52,7 +52,6 @@ class Branch extends React.Component{
       if(this.id === 0){
         fields.push(<Empty tree_calback = {this.tree_calback} id={this.id} key={"empty"}/>)
       }
-    
     }
     
     return fields;
