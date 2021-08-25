@@ -17,6 +17,7 @@ namespace TreeExplorer.Controllers
         public class UssersController : Controller
         {
             private readonly UsserContext _context;
+            private readonly string path = System.IO.Directory.GetCurrentDirectory();
 
             public UssersController(UsserContext context)
             {
@@ -38,9 +39,8 @@ namespace TreeExplorer.Controllers
                             usser.Password = password;
                             _context.Add(usser);
                             await _context.SaveChangesAsync();
-
-                            string path = System.IO.Directory.GetCurrentDirectory();
-                            Directory.CreateDirectory(path + "\\Disk\\UssersFiles\\" + usser.Id);
+                            
+                            Directory.CreateDirectory(this.path + "\\Disk\\UssersFiles\\" + usser.Id);
 
                             return Json(new { Message = usser.Id, Status = 200 });
                         }
