@@ -1,7 +1,7 @@
 import React from 'react'
-import Start from './account/account_start'
+import Start from './account_login/account_login_start'
 
-class Account extends React.Component {
+class AccountLogin extends React.Component {
   constructor(props){
     super(props)
 
@@ -15,4 +15,4 @@ class Account extends React.Component {
   }
 }
 
-export default Account;
+export default AccountLogin;

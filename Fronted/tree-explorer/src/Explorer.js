@@ -1,8 +1,8 @@
 import Tree from './elements/tree'
-import Account from './elements/account'
 import React from 'react';
 import Element from './elements/tree/objects/element';
-import Usser from './elements/account/objects/usser';
+import Usser from './elements/account_login/objects/usser';
+import AccountLogin from './elements/account_login';
 
 class Explorer  extends React.Component {
   constructor(props){
@@ -22,7 +22,7 @@ class Explorer  extends React.Component {
   
   render(){
     return (
-      this.state.loged === true ? <Tree/> : <Account login_callback={this.login} />
+      this.state.loged === true ? <Tree/> : <AccountLogin login_callback={this.login} />
     );
   }
 }
