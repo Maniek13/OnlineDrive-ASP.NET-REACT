@@ -280,7 +280,6 @@ namespace TreeExplorer.Objects
              
             }
 
-
             IEnumerable<Element> list;
 
             list = from el in _list
