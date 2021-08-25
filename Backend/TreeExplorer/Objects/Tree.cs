@@ -172,9 +172,6 @@ namespace TreeExplorer.Objects
                     responde.Message = "Element alredy exist";
                     responde.Error = true;
                 }
-
-
-                    
             }
             return responde;
         }

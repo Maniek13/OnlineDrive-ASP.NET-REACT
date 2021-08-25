@@ -37,11 +37,12 @@ namespace TreeExplorer.Controllers
                             usser.Password = password;
                             _context.Add(usser);
                             await _context.SaveChangesAsync();
-                            return Json(new { Usser = usser.Id });
+
+                            return Json(new { Message = usser.Id, Status = 200 });
                         }
                         else
                         {
-                            return Json(new { Usser = false, Message = "Usser alredy exist" });
+                            return Json(new { Message = "Usser alredy exist", Status = 400 });
                         }
 
 
@@ -51,12 +52,13 @@ namespace TreeExplorer.Controllers
                     {
                         Console.WriteLine("Add err");
                         Console.WriteLine(e.Message);
-                        return Json(new { Error = e.Message });
+
+                        return Json(new { Message = e.Message, Status = 500 });
                     }
                 }
                 else
                 {
-                    return Json(new { Usser = false, Message = "Usser no valid" });
+                    return Json(new { Message = "Usser no valid", Status = 400 });
                 }
             }
 
@@ -72,21 +74,22 @@ namespace TreeExplorer.Controllers
                         
                         if(finded != null)
                         {
-                            return Json(new { Usser = finded.Id });
+                            return Json(new { Message = finded.Id, Status = 200 });
                         }
 
-                        return Json(new { Usser = false, Message = "Usser no exist" });
+                        return Json(new {  Message = "Usser no exist", Status = 400 });
                     }
                     catch (Exception e)
                     {
                         Console.WriteLine("Add err");
                         Console.WriteLine(e.Message);
-                        return Json(new { Error = e.Message });
+
+                        return Json(new { Message = e.Message, Status = 500 });
                     }
                 }
                 else
                 {
-                    return Json(new { Usser = false, Message = "Usser no valid" });
+                    return Json(new { Message = "Usser no valid", Status = 400 });
                 }
             }
         }

@@ -57,7 +57,8 @@ class EditForm extends React.Component{
 
     async edit(){
       await TreeController.edit();
-      if(Responde.data === true){
+      if(Responde.code === 200){
+        Responde.code = 100;
         await TreeController.get_tree();
 
         if(Responde.code === 200){
@@ -74,7 +75,7 @@ class EditForm extends React.Component{
           this.setState({error : true});
         }
       }  
-        this.setState({error : true});
+      this.setState({error : true});
       
     }
 

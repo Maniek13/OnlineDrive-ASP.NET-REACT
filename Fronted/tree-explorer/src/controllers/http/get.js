@@ -8,23 +8,14 @@ async function GET(adres){
                data: data
            }))
            .then(res => {
-               if(typeof res.data.error === 'undefined'){
-                Responde.code = 200;
-                Responde.data = res.data;
-               }
-               else{
-                Responde.code = 400;
-                Responde.data = res.data.error;
-               }
+                Responde.code = res.data.status;
+                Responde.data = res.data.message;
             });
-            
     }
     catch(err){
         Responde.code = 500;
         Responde.data = 'server error';
     }
 }
-
-
 
 export default GET;

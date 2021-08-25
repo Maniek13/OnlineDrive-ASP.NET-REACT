@@ -24,8 +24,8 @@ class DelForm extends React.Component{
     async delete(){
       await TreeController.delete(this.id);
       
-      if(Responde.data === true){
-        
+      if(Responde.code === 200){
+        Responde.code = 100;
         await TreeController.get_tree();
     
         if(Responde.code === 200){

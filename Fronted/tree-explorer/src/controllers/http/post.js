@@ -20,28 +20,9 @@ async function POST(adres, object) {
                 Responde.code = 413;
                 Responde.data = "Name is to longer";
             }
-            else if(typeof res.data.usser !== 'undefined'){
-                if(res.data.usser != false){
-                    Responde.code = 200;
-                    Responde.data = res.data.usser; 
-                }
-                else{
-                    Responde.code = 400;
-                    Responde.data = res.data.message;
-                }
-               
-            }
-            else if(typeof res.data.tree !== 'undefined'){
-                Responde.code = 200;
-                Responde.data = res.data.tree;
-            }
-            else if(typeof res.data.error === 'undefined'){
-                Responde.code = 200;
-                Responde.data = res.data.ok;
-            }
-            else{
-                Responde.code = 400;
-                Responde.data = res.data.error;
+            else {
+                Responde.code = res.data.status;
+                Responde.data = res.data.message;
             }    
         }));
     }

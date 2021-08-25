@@ -39,16 +39,17 @@ namespace TreeExplorer.Controllers
             {
                 Console.WriteLine("Show err");
                 Console.WriteLine(e.Message);
-                return Json(new { Error = e.Message });
+
+                return Json(new { Message = e.Message, Status = 500 });
             }
             
-            return Json(new { Ok = true });
+            return Json(new { Message = true, Status = 200 });
         }
 
         // GET: Elements/Show
         public JsonResult Show()
         {
-            return Json(Tree.Get());
+            return Json(new { Message = Tree.Get(), Status = 200});
         }
 
         [HttpPost]
@@ -60,17 +61,17 @@ namespace TreeExplorer.Controllers
 
                 if(list != null)
                 {
-                    return Json(new { Tree = list});
+                    return Json(new { Message = list, Status = 200});
                 }
                 else
                 {
-                    return Json(new { Error = "Server not responde. If you are administrator please set the data first" });
+                    return Json(new { Message = "Server not responde. If you are administrator please set the data first", Status = 500 });
                 }
               
             }
             else
             {
-                return Json(new { Error = "Wrong index of usser" });
+                return Json(new { Message = "Wrong index of usser", Status = 400 });
             }
         }
 
@@ -98,7 +99,8 @@ namespace TreeExplorer.Controllers
                     {
                         _context.Add(element);
                         await _context.SaveChangesAsync();
-                        return Json(new { Ok = true });
+
+                        return Json(new { Message = true, Status = 200 });
                     }
                     catch(Exception e)
                     {
@@ -107,16 +109,16 @@ namespace TreeExplorer.Controllers
 
                         Tree.Delete(id);
 
-                        return Json(new { Error = e.Message });
+                        return Json(new { Message = e.Message, Status = 500 });
                     }
                
                 }
-                return Json(new { Error = responde.Message }); 
+                return Json(new { Message = responde.Message, Status = 400 }); 
                
             }
             else
             {
-                return Json(new { Ok = false });
+                return Json(new { Message = "Wrong data", Status = 400 });
             }
         }
 
@@ -136,7 +138,7 @@ namespace TreeExplorer.Controllers
                     _context.Element.RemoveRange(listToDel);
                     await _context.SaveChangesAsync();
 
-                    return Json(new { Ok = true });
+                    return Json(new { Message = true, Status = 200 });
                 }
                 catch(Exception e)
                 {
@@ -147,11 +149,11 @@ namespace TreeExplorer.Controllers
                     Element el = _context.Element.ElementAt(id);
                     Tree.Add(el.Id, el.Name, el.Type, el.IdW, el.UsserId);
 
-                    return Json(new { Error = "Delete err" });
-                    }
+                    return Json(new { Message = "Delete err", Status = 500 });
+                }
                 
             }
-            return Json(new { Error  = responde.Message });
+            return Json(new { Message  = responde.Message, Status = 400 });
         }
 
         // Post: Elements/Edit
@@ -192,7 +194,8 @@ namespace TreeExplorer.Controllers
 
                             _context.Update(element);
                             await _context.SaveChangesAsync();
-                            return Json(new { Ok = true });
+
+                            return Json(new { Message = true, Status = 200 });
                         }
                         catch (Exception e)
                         {
@@ -203,18 +206,19 @@ namespace TreeExplorer.Controllers
 
                             Tree.Edit(element);
 
-                            return Json(new { Error = "Edit err" });
+                            return Json(new { Message = "Edit err", Status = 500 });
                         }
                     }
                     else
-                        return Json(new { Error = responde.Message });
+                    {
+                        return Json(new { Message = responde.Message, Status = 400 });
+                    }
+                        
                 }
-
-
-                return Json(new { Ok = false });
+                return Json(new { Message = "Can't move folder to child", Status = 400 });
                 
             }
-            return Json(new { Ok = false });
+            return Json(new { Message = "Element must be a name", Status = 400 });
         }
 
 
@@ -247,7 +251,8 @@ namespace TreeExplorer.Controllers
                         element.IdW = idW;
                         _context.Element.Update(element);
                         await _context.SaveChangesAsync();
-                        return Json(new { Ok = true });
+
+                        return Json(new { Message = true, Status = 200});
                     }
                     catch (Exception e)
                     {
@@ -256,21 +261,24 @@ namespace TreeExplorer.Controllers
 
                         Tree.Move(id, idWOld);
 
-                        return Json(new { Error = "Move err" });
+                        return Json(new { Message = "Move err", Status = 500 });
                     }
                 }
-                return Json(new { Ok = false });
+                return Json(new { Message = false, Status = 400});
 
             }
             else
-                return Json(new { Error = responde.Message });
+            {
+                return Json(new { Message = responde.Message, Status = 400 });
+            }
+               
         }
 
         // Post: Elements/Sort
         [HttpPost]
         public JsonResult Sort([Bind("Id")] int id, [Bind("Type")] string type)
         {
-            return Json(new { Ok = Tree.Sort(id, type)});
+            return Json(new { Message = Tree.Sort(id, type), Status = 200});
         }
 
     }
