@@ -4,8 +4,8 @@ import Empty from '../elements/empty'
 import File from '../elements/file'
 import Folder from '../elements/folder'
 import styles from '../styles/tree.module.css'
-import TreeController from '../../controllers/tree/tree_controller'
-import Responde from '../../controllers/http/objects/responde'
+import TreeController from '../../../controllers/tree/tree_controller'
+import Responde from '../../../objects/responde'
 
 
 class Branch extends React.Component{

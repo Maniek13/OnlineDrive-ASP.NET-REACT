@@ -1,10 +1,10 @@
 import React from 'react'
 import Element from '../objects/element'
 import styles from '../styles/tree.module.css'
-import Responde from '../../controllers/http/objects/responde'
+import Responde from '../../../objects/responde'
 import List from '../objects/list'
 import Provider from '../controller/provider'
-import TreeController from '../../controllers/tree/tree_controller'
+import TreeController from '../../../controllers/tree/tree_controller'
 import ClickAwayListener from 'react-click-away-listener'
 
 

@@ -1,4 +1,4 @@
-import Responde from './objects/responde'
+import Responde from '../../objects/responde'
 
 async function GET(adres){
     try{

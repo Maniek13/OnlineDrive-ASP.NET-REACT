@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from '../styles/tree.module.css'
-import Responde from '../../controllers/http/objects/responde'
+import Responde from '../../../objects/responde'
 
 class Error extends React.Component {
   render() {

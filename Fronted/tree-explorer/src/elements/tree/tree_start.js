@@ -1,8 +1,8 @@
 import React from 'react'
-import Responde from '../controllers/http/objects/responde'
+import Responde from '../../objects/responde'
 import Tree from './elements/tree'
 import Error from './elements/error'
-import TreeController from '../controllers/tree/tree_controller'
+import TreeController from '../../controllers/tree/tree_controller'
 
 class Start extends React.Component {
   constructor(props){

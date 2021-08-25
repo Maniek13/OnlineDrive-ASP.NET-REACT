@@ -1,8 +1,8 @@
 import POST from '../http/post'
 import GET from '../http/get'
-import Responde from '../http/objects/responde'
-import Element from "../../tree/objects/element"
-import List from '../../tree/objects/list'
+import Responde from '../../objects/responde'
+import Element from "../../elements/tree/objects/element"
+import List from '../../elements/tree/objects/list'
 
 
 class TreeController{

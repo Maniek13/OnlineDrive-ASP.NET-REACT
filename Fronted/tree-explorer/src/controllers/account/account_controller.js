@@ -1,6 +1,6 @@
 import POST from '../http/post'
 import Usser from '../../account/objects/usser';
-import Responde from '../http/objects/responde';
+import Responde from '../../objects/responde';
 
 
 class TreeController{

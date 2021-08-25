@@ -3,7 +3,6 @@ import Provider from '../controller/provider'
 import Branch from '../forms/branch_form'
 import styles from '../styles/tree.module.css'
 
-
 class Tree extends React.Component {
   constructor(props){
     super(props)
