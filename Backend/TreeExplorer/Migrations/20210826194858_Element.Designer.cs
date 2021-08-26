@@ -9,7 +9,7 @@ using TreeExplorer.Data;
 namespace TreeExplorer.Migrations
 {
     [DbContext(typeof(ElementContext))]
-    [Migration("20210826191537_Element")]
+    [Migration("20210826194858_Element")]
     partial class Element
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

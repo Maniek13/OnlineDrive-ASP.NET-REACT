@@ -86,80 +86,55 @@ namespace TreeExplorer.Controllers
         {
             if (TryValidateModel(element, nameof(element)))
             {
-                int id;
-
-                if (Tree.Get().Count == 0)
+                try
                 {
-                    id = 0;
-                }
-                else
-                {
-                    id = _context.Element.ToListAsync().Result.Last().Id + 1;
-                }
+                    string path = this.path + element.UsserId + "\\";
 
+                    List<string> fileStructure = Tree.FindPath(element.IdW);
 
-                Responde responde = Tree.Add(id, element.Name, element.Type, element.IdW, element.UsserId);
-
-                if (responde.Error == false)
-                {
-                    try
-                    {
-                        _context.Add(element);
-                        await _context.SaveChangesAsync();
-
-                        string path = this.path + element.UsserId + "\\";
-
-                        List<string> fileStructure = Tree.FindPath(element.IdW);
-
-                        foreach(string folder in fileStructure){
-                            path += folder + "\\";
-                        }
+                    foreach(string folder in fileStructure){
+                        path += folder + "\\";
+                    }
 
                      
-                        if(element.Type == "file")
+                    if(element.Type == "file")
+                    {
+                        if (file != null)
                         {
-                            if (file != null)
-                            {
-                                path += file.FileName;
-                                Element el = _context.Element.SingleOrDefault(el => el.Id == id);
-                                el.Path = path;
+                            path += file.FileName;
+                            element.Path = path;
 
-                                _context.Update(el);
-                                await _context.SaveChangesAsync();
-
-                                if (file.Length > 0)
-                                {
-                                    using var stream = System.IO.File.Create(path);
-                                    await file.CopyToAsync(stream);
-                                }
-                            }
-                            else
+                            if (file.Length > 0)
                             {
-                                return Json(new { Message = "Please chose a file", Status = 400 });
+                                using var stream = System.IO.File.Create(path);
+                                await file.CopyToAsync(stream);
                             }
-                            
                         }
                         else
                         {
-                            Directory.CreateDirectory(path + element.Name);
+                            return Json(new { Message = "Please chose a file", Status = 400 });
                         }
-
-
-                        return Json(new { Message = true, Status = 200 });
+                            
                     }
-                    catch(Exception e)
+                    else
                     {
-                        Console.WriteLine("Add err");
-                        Console.WriteLine(e.Message);
-
-                        Tree.Delete(id);
-
-                        return Json(new { e.Message, Status = 500 });
+                        Directory.CreateDirectory(path + element.Name);
                     }
-               
+
+                    _context.Add(element);
+                    await _context.SaveChangesAsync();
+
+                    Responde responde = Tree.Add(element.Id, element.Name, element.Type, element.IdW, element.UsserId);
+
+                    return Json(new { Message = true, Status = 200 });
                 }
-                return Json(new { responde.Message, Status = 400 }); 
-               
+                catch(Exception e)
+                {
+                    Console.WriteLine("Add err");
+                    Console.WriteLine(e.Message);
+
+                    return Json(new { e.Message, Status = 500 });
+                }
             }
             else
             {
