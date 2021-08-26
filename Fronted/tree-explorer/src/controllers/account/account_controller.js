@@ -23,20 +23,20 @@ class AccountController{
 
     static async save_usser_data(){
         await this.data();
-        await POST("https://localhost:5001/UsserDatas/SaveUsserData", {UsserId : Usser.id.Id, IpV4 : Usser.usser_data.IpV4, Browser : Usser.usser_data.Browser } );
+        await POST("https://localhost:5001/UsserDatas/SaveUsserData", {Name : Usser.usser.Name, UsserId : Usser.id.Id, IpV4 : Usser.usser_data.IpV4, Browser : Usser.usser_data.Browser } );
     }
 
     static async is_saved(){
         await this.data();
         await POST("https://localhost:5001/UsserDatas/IsSaved", Usser.usser_data);
         if(Responde.code === 200){
-            Usser.id.Id = Responde.data;
+            Usser.id.Id = Responde.data.id;
+            Usser.usser.Name = Responde.data.name;
         }
     }
 
     static async remove_data(){
-        await POST("https://localhost:5001/UsserDatas/RemoveData", {UsserId : Usser.id.Id, IpV4 : Usser.usser_data.IpV4, Browser : Usser.usser_data.Browser });
-        
+        await POST("https://localhost:5001/UsserDatas/RemoveData", Usser.usser_data);  
     }
 
     static async data(){

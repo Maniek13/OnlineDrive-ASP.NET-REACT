@@ -21,7 +21,7 @@ namespace TreeExplorer.Controllers
             }
 
             [HttpPost]
-            public async Task<JsonResult> SaveUsserData([Bind("UsserId,IpV4,Browser")] UsserData usserData)
+            public async Task<JsonResult> SaveUsserData([Bind("Name,UsserId,IpV4,Browser")] UsserData usserData)
             {
                 if (TryValidateModel(usserData, nameof(usserData)))
                 {
@@ -49,65 +49,49 @@ namespace TreeExplorer.Controllers
 
 
             [HttpPost]
-            public JsonResult IsSaved([Bind("IpV4,Browser")] UsserData usserData)
+            public JsonResult IsSaved([Bind("IpV4")] string ipV4, [Bind("Browser")] string browser)
             {
-                if (TryValidateModel(usserData, nameof(usserData)))
+                try
                 {
-                    try
+                    UsserData? data = _context.UsserData.SingleOrDefault(el => el.IpV4 == ipV4 && el.Browser == browser);
+
+                    if(data != null)
                     {
-                        UsserData? data = _context.UsserData.SingleOrDefault(el => el.IpV4 == usserData.IpV4 && el.Browser == usserData.Browser);
-
-                        if(data != null)
-                        {
-                            return Json(new { Message = data.UsserId, Status = 200 });
-                        }
-
-                        return Json(new { Message = 0, Status = 200 });
-
+                        return Json(new { Message  = new { Id = data.UsserId, Name = data.Name}, Status = 200 });
                     }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine("Add err");
-                        Console.WriteLine(e.Message);
 
-                        return Json(new { e.Message, Status = 500 });
-                    }
+                    return Json(new { Message = 0, Status = 200 });
                 }
-                else
+                catch (Exception e)
                 {
-                    return Json(new { Message = "Usser no valid", Status = 400 });
+                    Console.WriteLine("Add err");
+                    Console.WriteLine(e.Message);
+
+                    return Json(new { e.Message, Status = 500 });
                 }
             }
 
             [HttpPost]
-            public async Task<JsonResult> RemoveData([Bind("UsserId,IpV4,Browser")] UsserData usserData)
+            public async Task<JsonResult> RemoveData([Bind("IpV4")] string ipV4, [Bind("Browser")] string browser)
             {
-                if (TryValidateModel(usserData, nameof(usserData)))
+                try
                 {
-                    try
-                    {
-                        UsserData data = _context.UsserData.SingleOrDefault(el => el.IpV4 == usserData.IpV4 && el.Browser == usserData.Browser);
-                        _context.UsserData.RemoveRange(data);
-                        await _context.SaveChangesAsync();
+                    UsserData data = _context.UsserData.SingleOrDefault(el => el.IpV4 == ipV4 && el.Browser == browser);
+                    _context.UsserData.RemoveRange(data);
+                    await _context.SaveChangesAsync();
 
-                        return Json(new { Message = "Usser wad succesfully deleted", Status = 200 });
+                    return Json(new { Message = "Usser wad succesfully deleted", Status = 200 });
 
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine("Add err");
-                        Console.WriteLine(e.Message);
-
-                        return Json(new { e.Message, Status = 500 });
-                    }
                 }
-                else
+                catch (Exception e)
                 {
-                    return Json(new { Message = "Usser no valid", Status = 400 });
+                    Console.WriteLine("Add err");
+                    Console.WriteLine(e.Message);
+
+                    return Json(new { e.Message, Status = 500 });
                 }
+            
             }
-
-
         }
     }
 

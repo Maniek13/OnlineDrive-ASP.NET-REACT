@@ -33,6 +33,10 @@ namespace TreeExplorer.Migrations.UsserData
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("UsserId")
                         .HasColumnType("int");
 

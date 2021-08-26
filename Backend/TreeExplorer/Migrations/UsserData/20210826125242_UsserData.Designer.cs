@@ -9,7 +9,7 @@ using TreeExplorer.Data;
 namespace TreeExplorer.Migrations.UsserData
 {
     [DbContext(typeof(UsserDataContext))]
-    [Migration("20210826114150_UsserData")]
+    [Migration("20210826125242_UsserData")]
     partial class UsserData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,6 +32,10 @@ namespace TreeExplorer.Migrations.UsserData
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IpV4")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

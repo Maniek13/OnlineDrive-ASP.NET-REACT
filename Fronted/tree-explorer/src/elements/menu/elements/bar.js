@@ -1,6 +1,7 @@
 import React from 'react'
 import AccountController from '../../../controllers/account/account_controller'
 import Responde from '../../../objects/responde';
+import Usser from '../../account_login/objects/usser';
 import styles from '../styles/menu.module.css'
 
 class Bar extends React.Component {
@@ -18,6 +19,7 @@ class Bar extends React.Component {
     render() {
     return (
         <div className={styles.bar}>
+            <div className={styles.name}>{Usser.usser.Name}</div>
             <button className={styles.logout_btn} onClick={this.logout}>LogOut</button>
         </div>
     );
