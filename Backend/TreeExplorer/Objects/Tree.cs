@@ -23,7 +23,11 @@ namespace TreeExplorer.Objects
 
         public static List<Element> Get()
         {
-            return _list;
+            IEnumerable<Element> query = from el in _list
+                                         orderby el.Type descending
+                                         select el;
+
+            return query.ToList();
         }
 
         public static List<Element>? Get(int usserId)
@@ -32,11 +36,18 @@ namespace TreeExplorer.Objects
             try
             {
                 list =  _list.Where(el => el.UsserId == usserId).ToList();
+
+                IEnumerable<Element> query = from el in list
+                                             orderby el.Type descending
+                                             select el;
+                list = query.ToList();
+
             }
             catch
             {
                 list = null;
             }
+
 
             return list;
         }
