@@ -39,7 +39,8 @@ If want more chars in response (longer name of files/folder) please change Conte
 
 _____________________IN PROGRES________________________
 
-- download files / - tree view (long named of file)
+- download files 
+- the appearance of the file manager (css)
 
 
 
