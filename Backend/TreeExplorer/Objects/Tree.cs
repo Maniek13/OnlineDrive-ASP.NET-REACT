@@ -41,7 +41,7 @@ namespace TreeExplorer.Objects
             return list;
         }
 
-        public static Responde Add(int id, string name, string type, int idW, int userId)
+        public static Responde Add(int id, string name, string type, int idW, int usserId)
         {
             Responde responde = new();
             if (_list is null)
@@ -51,11 +51,11 @@ namespace TreeExplorer.Objects
             }
             else
             {
-                Element element = new() { Id = id, Name = name, Type = type, IdW = idW, UsserId = userId };
+                Element element = new() { Id = id, Name = name, Type = type, IdW = idW, UsserId = usserId };
 
                 List<Element> els = Folder(idW, type);
 
-                if(els.Find(el => el.Name == name && el.IdW == idW) == null)
+                if(els.Find(el => el.Name == name && el.IdW == idW && el.UsserId == usserId) == null)
                 {
                     _list.Add(element);
                     responde.Message = "Ok";
@@ -138,6 +138,35 @@ namespace TreeExplorer.Objects
                                          select el;
 
             return query.ToList<Element>();
+        }
+
+        public static List<string> FindPath(int idW)
+        {
+            List<string> path = new();
+            bool stop = false;
+            
+
+            while(stop == false){
+
+                Element? el = _list.Find(el => el.Id == idW);
+                if(el != null)
+                {
+                    path.Add(el.Name);
+                    idW = el.IdW;
+
+                    if(idW == 0)
+                    {
+                        stop = true;
+                    }
+                }
+                else
+                {
+                    stop = true;
+                }
+                
+            }
+
+            return path;
         }
 
         public static Responde Edit(Element element) 

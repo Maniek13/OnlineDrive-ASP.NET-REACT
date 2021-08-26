@@ -4,7 +4,8 @@ class Element{
         Name: "",
         Type: "file",
         IdW: "",
-        UsserId: ""
+        UsserId: "",
+        File: ""
     }
 }
 

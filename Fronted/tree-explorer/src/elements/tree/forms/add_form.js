@@ -48,7 +48,12 @@ class AddForm extends React.Component{
         }
       }
       this.setState({error : true});
-     
+    }
+    
+
+    file(evt){
+      //Element.element.Name = evt.target.files[0].name;
+      Element.element.File = evt.target.files[0];
     }
 
     exit(){
@@ -61,9 +66,10 @@ class AddForm extends React.Component{
               <div className={styles.add_form}>
               <button className={styles.exit} onClick={this.exit.bind(this)}>X</button>
               <div className={styles.el_form}>
-                 <label className={styles.label}>Name:</label>
+                <label className={styles.label}>Name:</label>
                 <input id="name" type="text" onChange={this.name.bind(this)} className={styles.input}/>
               </div>
+              <input type="file" name="file" onChange={this.file.bind(this)}/>
               <div className={styles.el_form}>
                 <label>Is folder?</label> 
                 <input value={this.state.checked} type="checkbox" id="type"  defaultChecked={false} onChange={this.type.bind(this)} className={styles.input}/>

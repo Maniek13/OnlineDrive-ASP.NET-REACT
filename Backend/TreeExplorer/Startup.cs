@@ -56,7 +56,7 @@ namespace TreeExplorer
 
             app.UseContentLengthRestriction(new ContentLengthRestrictionOptions
             {
-                ContentLengthLimit = 1000
+               // ContentLengthLimit = 10000
             });
 
             app.UseEndpoints(endpoints =>

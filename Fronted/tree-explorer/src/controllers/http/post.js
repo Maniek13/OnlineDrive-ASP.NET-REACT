@@ -2,7 +2,6 @@ import Responde from '../../objects/responde'
 
 async function POST(adres, object) {
     const formData = new FormData()
-
     for (var i in object){
         formData.append(i, object[i]);
     }

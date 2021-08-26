@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -16,6 +17,7 @@ namespace TreeExplorer.Controllers
     public class ElementsController : Controller
     {
         private readonly TreeExplorerContext _context;
+        private readonly string path = @System.IO.Directory.GetCurrentDirectory().ToString() + "\\Disk\\UssersFiles\\";
 
         public ElementsController(TreeExplorerContext context)
         {
@@ -79,7 +81,7 @@ namespace TreeExplorer.Controllers
 
         // Post: Elements/Add
         [HttpPost]
-        public async Task<JsonResult> Add([Bind("Name,Type,IdW, UsserId")] Element element)
+        public async Task<JsonResult> Add([Bind("Name,Type,IdW,UsserId")] Element element, [Bind("File")] IFormFile file)
         {
             if (TryValidateModel(element, nameof(element)))
             {
@@ -95,12 +97,44 @@ namespace TreeExplorer.Controllers
                 }
 
                 Responde responde = Tree.Add(id, element.Name, element.Type, element.IdW, element.UsserId);
+
                 if (responde.Error == false)
                 {
                     try
                     {
                         _context.Add(element);
                         await _context.SaveChangesAsync();
+
+                        string path = this.path + element.UsserId + "\\";
+
+                        List<string> fileStructure = Tree.FindPath(element.IdW);
+
+                        foreach(string folder in fileStructure){
+                            path += folder + "\\";
+                        }
+
+                     
+                        if(element.Type == "file")
+                        {
+                            if (file != null)
+                            {
+                                path += file.FileName;
+
+                                if (file.Length > 0)
+                                {
+                                    using (var stream = System.IO.File.Create(path))
+                                    {
+                                        await file.CopyToAsync(stream);
+                                    }
+                                }
+                            }
+                            
+                        }
+                        else
+                        {
+                            Directory.CreateDirectory(path + element.Name);
+                        }
+
 
                         return Json(new { Message = true, Status = 200 });
                     }
