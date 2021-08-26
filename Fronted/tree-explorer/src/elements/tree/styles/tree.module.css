@@ -7,7 +7,7 @@
 }
 
 .sort_bar:first-child::before{
-    content: "Tree explorer";
+    content: "Online drive";
 }
 
 
@@ -37,7 +37,6 @@
     padding: 20px;
     border: 1px solid black;
 }
-
 
 .el_form{
     padding: 10px;
@@ -79,6 +78,12 @@ input{
     font-size: 14px;
     width: 150px;  
     height: 20px;  
+}
+
+.folder, .file{
+    white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .empty, .add_btn, .edit_btn, .del_btn, .show_btn{
