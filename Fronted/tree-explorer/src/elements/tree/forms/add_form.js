@@ -23,7 +23,7 @@ class AddForm extends React.Component{
 
     type(evt){
       Element.element.Type = this.state.checked ? "file" : "node";
-      this.setState({checked : !evt.target.value});
+      this.setState({checked : document.getElementById("type").checked});
     }
 
     name(evt){
@@ -52,7 +52,7 @@ class AddForm extends React.Component{
     
 
     file(evt){
-      //Element.element.Name = evt.target.files[0].name;
+      Element.element.Name = evt.target.files[0].name;
       Element.element.File = evt.target.files[0];
     }
 
@@ -65,11 +65,16 @@ class AddForm extends React.Component{
           <ClickAwayListener onClickAway={this.exit.bind(this)}>
               <div className={styles.add_form}>
               <button className={styles.exit} onClick={this.exit.bind(this)}>X</button>
+
+              {
+              this.state.checked ? 
               <div className={styles.el_form}>
                 <label className={styles.label}>Name:</label>
                 <input id="name" type="text" onChange={this.name.bind(this)} className={styles.input}/>
-              </div>
+              </div> : 
               <input type="file" name="file" onChange={this.file.bind(this)}/>
+              }
+
               <div className={styles.el_form}>
                 <label>Is folder?</label> 
                 <input value={this.state.checked} type="checkbox" id="type"  defaultChecked={false} onChange={this.type.bind(this)} className={styles.input}/>

@@ -128,6 +128,10 @@ namespace TreeExplorer.Controllers
                                     }
                                 }
                             }
+                            else
+                            {
+                                return Json(new { Message = "Please chose a file", Status = 400 });
+                            }
                             
                         }
                         else

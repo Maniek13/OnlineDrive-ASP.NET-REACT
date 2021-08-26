@@ -1,4 +1,4 @@
-# Explorer tree
+# Online disk (IN PROGRES)
 
 Backend
 1. Create new project: ASP.NET Core (Model-View-Controller) instal pasckage: use this from nuget console: Install-Package Microsoft.EntityFrameworkCore.Design
@@ -35,7 +35,7 @@ If want more chars in response (longer name of files/folder) please change Conte
 
 _____________________IN PROGRES________________________
 
-- download files / -upload files form // -add elements (checkbox don't work)
+- download files / - tree view (long named of file)
 
 
 
