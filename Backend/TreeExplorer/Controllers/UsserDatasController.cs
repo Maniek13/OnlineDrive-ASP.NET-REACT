@@ -76,11 +76,20 @@ namespace TreeExplorer.Controllers
             {
                 try
                 {
-                    UsserData data = _context.UsserData.SingleOrDefault(el => el.IpV4 == ipV4 && el.Browser == browser);
-                    _context.UsserData.RemoveRange(data);
-                    await _context.SaveChangesAsync();
+                    UsserData? data = _context.UsserData.SingleOrDefault(el => el.IpV4 == ipV4 && el.Browser == browser);
 
-                    return Json(new { Message = "Usser wad succesfully deleted", Status = 200 });
+                    if (data != null)
+                    {
+                        _context.UsserData.RemoveRange(data);
+                        await _context.SaveChangesAsync();
+
+                        return Json(new { Message = "Usser was succesfully deleted", Status = 200 });
+                    }
+                    else
+                    {
+                        return Json(new { Message = "Usser not found", Status = 404 });
+                    }
+                    
 
                 }
                 catch (Exception e)

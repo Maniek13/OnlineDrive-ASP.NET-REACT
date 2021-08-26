@@ -122,10 +122,8 @@ namespace TreeExplorer.Controllers
 
                                 if (file.Length > 0)
                                 {
-                                    using (var stream = System.IO.File.Create(path))
-                                    {
-                                        await file.CopyToAsync(stream);
-                                    }
+                                    using var stream = System.IO.File.Create(path);
+                                    await file.CopyToAsync(stream);
                                 }
                             }
                             else

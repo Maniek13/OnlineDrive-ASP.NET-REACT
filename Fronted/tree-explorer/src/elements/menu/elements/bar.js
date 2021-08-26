@@ -11,9 +11,7 @@ class Bar extends React.Component {
 
     async logout(){
         await AccountController.remove_data();
-        if(Responde.code === 200){
-            window.location.reload();
-        }
+        window.location.reload();
     }
 
     render() {
