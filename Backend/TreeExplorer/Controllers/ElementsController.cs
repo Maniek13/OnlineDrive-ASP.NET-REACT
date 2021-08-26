@@ -147,8 +147,8 @@ namespace TreeExplorer.Controllers
         [HttpPost]
         public async Task<JsonResult> Delete([Bind("Id")] int id)
         {
-
             Responde responde = Tree.Delete(id);
+
             if (responde.Error == false )
             {
                 try
