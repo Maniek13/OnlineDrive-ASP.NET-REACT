@@ -90,17 +90,15 @@ namespace TreeExplorer.Controllers
 
                 if (Tree.Get().Count == 0)
                 {
-                    id = 1;
+                    id = 0;
                 }
                 else
                 {
                     id = _context.Element.ToListAsync().Result.Last().Id + 1;
                 }
 
-                element.Id = id;
 
-
-                Responde responde = Tree.Add(element.Id, element.Name, element.Type, element.IdW, element.UsserId);
+                Responde responde = Tree.Add(id, element.Name, element.Type, element.IdW, element.UsserId);
 
                 if (responde.Error == false)
                 {

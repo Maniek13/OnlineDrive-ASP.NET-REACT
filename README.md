@@ -47,7 +47,5 @@ _____________________IN PROGRES________________________
 
 - the appearance of the file manager (css)
 
-??? stoped working /// dont add els?????
-
 
 
