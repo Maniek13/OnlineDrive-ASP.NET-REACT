@@ -1,9 +1,6 @@
 import React from 'react'
-import TreeController from '../../../controllers/tree/tree_controller'
-import Responde from '../../../objects/responde'
 import Provider from '../controller/provider'
 import Branch from '../forms/branch_form'
-import List from '../objects/list'
 import styles from '../styles/tree.module.css'
 
 class Tree extends React.Component {

@@ -10,7 +10,9 @@ class Form extends React.Component {
     super(props)
 
     this.state = {
-      error: false
+      error: false,
+      remember: false,
+      next: false
     };
 
     this.login_callback = this.props.login_callback.bind(this);
@@ -27,6 +29,7 @@ class Form extends React.Component {
   async login(){
     await AccountController.confirm();
       if(Usser.id.Id !== "" && Responde.code === 200){
+        await this.save_data();
         this.login_callback();
       }
       else{
@@ -34,9 +37,20 @@ class Form extends React.Component {
       }
   }
 
+  async save_data(){
+    if(this.state.remember === true){
+      await AccountController.save_usser_data();
+    }
+  }
+
+  async remember(evt){
+    this.setState({remember : !this.state.remember});
+  }
+
   async register(){
     await AccountController.add();
     if(Usser.id.Id !== "" && Responde.code === 200){
+      await this.save_data();
       this.login_callback();
     }
     else{
@@ -49,6 +63,10 @@ class Form extends React.Component {
       <div className={styles.login_form}>
           <input className={styles.input_form} id="login" placeholder="Login" onChange={this.login_data.bind(this)}></input>
           <input className={styles.input_form} id="password" placeholder="Password" onChange={this.password_data.bind(this)}></input>
+          <div className={styles.remember_me_form}>
+                <label>Remember me</label> 
+                <input value={this.state.remember} type="checkbox" id="type"  defaultChecked={false} onChange={this.remember.bind(this)} className={styles.input}/>
+              </div>
           <button className={styles.btn} onClick={this.login.bind(this)}>Login</button>
           <button className={styles.btn} onClick={this.register.bind(this)}>Register</button>
           {this.state.error ? <Error/> : ""}

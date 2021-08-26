@@ -6,13 +6,19 @@ Backend
 3. In menager nuget packet console run: 
 
 a.
-Add-Migration InitialCreate -Context TreeExplorerContext
+Add-Migration Tree -Context TreeExplorerContext
 
 Update-Database -Context TreeExplorerContext
+
 b.
-Add-Migration InitialCreate -Context UsserContext
+Add-Migration Usser -Context UsserContext
 
 Update-Database -Context UsserContext
+
+c.
+Add-Migration UsserData -Context UsserDataContext
+
+Update-Database -Context UsserDataContext
 
 4. Start app
 5. Please set data first

@@ -30,6 +30,9 @@ namespace TreeExplorer
 
             services.AddDbContext<UsserContext>(options =>
                    options.UseSqlServer(Configuration.GetConnectionString("TreeExplorerContext")));
+
+            services.AddDbContext<UsserDataContext>(options =>
+                   options.UseSqlServer(Configuration.GetConnectionString("TreeExplorerContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -23,7 +23,7 @@ class AddForm extends React.Component{
 
     type(evt){
       Element.element.Type = this.state.checked ? "file" : "node";
-      this.setState({checked : document.getElementById("type").checked});
+      this.setState({checked : !this.state.checked});
     }
 
     name(evt){
