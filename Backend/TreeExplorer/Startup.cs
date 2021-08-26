@@ -25,14 +25,14 @@ namespace TreeExplorer
             services.AddCors();
             services.AddControllersWithViews();
 
-            services.AddDbContext<TreeExplorerContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("TreeExplorerContext")));
+            services.AddDbContext<ElementContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("Database")));
 
             services.AddDbContext<UsserContext>(options =>
-                   options.UseSqlServer(Configuration.GetConnectionString("TreeExplorerContext")));
+                   options.UseSqlServer(Configuration.GetConnectionString("Database")));
 
             services.AddDbContext<UsserDataContext>(options =>
-                   options.UseSqlServer(Configuration.GetConnectionString("TreeExplorerContext")));
+                   options.UseSqlServer(Configuration.GetConnectionString("Database")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

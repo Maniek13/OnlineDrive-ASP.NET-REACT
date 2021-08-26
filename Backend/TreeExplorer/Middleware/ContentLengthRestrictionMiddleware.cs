@@ -35,10 +35,5 @@ namespace TreeExplorer.Middleware
                 await _requestDelegate.Invoke(httpContext);
             }
         }
-
-
-
     }
-
-
 }

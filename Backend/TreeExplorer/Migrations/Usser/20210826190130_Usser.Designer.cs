@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TreeExplorer.Data;
 
-namespace TreeExplorer.Migrations
+namespace TreeExplorer.Migrations.Usser
 {
-    [DbContext(typeof(TreeExplorerContext))]
-    [Migration("20210824115424_NewData")]
-    partial class NewData
+    [DbContext(typeof(UsserContext))]
+    [Migration("20210826190130_Usser")]
+    partial class Usser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,30 +20,24 @@ namespace TreeExplorer.Migrations
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("TreeExplorer.Models.Element", b =>
+            modelBuilder.Entity("TreeExplorer.Models.Usser", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("IdW")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Type")
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UsserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Element");
+                    b.ToTable("Usser");
                 });
 #pragma warning restore 612, 618
         }

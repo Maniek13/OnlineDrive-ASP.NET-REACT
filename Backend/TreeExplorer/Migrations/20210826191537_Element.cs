@@ -1,30 +1,33 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace TreeExplorer.Migrations.Usser
+namespace TreeExplorer.Migrations
 {
-    public partial class NewData2 : Migration
+    public partial class Element : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Usser",
+                name: "Element",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IdW = table.Column<int>(type: "int", nullable: false),
+                    UsserId = table.Column<int>(type: "int", nullable: false),
+                    Path = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Usser", x => x.Id);
+                    table.PrimaryKey("PK_Element", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Usser");
+                name: "Element");
         }
     }
 }

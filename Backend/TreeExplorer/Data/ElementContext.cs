@@ -2,9 +2,9 @@
 
 namespace TreeExplorer.Data
 {
-    public class TreeExplorerContext : DbContext
+    public class ElementContext : DbContext
     {
-        public TreeExplorerContext (DbContextOptions<TreeExplorerContext> options)
+        public ElementContext (DbContextOptions<ElementContext> options)
             : base(options)
         {
         }

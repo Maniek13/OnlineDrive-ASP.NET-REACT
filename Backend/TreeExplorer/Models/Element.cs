@@ -13,5 +13,6 @@ namespace TreeExplorer.Models
         public int IdW { get; set; }
         [Required]
         public int UsserId { get; set; }
+        public string Path { get; set; }
     }
 }

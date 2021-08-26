@@ -1,5 +1,6 @@
 import React from 'react'
 import AccountController from '../../../controllers/account/account_controller';
+import FileController from '../../../controllers/file/file_controller';
 import Responde from '../../../objects/responde';
 import Usser from '../objects/usser';
 import styles from '../styles/account.module.css'

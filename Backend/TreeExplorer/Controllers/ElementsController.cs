@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using TreeExplorer.Data;
@@ -16,10 +17,10 @@ namespace TreeExplorer.Controllers
     [Produces("application/json")]
     public class ElementsController : Controller
     {
-        private readonly TreeExplorerContext _context;
+        private readonly ElementContext _context;
         private readonly string path = @System.IO.Directory.GetCurrentDirectory().ToString() + "\\Disk\\UssersFiles\\";
 
-        public ElementsController(TreeExplorerContext context)
+        public ElementsController(ElementContext context)
         {
             _context = context;
         }
@@ -89,14 +90,17 @@ namespace TreeExplorer.Controllers
 
                 if (Tree.Get().Count == 0)
                 {
-                    id = 0;
+                    id = 1;
                 }
                 else
                 {
                     id = _context.Element.ToListAsync().Result.Last().Id + 1;
                 }
 
-                Responde responde = Tree.Add(id, element.Name, element.Type, element.IdW, element.UsserId);
+                element.Id = id;
+
+
+                Responde responde = Tree.Add(element.Id, element.Name, element.Type, element.IdW, element.UsserId);
 
                 if (responde.Error == false)
                 {
@@ -119,6 +123,11 @@ namespace TreeExplorer.Controllers
                             if (file != null)
                             {
                                 path += file.FileName;
+                                Element el = _context.Element.SingleOrDefault(el => el.Id == id);
+                                el.Path = path;
+
+                                _context.Update(el);
+                                await _context.SaveChangesAsync();
 
                                 if (file.Length > 0)
                                 {
@@ -317,6 +326,42 @@ namespace TreeExplorer.Controllers
         public JsonResult Sort([Bind("Id")] int id, [Bind("Type")] string type, [Bind("UsserId")] int usserId)
         {
             return Json(new { Message = Tree.Sort(id, type, usserId), Status = 200});
+        }
+
+        [HttpPost]
+        public JsonResult NameOfFile([Bind("Id")] int id)
+        {
+            try
+            {
+                string path = _context.Element.SingleOrDefault(el => el.Id == id).Path;
+                int index = path.LastIndexOf("\\");
+                string fileName = path[(index + 1)..];
+
+                return Json(new { Message = fileName, Status = 200 });
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Name of file err");
+                Console.WriteLine(e.Message);
+
+                return Json(new { Message = "Name of file err", Status = 500 });
+            }
+        }
+
+        [HttpPost]
+        public async Task<FileContentResult> GetFileAsync([Bind("Id")] int id)
+        {
+            string path = _context.Element.SingleOrDefault(el => el.Id == id).Path;
+
+            var provider = new FileExtensionContentTypeProvider();
+            if (!provider.TryGetContentType(path, out var contentType))
+            {
+                contentType = "application/octet-stream";
+            }
+
+            var bytes = await System.IO.File.ReadAllBytesAsync(path);
+
+            return File(bytes, contentType, Path.GetFileName(path));
         }
 
     }

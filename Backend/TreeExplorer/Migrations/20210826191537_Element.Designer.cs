@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TreeExplorer.Data;
 
 namespace TreeExplorer.Migrations
 {
-    [DbContext(typeof(TreeExplorerContext))]
-    partial class TreeExplorerContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ElementContext))]
+    [Migration("20210826191537_Element")]
+    partial class Element
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,6 +32,9 @@ namespace TreeExplorer.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Path")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Type")

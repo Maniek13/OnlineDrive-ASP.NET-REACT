@@ -4,6 +4,7 @@ import EditForm from '../forms/edit_form'
 import Element from '../objects/element'
 import DelForm from '../forms/del_form'
 import Provider from '../controller/provider'
+import FileController from '../../../controllers/file/file_controller'
 
 class File extends React.Component {
   constructor(props){
@@ -31,6 +32,13 @@ class File extends React.Component {
     }
   }
 
+  async download(evt){
+    Element.element.Id = this.props.id;
+    Element.element.Name = this.props.name;
+
+    await FileController.download();
+  }
+
   delForm(evt){
     if(Provider.modal === false){
       Provider.modal = true;
@@ -55,6 +63,7 @@ class File extends React.Component {
         <div>
           <div className={styles.file}>
             <p className={styles.name}>{this.props.name}</p>
+            <button className={styles.download_btn} onClick={this.download.bind(this)}>&#8659;</button>
             <button id={this.props.id}  name={this.props.name} className={styles.del_btn} onClick={this.delForm.bind(this)}>x</button>
             <button id={this.props.id} idw={this.props.idw} name={this.props.name} className={styles.edit_btn} onClick={this.editForm.bind(this)}></button>
           </div>

@@ -57,7 +57,7 @@ namespace TreeExplorer.Controllers
 
                     if(data != null)
                     {
-                        return Json(new { Message  = new { Id = data.UsserId, Name = data.Name}, Status = 200 });
+                        return Json(new { Message  = new { Id = data.UsserId, data.Name}, Status = 200 });
                     }
 
                     return Json(new { Message = 0, Status = 200 });

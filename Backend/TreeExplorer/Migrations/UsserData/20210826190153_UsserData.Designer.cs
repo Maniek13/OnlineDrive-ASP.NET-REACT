@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TreeExplorer.Data;
 
-namespace TreeExplorer.Migrations.Usser
+namespace TreeExplorer.Migrations.UsserData
 {
-    [DbContext(typeof(UsserContext))]
-    [Migration("20210824115444_NewData2")]
-    partial class NewData2
+    [DbContext(typeof(UsserDataContext))]
+    [Migration("20210826190153_UsserData")]
+    partial class UsserData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,24 +20,31 @@ namespace TreeExplorer.Migrations.Usser
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("TreeExplorer.Models.Usser", b =>
+            modelBuilder.Entity("TreeExplorer.Models.UsserData", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Browser")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IpV4")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("UsserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Usser");
+                    b.ToTable("UsserData");
                 });
 #pragma warning restore 612, 618
         }

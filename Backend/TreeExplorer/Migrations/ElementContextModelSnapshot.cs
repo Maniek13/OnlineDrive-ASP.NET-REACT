@@ -2,17 +2,15 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TreeExplorer.Data;
 
-namespace TreeExplorer.Migrations.UsserData
+namespace TreeExplorer.Migrations
 {
-    [DbContext(typeof(UsserDataContext))]
-    [Migration("20210826125242_UsserData")]
-    partial class UsserData
+    [DbContext(typeof(ElementContext))]
+    partial class ElementContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,22 +18,24 @@ namespace TreeExplorer.Migrations.UsserData
                 .HasAnnotation("ProductVersion", "5.0.8")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("TreeExplorer.Models.UsserData", b =>
+            modelBuilder.Entity("TreeExplorer.Models.Element", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Browser")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IpV4")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("IdW")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Path")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -44,7 +44,7 @@ namespace TreeExplorer.Migrations.UsserData
 
                     b.HasKey("Id");
 
-                    b.ToTable("UsserData");
+                    b.ToTable("Element");
                 });
 #pragma warning restore 612, 618
         }

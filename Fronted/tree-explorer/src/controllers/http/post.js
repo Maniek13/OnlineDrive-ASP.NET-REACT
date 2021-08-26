@@ -12,9 +12,11 @@ async function POST(adres, object) {
     };
     try{
      await fetch(adres, requestOptions)
-        .then(response => response.json().then(data => ({
+        .then(response => response.json()
+        .then(data => ({
             data: data
-        })).then(res => {
+        }))
+        .then(res => {
             if(res.data.status === 413){
                 Responde.code = 413;
                 Responde.data = "Name is to longer";
