@@ -31,7 +31,7 @@ node -v: 14.4.0
 
 ![image](https://user-images.githubusercontent.com/47826375/130889397-b6e7950d-fee5-4c58-9230-dc5f38768ef1.png)
 
-![image](https://user-images.githubusercontent.com/47826375/130889428-c75f3783-34e5-4da6-a739-d02187ec9979.png)
+![image](https://user-images.githubusercontent.com/47826375/130889604-7aa99509-a9e0-496a-9d7c-e117027ffe7a.png)
 
 If want more chars in response (longer name of files/folder) please change ContentLengthLimit in startup.cs 
 

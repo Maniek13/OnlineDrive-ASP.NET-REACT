@@ -1,0 +1,4 @@
+Daria Koutevska, lds-ring, https://codepen.io/DariaIvK/pen/EpjPRM
+
+ Dominik-W, Obsługa cookies w JavaScript., http://javascript-html5-tutorial.pl/obsluga-cookies-w-javascript.html
+
