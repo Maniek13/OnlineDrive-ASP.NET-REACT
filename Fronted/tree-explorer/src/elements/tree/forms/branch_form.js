@@ -70,8 +70,7 @@ class Branch extends React.Component{
         fields.push(<Empty tree_calback = {this.tree_calback} id={this.id} key={"empty"}/>)
       }
     }
-
-    branch.push(<div  className={styles.single_branch} > {fields} </div>)
+    branch.push(<div  className={styles.single_branch} > {fields} </div>);
     
     return branch;
   } 
