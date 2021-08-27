@@ -37,14 +37,16 @@ node -v: 14.4.0
 
 ![image](https://user-images.githubusercontent.com/47826375/131103764-ea90d64f-8637-4527-af08-76cb7922223c.png)
 
-![image](https://user-images.githubusercontent.com/47826375/130889397-b6e7950d-fee5-4c58-9230-dc5f38768ef1.png)
+![image](https://user-images.githubusercontent.com/47826375/131124773-65c16d8d-09d1-46c5-9bf0-e5b7cdf14722.png)
 
-![image](https://user-images.githubusercontent.com/47826375/130889604-7aa99509-a9e0-496a-9d7c-e117027ffe7a.png)
+![image](https://user-images.githubusercontent.com/47826375/131124807-a143292f-b1cf-4374-be0a-19bd3f1404ab.png)
 
 If want more chars in response (longer name of files/folder) please change ContentLengthLimit in startup.cs 
 
 _____________________IN PROGRES________________________
 
+
+- modal css (add/delete/etc...)
 - close folder preview
 
 
