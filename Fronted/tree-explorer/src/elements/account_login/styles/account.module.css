@@ -6,6 +6,12 @@ body{
     font-family: Roboto;
 }
 
+.error{
+    width: 100%;
+    text-align: center;
+    color: red;
+    margin-top: 10px;
+}
 
 .login_form{
     position: absolute;
