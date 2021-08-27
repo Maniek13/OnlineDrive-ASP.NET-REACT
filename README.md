@@ -35,7 +35,7 @@ node -v: 14.4.0
 4. Copy files from repo to your app folder
 5. Start server: npm start
 
-![image](https://user-images.githubusercontent.com/47826375/130794215-999fd332-4780-4e29-8f4a-44a3448ef6eb.png)
+![image](https://user-images.githubusercontent.com/47826375/131103764-ea90d64f-8637-4527-af08-76cb7922223c.png)
 
 ![image](https://user-images.githubusercontent.com/47826375/130889397-b6e7950d-fee5-4c58-9230-dc5f38768ef1.png)
 
