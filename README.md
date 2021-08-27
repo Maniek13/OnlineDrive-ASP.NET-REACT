@@ -1,4 +1,4 @@
-# Online drive(IN PROGRES)
+# Online drive
 
 Backend
 1. Create new project: ASP.NET Core (Model-View-Controller) instal pasckage: use this from nuget console: Install-Package Microsoft.EntityFrameworkCore.Design
@@ -39,14 +39,19 @@ node -v: 14.4.0
 
 ![image](https://user-images.githubusercontent.com/47826375/131124773-65c16d8d-09d1-46c5-9bf0-e5b7cdf14722.png)
 
-![image](https://user-images.githubusercontent.com/47826375/131124807-a143292f-b1cf-4374-be0a-19bd3f1404ab.png)
+![image](https://user-images.githubusercontent.com/47826375/131133013-ddeadbaf-4bed-4ed6-9bc4-fff70b44714c.png)
+
+![image](https://user-images.githubusercontent.com/47826375/131140056-7206e1e7-d107-47c5-b5b6-91352140a605.png)
+
+![image](https://user-images.githubusercontent.com/47826375/131140154-9bc70ae3-97c9-4887-ba7c-f22d6bf2d030.png)
+
+![image](https://user-images.githubusercontent.com/47826375/131140089-75b60e0e-3224-4003-8664-591080d98afe.png)
+
 
 If want more chars in response (longer name of files/folder) please change ContentLengthLimit in startup.cs 
 
 _____________________IN PROGRES________________________
 
-
-- modal css (add/delete/etc...)
 
 
 

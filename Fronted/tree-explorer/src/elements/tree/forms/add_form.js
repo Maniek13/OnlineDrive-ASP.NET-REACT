@@ -72,13 +72,21 @@ class AddForm extends React.Component{
                 <label className={styles.label}>Name:</label>
                 <input id="name" type="text" onChange={this.name.bind(this)} className={styles.input}/>
               </div> : 
-              <input type="file" name="file" onChange={this.file.bind(this)}/>
+              <div className={styles.el_form}>
+                <input type="file" name="file" onChange={this.file.bind(this)}/>
+              </div>
               }
 
-              <div className={styles.el_form}>
-                <label>Is folder?</label> 
-                <input value={this.state.checked} type="checkbox" id="type"  defaultChecked={false} onChange={this.type.bind(this)} className={styles.input}/>
+              <div className={styles.el_check_form}>
+                <div className={styles.label}>
+                  <label>Is folder?</label>
+                </div>
+                 
+                <div className={styles.checkbox}>
+                  <input  value={this.state.checked} type="checkbox" id="type"  defaultChecked={false} onChange={this.type.bind(this)} className={styles.input}/>
+                </div>
               </div>
+
               <div className={styles.btn_div}>
                 <button className={styles.form_btn} onClick={this.add.bind(this)}>Add</button>
               </div>

@@ -49,7 +49,7 @@ class DelForm extends React.Component{
           <ClickAwayListener onClickAway={this.exit.bind(this)}>
             <div className={styles.add_form}>
                 <button className={styles.exit} onClick={this.exit.bind(this)}></button>
-                <p id="name" className={styles.input}>{this.name}</p>
+                <div id="name" className={styles.del_name}>{this.name}</div>
                 <div className={styles.btn_div}>
                     <button className={styles.form_btn} onClick={this.delete.bind(this)}>Delete</button>
                 </div>
