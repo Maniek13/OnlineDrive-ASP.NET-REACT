@@ -32,7 +32,7 @@ class AddForm extends React.Component{
 
     async add(){
       await TreeController.add_tree_element();
-      
+    
       if(Responde.code === 200){
         Responde.code = 100;
         await TreeController.get_tree();

@@ -126,7 +126,19 @@ namespace TreeExplorer.Controllers
 
                     Responde responde = Tree.Add(element.Id, element.Name, element.Type, element.IdW, element.UsserId);
 
-                    return Json(new { Message = true, Status = 200 });
+                    if (responde.Error == false)
+                    {
+                        return Json(new { Message = true, Status = 200 });
+                    }
+                    else
+                    {
+                        _context.Element.Remove(element);
+                        await _context.SaveChangesAsync();
+                        return Json(new { Message = responde.Message, Status = 400 });
+                    }
+                    
+
+                   
                 }
                 catch(Exception e)
                 {

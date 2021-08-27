@@ -30,11 +30,13 @@ class Branch extends React.Component{
 
   show(){
     let fields = [];
+    let x = [];
     if(this.id == 0){
-      fields.push(<div className={styles.sort_bar} key={"sort"}> <div className={styles.bar_name}>Online drive</div> <div className={styles.sort_btn_cont} ><button className={styles.sort} onClick={this.sortBranch.bind(this)}>&uarr;&darr;</button></div></div>);
+      fields.push(<div className={styles.sort_bar} key={"sort"}> <div className={styles.bar_name}>Online drive</div> <div className={styles.sort_btn_cont} ><button className={styles.sort} onClick={this.sortBranch.bind(this)}></button></div></div>);
     }
     else{
-      fields.push(<div className={styles.sort_bar} key={"sort"}><button className={styles.sort} onClick={this.sortBranch.bind(this)}>&uarr;&darr;</button></div>);
+      let name = List.tree.find(el => el.id == this.id).name;
+      fields.push(<div className={styles.sort_bar} key={"sort"}><div className={styles.bar_name}>{name}</div><button className={styles.sort} onClick={this.sortBranch.bind(this)}></button></div>);
     }
     
     if(List.tree.length === 0){
@@ -59,8 +61,10 @@ class Branch extends React.Component{
         fields.push(<Empty tree_calback = {this.tree_calback} id={this.id} key={"empty"}/>)
       }
     }
+
+    x.push(<div  className={styles.single_branch} > {fields} </div>)
     
-    return fields;
+    return x;
   } 
        
   render() {

@@ -60,12 +60,12 @@ class File extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div>
+        <div className={styles.file_cont}>
           <div className={styles.file}>
             <p className={styles.name}>{this.props.name}</p>
-            <button className={styles.download_btn} onClick={this.download.bind(this)}>&#8659;</button>
-            <button id={this.props.id}  name={this.props.name} className={styles.del_btn} onClick={this.delForm.bind(this)}>x</button>
+            <button id={this.props.id}  name={this.props.name} className={styles.del_btn} onClick={this.delForm.bind(this)}></button>
             <button id={this.props.id} idw={this.props.idw} name={this.props.name} className={styles.edit_btn} onClick={this.editForm.bind(this)}></button>
+            <button className={styles.download_btn} onClick={this.download.bind(this)}></button>
           </div>
         </div>
         
