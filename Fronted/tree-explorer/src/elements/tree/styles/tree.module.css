@@ -1,27 +1,56 @@
+.tree{
+    position: relative;
+    margin: 0;
+    padding:  0px;
+    width: 100%;
+    height: calc(100% - 30px);  
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.folder, .file{
+    width: 100px;  
+    height: 100px;  
+    white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+
 .sort_bar:first-child{
-    width: 250px;
+    width: 100%;
     border-bottom: 1px solid black;
     padding-bottom: 5px;
     padding-top: 5px;
     margin-top: 0px;
+    display: flex;
 }
 
-.sort_bar:first-child::before{
-    content: "Online drive";
+
+.sort_btn_cont .sort{
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    font-weight: bolder;
+    margin-left: 20px;
 }
 
 
 .sort_bar{
+    position: relative;
     font-weight: bold;
     color: #5d5a5a;
     text-align: center;
     display: inline-block;
-    float: right;
     margin-bottom: 5px;
+    justify-content: center;
 }
 
-.sort{
-    float: right;
+.bar_name{
+    width: 100px;
 }
 
 .add_form{
@@ -59,8 +88,6 @@ input{
 
 .file{
     background-color: rgb(199, 222, 235);
-    width: 150px;
-    height: 18px;
     margin-left: 10px;
     margin-bottom: 5px;
     font-size: 12px;
@@ -76,14 +103,6 @@ input{
     background-color: orange;
     border: 1px solid black;
     font-size: 14px;
-    width: 150px;  
-    height: 20px;  
-}
-
-.folder, .file{
-    white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
 }
 
 .empty, .add_btn, .edit_btn, .del_btn, .show_btn{
@@ -151,9 +170,7 @@ input{
     top: 5px;
 }
 
-.folder_contener{
-    display: inline-flex;
-}
+
 
 .folder_add{
     width: 20px;
@@ -163,15 +180,6 @@ input{
 
 .branch {
     padding-left: 10px;
-}
-
-.tree{
-    margin-left: -10px;
-    width: 250px;
-    height: 100vh;
-    border: 1px solid black;
-    display: flex;
-    flex-direction: column;
 }
 
 .sort{

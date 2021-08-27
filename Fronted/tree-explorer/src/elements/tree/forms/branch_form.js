@@ -30,7 +30,13 @@ class Branch extends React.Component{
 
   show(){
     let fields = [];
-    fields.push(<div className={styles.sort_bar} key={"sort"}> <button className={styles.sort} onClick={this.sortBranch.bind(this)}>&uarr;&darr;</button></div>);
+    if(this.id == 0){
+      fields.push(<div className={styles.sort_bar} key={"sort"}> <div className={styles.bar_name}>Online drive</div> <div className={styles.sort_btn_cont} ><button className={styles.sort} onClick={this.sortBranch.bind(this)}>&uarr;&darr;</button></div></div>);
+    }
+    else{
+      fields.push(<div className={styles.sort_bar} key={"sort"}><button className={styles.sort} onClick={this.sortBranch.bind(this)}>&uarr;&darr;</button></div>);
+    }
+    
     if(List.tree.length === 0){
       fields.push(<Empty tree_calback = {this.tree_calback} id={this.id} key={"empty"}/> )
     }
