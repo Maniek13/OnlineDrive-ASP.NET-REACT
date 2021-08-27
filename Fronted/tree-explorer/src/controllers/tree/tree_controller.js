@@ -15,8 +15,6 @@ class TreeController{
     
     static async add_tree_element(){
         await POST("https://localhost:5001/Elements/Add", Element.element);
-
-        console.log(Responde.data);
     }
 
     static async delete(id){

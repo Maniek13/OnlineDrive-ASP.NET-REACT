@@ -45,7 +45,7 @@ If want more chars in response (longer name of files/folder) please change Conte
 
 _____________________IN PROGRES________________________
 
-- the appearance of the file manager (css)
+- close folder preview
 
 
 

@@ -59,7 +59,6 @@ class Folder extends React.Component {
     this.setState({show : !this.state.show});
   }
 
-
   onAdd(){
     Provider.modal = false;
     this.setState({add : false});
