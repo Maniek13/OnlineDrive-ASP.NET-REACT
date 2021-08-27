@@ -37,7 +37,7 @@ class Branch extends React.Component{
       fields.push(<div className={styles.sort_bar} key={"sort"}> <div className={styles.bar_name}>Online drive</div> <div className={styles.sort_btn_cont} ><button className={styles.sort} onClick={this.sortBranch.bind(this)}></button></div></div>);
     }
     else{
-      let name = List.tree.find(el => el.id == this.id).name;
+      let name = List.tree.find(el => el.id == this.id).name;      
       fields.push(<div className={styles.sort_bar} key={"sort"}><div className={styles.bar_name}>{name}</div><button className={styles.sort} onClick={this.sortBranch.bind(this)}></button></div>);
     }
     
@@ -45,8 +45,10 @@ class Branch extends React.Component{
       fields.push(<Empty tree_calback = {this.tree_calback} id={this.id} key={"empty"}/> )
     }
     else{
+      let i = 0;
       List.tree.forEach(el => {
         if(el.idW === this.id){
+          i++;
           switch(el.type){
             case "file":
               fields.push(<File tree_calback = {this.tree_calback} id={el.id} name={el.name} idw={el.idW} key={el.id}/>)
@@ -58,7 +60,12 @@ class Branch extends React.Component{
               break;
           }
         }
-      });
+      }
+      );
+      if(i == 0){
+        fields.push(<div>No elements</div>)
+      }
+
       if(this.id === 0){
         fields.push(<Empty tree_calback = {this.tree_calback} id={this.id} key={"empty"}/>)
       }

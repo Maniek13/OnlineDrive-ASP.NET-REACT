@@ -202,6 +202,7 @@ input{
     display: flex;
     justify-content: center;
     flex-direction: row;
+    min-height: 80px;
 }
 
 .folder_contener + .single_branch .sort_bar{

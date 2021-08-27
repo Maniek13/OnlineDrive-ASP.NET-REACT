@@ -33,7 +33,7 @@ class Empty extends React.Component {
     return (
       <React.Fragment>
         <div className={styles.empty}>
-        <button value={this.props.id} className={styles.add_btn} onClick={this.addForm.bind(this)}>+</button>
+        <button value={this.props.id} className={styles.add_btn} onClick={this.addForm.bind(this)}></button>
         </div>
         {this.state.add ? <AddForm tree_calback = {this.tree_calback} callback = {this.onAdd} /> : ""}
       </React.Fragment>
