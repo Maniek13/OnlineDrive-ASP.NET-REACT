@@ -47,7 +47,6 @@ _____________________IN PROGRES________________________
 
 
 - modal css (add/delete/etc...)
-- close folder preview
 
 
 

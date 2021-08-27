@@ -64,7 +64,7 @@ class AddForm extends React.Component{
         return (
           <ClickAwayListener onClickAway={this.exit.bind(this)}>
               <div className={styles.add_form}>
-              <button className={styles.exit} onClick={this.exit.bind(this)}>X</button>
+              <button className={styles.exit} onClick={this.exit.bind(this)}></button>
 
               {
               this.state.checked ? 

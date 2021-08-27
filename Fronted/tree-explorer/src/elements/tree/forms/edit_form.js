@@ -89,7 +89,7 @@ class EditForm extends React.Component{
       return (
         <ClickAwayListener onClickAway={this.exit.bind(this)}>
             <div className={styles.add_form}>
-              <button className={styles.exit} onClick={this.exit.bind(this)}>X</button>
+              <button className={styles.exit} onClick={this.exit.bind(this)}></button>
             <div className={styles.el_form}>
               <label className={styles.label}>Name:</label>
               <input id="name" type="text" defaultValue={this.name} onChange={this.getName.bind(this)} className={styles.input}/>

@@ -96,7 +96,7 @@ class Folder extends React.Component {
 
           </div>
 
-          {this.state.show ? <Branch tree_calback = {this.tree_calback} id={this.props.id} /> : ""}
+          {this.state.show ? <Branch tree_calback = {this.tree_calback} id={this.props.id}  show={this.showBranch.bind(this)}/> : ""}
         </div>
 
         {this.state.add ? <AddForm  tree_calback = {this.tree_calback} callback = {this.onAdd}/> : ""}

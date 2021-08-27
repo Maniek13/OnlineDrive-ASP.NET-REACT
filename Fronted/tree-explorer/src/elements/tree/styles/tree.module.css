@@ -158,6 +158,13 @@ input{
     background-position: 2px, 0px;
 }
 
+.exit{
+    background: url('../../../icons/cancel.png');  
+    background-repeat: no-repeat;
+    background-size: 15px, 15px;
+    background-position: 2px, 0px;
+}
+
 .sort{
     background: url('../../../icons/sort.png');  
     background-repeat: no-repeat;

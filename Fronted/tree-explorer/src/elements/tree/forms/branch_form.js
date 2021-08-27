@@ -19,6 +19,8 @@ class Branch extends React.Component{
     };
     
     this.tree_calback = this.props.tree_calback.bind(this); 
+
+    
   }
 
   async sortBranch(){
@@ -28,6 +30,10 @@ class Branch extends React.Component{
       }
   }
 
+  close(evt){
+    this.props.show();
+  }
+ 
 
 
   show(){
@@ -38,7 +44,12 @@ class Branch extends React.Component{
     }
     else{
       let name = List.tree.find(el => el.id == this.id).name;      
-      fields.push(<div className={styles.sort_bar} key={"sort"}><div className={styles.bar_name}>{name}</div><button className={styles.sort} onClick={this.sortBranch.bind(this)}></button></div>);
+      fields.push(
+        <div className={styles.sort_bar} key={"sort"}>
+          <div className={styles.bar_name}>{name}</div>
+          <button className={styles.sort} onClick={this.sortBranch.bind(this)}></button>
+          <div  className={styles.exit} onClick={this.close.bind(this)}></div>
+        </div>);
     }
     
     if(List.tree.length === 0){
@@ -70,7 +81,7 @@ class Branch extends React.Component{
         fields.push(<Empty tree_calback = {this.tree_calback} id={this.id} key={"empty"}/>)
       }
     }
-    branch.push(<div  className={styles.single_branch} > {fields} </div>);
+    branch.push(<div  className={styles.single_branch}> {fields} </div>);
     
     return branch;
   } 
