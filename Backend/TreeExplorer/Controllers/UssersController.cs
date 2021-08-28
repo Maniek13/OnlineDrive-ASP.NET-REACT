@@ -78,7 +78,7 @@ namespace TreeExplorer.Controllers
                         
                         if(finded != null)
                         {
-                            return Json(new { Message = finded.Id, Status = 200 });
+                            return Json(new { Message = new { finded.Id, password }, Status = 200 });
                         }
 
                         return Json(new {  Message = "Usser no exist", Status = 400 });

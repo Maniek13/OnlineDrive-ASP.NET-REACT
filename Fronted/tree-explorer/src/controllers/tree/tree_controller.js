@@ -7,7 +7,7 @@ import Usser from '../../elements/account_login/objects/usser';
 
 class TreeController{
     static async get_tree(){
-        await POST("https://localhost:5001/Elements/Show", {UsserId : Element.element.UsserId, Password : Usser.usser.Password});
+        await POST("https://localhost:5001/Elements/Show", {UsserId : Usser.id.Id, Password : Usser.usser.Password});
         
         if(Responde.code === 200){
             List.tree = Responde.data;

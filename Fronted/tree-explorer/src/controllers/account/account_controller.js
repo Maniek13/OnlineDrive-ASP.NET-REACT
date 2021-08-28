@@ -12,13 +12,14 @@ class AccountController{
             Usser.id.Id = Responde.data.id;
             Usser.usser.Password = Responde.data.password;
         }
+        
     }
     
     static async confirm(){
         await POST("https://localhost:5001/Ussers/Confirm", Usser.usser);
-        
         if(Responde.code === 200){
-            Usser.id.Id = Responde.data;
+            Usser.id.Id = Responde.data.id;
+            Usser.usser.Password = Responde.data.password;
         }
     }
 
