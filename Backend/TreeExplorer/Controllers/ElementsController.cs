@@ -127,6 +127,7 @@ namespace TreeExplorer.Controllers
                                     {
                                         using var stream = System.IO.File.Create(path);
                                         await file.CopyToAsync(stream);
+                                        stream.Dispose();
                                     }
                                 }
                                 else
@@ -266,6 +267,15 @@ namespace TreeExplorer.Controllers
                             try
                             {
                                 string name = element.Name;
+
+                                List<string> fileStructureOld = Tree.FindPath(element.IdW);
+                                string oldPath = this.path + element.UsserId + "\\";
+
+                                foreach (string folder in fileStructureOld)
+                                {
+                                    oldPath += folder + "\\";
+                                }
+
                                 element.Name = elementNew.Name;
                                 element.Type = elementNew.Type;
                                 element.IdW = elementNew.IdW;
@@ -279,11 +289,21 @@ namespace TreeExplorer.Controllers
 
                                 foreach (string folder in fileStructure)
                                 {
-                                    path += folder + "\\";
+                                    path += folder;
                                 }
 
-                             
-                                Directory.Move(path + name, path + elementNew.Name);
+                                if(element.Type == "file")
+                                {
+                                    oldPath += "\\" + name;
+                                    path += "\\" + element.Name;
+
+                                    System.IO.File.Copy(oldPath, path);
+                                    System.IO.File.Delete(oldPath);
+                                }
+                                else
+                                {
+                                    Directory.Move(oldPath + name, path + elementNew.Name);
+                                }
 
                                 return Json(new { Message = true, Status = 200 });
                             }

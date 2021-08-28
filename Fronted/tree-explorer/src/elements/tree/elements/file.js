@@ -74,12 +74,12 @@ class File extends React.Component {
           <div className={styles.file}>
             <p className={styles.name}>{this.props.name}</p>
             <button id={this.props.id}  name={this.props.name} className={styles.del_btn} onClick={this.delForm.bind(this)}></button>
-            {/* <button id={this.props.id} idw={this.props.idw} name={this.props.name} className={styles.edit_btn} onClick={this.editForm.bind(this)}></button> */}
+            <button id={this.props.id} idw={this.props.idw} name={this.props.name} className={styles.edit_btn} onClick={this.editForm.bind(this)}></button>
             <button className={styles.download_btn} onClick={this.download.bind(this)}></button>
           </div>
         </div>
-{/*         
-        {this.state.edit ? <EditForm tree_calback = {this.tree_calback} idw={this.props.idw} name={this.props.name} node={false} callback = {this.onEdit}/> : ""} */}
+        
+        {this.state.edit ? <EditForm tree_calback = {this.tree_calback} idw={this.props.idw} name={this.props.name} node={false} callback = {this.onEdit}/> : ""}
         {this.state.delete ? <DelForm tree_calback = {this.tree_calback} id={this.props.id} name={this.props.name} callback = {this.onDelete}/> : ""}
         {this.state.file ? "" : <NotFound callback = {this.onCloseMessage.bind(this)}/>}
       </React.Fragment>
