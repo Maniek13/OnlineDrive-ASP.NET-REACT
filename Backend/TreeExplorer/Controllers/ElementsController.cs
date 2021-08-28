@@ -157,8 +157,6 @@ namespace TreeExplorer.Controllers
                                 return Json(new { responde.Message, Status = 400 });
                             }
 
-
-
                         }
                         catch (Exception e)
                         {
