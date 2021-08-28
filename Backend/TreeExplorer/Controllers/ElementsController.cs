@@ -204,6 +204,30 @@ namespace TreeExplorer.Controllers
                         _context.Element.RemoveRange(listToDel);
                         await _context.SaveChangesAsync();
 
+                        foreach (Element el in listToDel)
+                        {
+                            string name = el.Name;
+
+
+                            string path = this.path + el.UsserId + "\\";
+
+                            List<string> fileStructure = Tree.FindPath(el.IdW);
+
+                            foreach (string folder in fileStructure)
+                            {
+                                path += folder + "\\";
+                            }
+
+                            if (el.Type == "file") { 
+                                path += name;
+                                System.IO.File.Delete(path);
+                            }
+                            else
+                            {
+                                Directory.Delete(path + name, true);
+                            }
+                        }
+
                         return Json(new { Message = true, Status = 200 });
                     }
                     catch (Exception e)
