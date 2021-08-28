@@ -19,7 +19,7 @@ async function POST(adres, object) {
         .then(res => {
             if(res.data.status === 413){
                 Responde.code = 413;
-                Responde.data = "Name is to longer";
+                Responde.data = "Request is to long";
             }
             else {
                 Responde.code = res.data.status;

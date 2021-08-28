@@ -20,8 +20,8 @@ namespace TreeExplorer.Controllers
                 _context = context;
             }
 
-            [HttpPost]
-            public async Task<JsonResult> SaveUsserData([Bind("Name,UsserId,IpV4,Browser")] UsserData usserData)
+            [HttpPost]  
+            public async Task<JsonResult> SaveUsserData([Bind("UsserId,IpV4,Browser")] UsserData usserData)
             {
                 if (TryValidateModel(usserData, nameof(usserData)))
                 {
@@ -53,11 +53,15 @@ namespace TreeExplorer.Controllers
             {
                 try
                 {
-                    UsserData? data = _context.UsserData.SingleOrDefault(el => el.IpV4 == ipV4 && el.Browser == browser);
+                    var query = from usserData in _context.Set<UsserData>()
+                                join usser in _context.Set<Usser>()
+                                 on usserData.UsserId equals usser.Id
+                                where usserData.IpV4 == ipV4 && usserData.Browser == browser
+                                select new {  usser.Id, usser.Name, usser.Password };
 
-                    if(data != null)
+                    if (query.Count() != 0)
                     {
-                        return Json(new { Message  = new { Id = data.UsserId, data.Name}, Status = 200 });
+                        return Json(new { Message  = new { query.First().Id , query.First().Name, query.First().Password }, Status = 200 });
                     }
 
                     return Json(new { Message = 0, Status = 200 });

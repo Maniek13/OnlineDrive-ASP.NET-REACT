@@ -14,13 +14,21 @@ async function File(adres, object){
         })
         .then(response => response.blob())
         .then(blob => {
-            var url = window.URL.createObjectURL(blob);
-            var a = document.createElement('a');
-            a.href = url;
-            a.download = Element.element.Name;
-            document.body.appendChild(a); 
-            a.click();    
-            a.remove();        
+            if(blob.size > 36){
+                Responde.code = 200;
+                var url = window.URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = Element.element.Name;
+                document.body.appendChild(a); 
+                a.click();    
+                a.remove();    
+            }
+            else{
+                Responde.code = 420;
+                Responde.data = 'Not found';
+            }
+                
         });
     }
     catch(err){

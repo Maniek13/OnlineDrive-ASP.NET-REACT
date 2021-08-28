@@ -14,5 +14,6 @@ namespace TreeExplorer.Models
         [Required]
         public int UsserId { get; set; }
         public string Path { get; set; }
+        public Usser Usser { get; set; }
     }
 }

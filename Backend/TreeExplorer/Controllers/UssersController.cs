@@ -42,7 +42,7 @@ namespace TreeExplorer.Controllers
                             
                             Directory.CreateDirectory(this.path + "\\Disk\\UssersFiles\\" + usser.Id);
 
-                            return Json(new { Message = usser.Id, Status = 200 });
+                            return Json(new { Message = new { Id = usser.Id, Password = password},  Status = 200 });
                         }
                         else
                         {

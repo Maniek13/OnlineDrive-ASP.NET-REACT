@@ -9,7 +9,8 @@ class AccountController{
         await POST("https://localhost:5001/Ussers/Add", Usser.usser);
 
         if(Responde.code === 200){
-            Usser.id.Id = Responde.data;
+            Usser.id.Id = Responde.data.id;
+            Usser.usser.Password = Responde.data.password;
         }
     }
     
@@ -23,7 +24,7 @@ class AccountController{
 
     static async save_usser_data(){
         await this.data();
-        await POST("https://localhost:5001/UsserDatas/SaveUsserData", {Name : Usser.usser.Name, UsserId : Usser.id.Id, IpV4 : Usser.usser_data.IpV4, Browser : Usser.usser_data.Browser } );
+        await POST("https://localhost:5001/UsserDatas/SaveUsserData", {UsserId : Usser.id.Id, IpV4 : Usser.usser_data.IpV4, Browser : Usser.usser_data.Browser } );
     }
 
     static async is_saved(){
@@ -32,6 +33,7 @@ class AccountController{
         if(Responde.code === 200){
             Usser.id.Id = Responde.data.id;
             Usser.usser.Name = Responde.data.name;
+            Usser.usser.Password = Responde.data.password
         }
     }
 

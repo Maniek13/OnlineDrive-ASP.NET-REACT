@@ -3,8 +3,10 @@ import styles from '../styles/tree.module.css'
 import EditForm from '../forms/edit_form'
 import Element from '../objects/element'
 import DelForm from '../forms/del_form'
+import NotFound from '../forms/not_found_form'
 import Provider from '../controller/provider'
 import FileController from '../../../controllers/file/file_controller'
+import Responde from '../../../objects/responde'
 
 class File extends React.Component {
   constructor(props){
@@ -12,7 +14,8 @@ class File extends React.Component {
     
     this.state = {
       edit: false,
-      delete : false
+      delete : false,
+      file: true
     };
 
     this.onEdit = this.onEdit.bind(this);
@@ -35,8 +38,10 @@ class File extends React.Component {
   async download(evt){
     Element.element.Id = this.props.id;
     Element.element.Name = this.props.name;
-
     await FileController.download();
+    if(Responde.code !== 200){
+      this.setState({file : false});
+    }
   }
 
   delForm(evt){
@@ -57,6 +62,11 @@ class File extends React.Component {
     this.setState({delete : false});
   }
 
+  onCloseMessage(){
+    this.setState({file : true});
+  }
+
+
   render() {
     return (
       <React.Fragment>
@@ -71,6 +81,7 @@ class File extends React.Component {
         
         {this.state.edit ? <EditForm tree_calback = {this.tree_calback} idw={this.props.idw} name={this.props.name} node={false} callback = {this.onEdit}/> : ""}
         {this.state.delete ? <DelForm tree_calback = {this.tree_calback} id={this.props.id} name={this.props.name} callback = {this.onDelete}/> : ""}
+        {this.state.file ? "" : <NotFound callback = {this.onCloseMessage.bind(this)}/>}
       </React.Fragment>
     );
   }

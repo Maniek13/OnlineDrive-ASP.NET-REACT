@@ -5,20 +5,9 @@ Backend
 2. Copy files from repo
 3. In menager nuget packet console run: 
 
-a.
-Add-Migration Tree -Context TreeExplorerContext
-
-Update-Database -Context TreeExplorerContext
-
-b.
 Add-Migration Usser -Context UsserContext
 
 Update-Database -Context UsserContext
-
-c.
-Add-Migration UsserData -Context UsserDataContext
-
-Update-Database -Context UsserDataContext
 
 4. Start app
 5. Please set data first
@@ -31,7 +20,7 @@ node -v: 14.4.0
 
 1. Create new React project: npx create-react-app tree-explorer
 2. Delete folders public and src
-3. Instal ClickAwayListener: npm i react-click-away-listener
+3. Install ClickAwayListener: npm i react-click-away-listener
 4. Copy files from repo to your app folder
 5. Start server: npm start
 
@@ -46,9 +35,6 @@ node -v: 14.4.0
 ![image](https://user-images.githubusercontent.com/47826375/131140154-9bc70ae3-97c9-4887-ba7c-f22d6bf2d030.png)
 
 ![image](https://user-images.githubusercontent.com/47826375/131140089-75b60e0e-3224-4003-8664-591080d98afe.png)
-
-
-If want more chars in response (longer name of files/folder) please change ContentLengthLimit in startup.cs 
 
 _____________________IN PROGRES________________________
 

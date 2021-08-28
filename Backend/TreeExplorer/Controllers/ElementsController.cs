@@ -334,20 +334,35 @@ namespace TreeExplorer.Controllers
         }
 
         [HttpPost]
-        public async Task<FileContentResult> GetFileAsync([Bind("Id")] int id)
+        public async Task<ActionResult> GetFile([Bind("Id")] int id, [Bind("UsserId")] int usserId, [Bind("Password")] string password)
         {
             string path = _context.Element.SingleOrDefault(el => el.Id == id).Path;
 
-            var provider = new FileExtensionContentTypeProvider();
-            if (!provider.TryGetContentType(path, out var contentType))
+            var query = from el in _context.Set<Element>()
+                        join usser in _context.Set<Usser>()
+                         on el.UsserId equals usser.Id
+                        where el.Id == id && el.UsserId == usserId && usser.Password == password
+                        select new { el.Id, el.Name};
+
+            if(query.Count() != 0)
             {
-                contentType = "application/octet-stream";
+
+                var provider = new FileExtensionContentTypeProvider();
+                if (!provider.TryGetContentType(path, out var contentType))
+                {
+                    contentType = "application/octet-stream";
+                }
+
+                var bytes = await System.IO.File.ReadAllBytesAsync(path);
+
+                return File(bytes, contentType, Path.GetFileName(path));
             }
 
-            var bytes = await System.IO.File.ReadAllBytesAsync(path);
+            return Json(new { Message = "Not found", Status = 500 });
+        
 
-            return File(bytes, contentType, Path.GetFileName(path));
         }
+
 
     }
 }
