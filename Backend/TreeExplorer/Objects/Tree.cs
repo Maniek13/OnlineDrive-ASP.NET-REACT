@@ -176,7 +176,7 @@ namespace TreeExplorer.Objects
                 }
                 
             }
-
+            path.Reverse();
             return path;
         }
 
