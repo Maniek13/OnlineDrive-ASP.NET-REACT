@@ -78,8 +78,8 @@ class File extends React.Component {
             <button className={styles.download_btn} onClick={this.download.bind(this)}></button>
           </div>
         </div>
-        
-        {/* {this.state.edit ? <EditForm tree_calback = {this.tree_calback} idw={this.props.idw} name={this.props.name} node={false} callback = {this.onEdit}/> : ""} */}
+{/*         
+        {this.state.edit ? <EditForm tree_calback = {this.tree_calback} idw={this.props.idw} name={this.props.name} node={false} callback = {this.onEdit}/> : ""} */}
         {this.state.delete ? <DelForm tree_calback = {this.tree_calback} id={this.props.id} name={this.props.name} callback = {this.onDelete}/> : ""}
         {this.state.file ? "" : <NotFound callback = {this.onCloseMessage.bind(this)}/>}
       </React.Fragment>

@@ -282,6 +282,7 @@ namespace TreeExplorer.Controllers
                                     path += folder + "\\";
                                 }
 
+                             
                                 Directory.Move(path + name, path + elementNew.Name);
 
                                 return Json(new { Message = true, Status = 200 });
