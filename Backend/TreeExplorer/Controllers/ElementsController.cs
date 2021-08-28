@@ -289,13 +289,13 @@ namespace TreeExplorer.Controllers
 
                                 foreach (string folder in fileStructure)
                                 {
-                                    path += folder;
+                                    path += folder+ "\\";
                                 }
 
                                 if(element.Type == "file")
                                 {
-                                    oldPath += "\\" + name;
-                                    path += "\\" + element.Name;
+                                    oldPath += name;
+                                    path +=  element.Name;
 
                                     System.IO.File.Copy(oldPath, path);
                                     System.IO.File.Delete(oldPath);
@@ -367,9 +367,43 @@ namespace TreeExplorer.Controllers
                     {
                         try
                         {
+                            string name = element.Name;
+
+                            List<string> fileStructureOld = Tree.FindPath(element.IdW);
+
+                            string oldPath = this.path + element.UsserId + "\\";
+
+                            foreach (string folder in fileStructureOld)
+                            {
+                                oldPath += folder + "\\";
+                            }
+
                             element.IdW = idW;
+
                             _context.Element.Update(element);
                             await _context.SaveChangesAsync();
+
+                            string path = this.path + element.UsserId + "\\";
+
+                            List<string> fileStructure = Tree.FindPath(idW);
+
+                            foreach (string folder in fileStructure)
+                            {
+                                path += folder;
+                            }
+
+                            if (element.Type == "file")
+                            {
+                                oldPath += "\\" + name;
+                                path += "\\" + name;
+
+                                System.IO.File.Copy(oldPath, path);
+                                System.IO.File.Delete(oldPath);
+                            }
+                            else
+                            {
+                                Directory.Move(oldPath + name, path + name);
+                            }
 
                             return Json(new { Message = true, Status = 200 });
                         }
