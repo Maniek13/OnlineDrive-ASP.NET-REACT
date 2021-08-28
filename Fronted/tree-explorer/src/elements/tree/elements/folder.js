@@ -86,7 +86,7 @@ class Folder extends React.Component {
             <div className={styles.folder} >
               <p className={styles.name}>{this.props.name}</p>
               <button id={this.props.id}  name={this.props.name} className={styles.del_btn} onClick={this.delForm.bind(this)}></button>  
-              <button id={this.props.id} idw={this.props.idw} name={this.props.name} className={styles.edit_btn} onClick={this.editForm.bind(this)}></button> 
+              {/* <button id={this.props.id} idw={this.props.idw} name={this.props.name} className={styles.edit_btn} onClick={this.editForm.bind(this)}></button>  */}
               <button className={styles.show_btn} id="show" onClick={this.showBranch.bind(this)}></button>  
             </div>
 
