@@ -102,7 +102,7 @@ namespace TreeExplorer.Controllers
             {
                 if (TryValidateModel(element, nameof(element)))
                 {
-                    if(element.Name == "" || element.Type == "file")
+                    if(element.Name != "" || element.Type == "file")
                     {
                         try
                         {
