@@ -389,13 +389,13 @@ namespace TreeExplorer.Controllers
 
                             foreach (string folder in fileStructure)
                             {
-                                path += folder;
+                                path += folder + "\\";
                             }
 
                             if (element.Type == "file")
                             {
-                                oldPath += "\\" + name;
-                                path += "\\" + name;
+                                oldPath += name;
+                                path += name;
 
                                 System.IO.File.Copy(oldPath, path);
                                 System.IO.File.Delete(oldPath);
