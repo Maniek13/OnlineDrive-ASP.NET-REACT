@@ -19,8 +19,6 @@ class Branch extends React.Component{
     };
     
     this.tree_calback = this.props.tree_calback.bind(this); 
-
-    
   }
 
   async sortBranch(){
@@ -34,16 +32,14 @@ class Branch extends React.Component{
     this.props.show();
   }
  
-
-
   show(){
     let fields = [];
     let branch = [];
-    if(this.id == 0){
+    if(this.id === 0){
       fields.push(<div className={styles.sort_bar} key={"sort"}> <div className={styles.bar_name}>Online drive</div> <div className={styles.sort_btn_cont} ><button className={styles.sort} onClick={this.sortBranch.bind(this)}></button></div></div>);
     }
     else{
-      let name = List.tree.find(el => el.id == this.id).name;      
+      let name = List.tree.find(el => el.id === this.id).name;      
       fields.push(
         <div className={styles.sort_bar} key={"sort"}>
           <div className={styles.bar_name}>{name}</div>
@@ -73,7 +69,7 @@ class Branch extends React.Component{
         }
       }
       );
-      if(i == 0){
+      if(i === 0){
         fields.push(<div>No elements</div>)
       }
 
