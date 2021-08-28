@@ -402,7 +402,6 @@ namespace TreeExplorer.Controllers
 
                             element.IdW = idW;
 
-
                             string path = this.path + element.UsserId + "\\";
 
                             List<string> fileStructure = Tree.FindPath(idW);
