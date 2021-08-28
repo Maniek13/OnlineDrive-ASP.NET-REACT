@@ -102,7 +102,7 @@ namespace TreeExplorer.Controllers
             {
                 if (TryValidateModel(element, nameof(element)))
                 {
-                    if(element.Name == "")
+                    if(element.Name == "" || element.Type == "node")
                     {
                         try
                         {
@@ -378,6 +378,8 @@ namespace TreeExplorer.Controllers
             {
                 return Json(new { Message = "Wrong data", Status = 400 });
             }
+
+
         }
 
         [HttpPost]
@@ -471,8 +473,6 @@ namespace TreeExplorer.Controllers
             }
            
         }
-
-
     }
 }
 
