@@ -100,7 +100,7 @@ class Folder extends React.Component {
         </div>
 
         {this.state.add ? <AddForm  tree_calback = {this.tree_calback} callback = {this.onAdd}/> : ""}
-        {this.state.edit ? <EditForm tree_calback = {this.tree_calback} id={this.props.id} idw={this.props.idw} name={this.props.name} node={true} callback = {this.onEdit}/> : ""}
+        {/* {this.state.edit ? <EditForm tree_calback = {this.tree_calback} id={this.props.id} idw={this.props.idw} name={this.props.name} node={true} callback = {this.onEdit}/> : ""} */}
         {this.state.delete ? <DelForm tree_calback = {this.tree_calback}  id={this.props.id} name={this.props.name} callback = {this.onDelete}/> : ""}
       </React.Fragment> 
     );
