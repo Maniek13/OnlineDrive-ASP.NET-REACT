@@ -265,12 +265,24 @@ namespace TreeExplorer.Controllers
                         {
                             try
                             {
+                                string name = element.Name;
                                 element.Name = elementNew.Name;
                                 element.Type = elementNew.Type;
                                 element.IdW = elementNew.IdW;
 
                                 _context.Update(element);
                                 await _context.SaveChangesAsync();
+
+                                string path = this.path + element.UsserId + "\\";
+
+                                List<string> fileStructure = Tree.FindPath(element.IdW);
+
+                                foreach (string folder in fileStructure)
+                                {
+                                    path += folder + "\\";
+                                }
+
+                                Directory.Move(path + name, path + elementNew.Name);
 
                                 return Json(new { Message = true, Status = 200 });
                             }

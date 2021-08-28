@@ -38,6 +38,6 @@ node -v: 14.4.0
 
 _____________________IN PROGRES________________________
 
--- add edit file/folder name
+-- add edit file name
 
 
