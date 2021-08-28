@@ -447,7 +447,7 @@ namespace TreeExplorer.Controllers
             where el.Id == id && el.UsserId == usserId && usser.Password == password
             select new { el.Id };
 
-            if (query.Count() > 0)
+            if (query.Any())
             {
                 return 1;
             }
@@ -463,7 +463,7 @@ namespace TreeExplorer.Controllers
                         where usser.Id == usserId && usser.Password == password
                         select new { usser.Id };
 
-            if(query.Count() > 0)
+            if(query.Any())
             {
                 return 1;
             }
