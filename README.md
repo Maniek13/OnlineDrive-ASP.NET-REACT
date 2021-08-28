@@ -37,6 +37,6 @@ node -v: 14.4.0
 ![image](https://user-images.githubusercontent.com/47826375/131140089-75b60e0e-3224-4003-8664-591080d98afe.png)
 
 _____________________IN PROGRES________________________
--- Under testing
+-- Under tests
 
 
