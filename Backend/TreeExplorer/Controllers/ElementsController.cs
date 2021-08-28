@@ -201,9 +201,6 @@ namespace TreeExplorer.Controllers
                     {
                         List<Element> listToDel = JsonConvert.DeserializeObject<List<Element>>(responde.Message);
 
-                        _context.Element.RemoveRange(listToDel);
-                        await _context.SaveChangesAsync();
-
                         foreach (Element el in listToDel)
                         {
                             string name = el.Name;
@@ -227,6 +224,9 @@ namespace TreeExplorer.Controllers
                                 Directory.Delete(path + name, true);
                             }
                         }
+
+                        _context.Element.RemoveRange(listToDel);
+                        await _context.SaveChangesAsync();
 
                         return Json(new { Message = true, Status = 200 });
                     }
@@ -302,9 +302,6 @@ namespace TreeExplorer.Controllers
                                 element.Type = elementNew.Type;
                                 element.IdW = elementNew.IdW;
 
-                                _context.Update(element);
-                                await _context.SaveChangesAsync();
-
                                 string path = this.path + element.UsserId + "\\";
 
                                 List<string> fileStructure = Tree.FindPath(element.IdW);
@@ -326,6 +323,9 @@ namespace TreeExplorer.Controllers
                                 {
                                     Directory.Move(oldPath + name, path + elementNew.Name);
                                 }
+
+                                _context.Update(element);
+                                await _context.SaveChangesAsync();
 
                                 return Json(new { Message = true, Status = 200 });
                             }
@@ -402,8 +402,6 @@ namespace TreeExplorer.Controllers
 
                             element.IdW = idW;
 
-                            _context.Element.Update(element);
-                            await _context.SaveChangesAsync();
 
                             string path = this.path + element.UsserId + "\\";
 
@@ -426,6 +424,9 @@ namespace TreeExplorer.Controllers
                             {
                                 Directory.Move(oldPath + name, path + name);
                             }
+
+                            _context.Element.Update(element);
+                            await _context.SaveChangesAsync();
 
                             return Json(new { Message = true, Status = 200 });
                         }
