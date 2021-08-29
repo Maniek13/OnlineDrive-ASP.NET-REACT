@@ -6,6 +6,7 @@ import Folder from '../elements/folder'
 import styles from '../styles/tree.module.css'
 import TreeController from '../../../controllers/tree/tree_controller'
 import Responde from '../../../objects/responde'
+import Styles from '../provider/styles'
 
 class Branch extends React.Component{
   constructor(props) {
@@ -30,6 +31,10 @@ class Branch extends React.Component{
 
   close(evt){
     this.props.show();
+  }
+
+  componentDidMount(){
+    Styles.zIndex += 1;
   }
  
   show(){
@@ -64,7 +69,7 @@ class Branch extends React.Component{
               fields.push(<File tree_calback = {this.tree_calback} id={el.id} name={el.name} idw={el.idW} key={el.id}/>)
               break;
             case "node":
-              fields.push(<Folder tree_calback = {this.tree_calback} id={el.id} name={el.name} idw={el.idW} key={el.id}/>)
+              fields.push(<Folder tree_calback = {this.tree_calback} id={el.id} name={el.name} idw={el.idW} key={el.id} />)
               break;
             default:
               break;
@@ -80,7 +85,7 @@ class Branch extends React.Component{
         fields.push(<Empty tree_calback = {this.tree_calback} id={this.id} key={"empty"}/>)
       }
     }
-    branch.push(<div  className={styles.single_branch}> {fields} </div>);
+    branch.push(<div  className={styles.single_branch} style={{zIndex:Styles.zIndex}}> {fields} </div>);
     
     return branch;
   } 
