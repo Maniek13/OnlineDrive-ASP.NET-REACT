@@ -40,7 +40,7 @@ class Branch extends React.Component{
       fields.push(<div className={styles.sort_bar} key={"sort"}> <div className={styles.bar_name}>Online drive</div> <div className={styles.sort_btn_cont} ><button className={styles.sort} onClick={this.sortBranch.bind(this)}></button></div></div>);
     }
     else{
-      if(List.tree.find(el => el.id === this.id) != undefined){
+      if(List.tree.find(el => el.id === this.id) !== undefined){
         let name = List.tree.find(el => el.id === this.id).name;  
         fields.push(
         <div className={styles.sort_bar} key={"sort"}>
@@ -83,7 +83,7 @@ class Branch extends React.Component{
     }
 
     let el = <div  className={styles.single_branch} > {fields} </div>;
-    if(List.tree.find(el => el.id === this.id) != undefined){
+    if(List.tree.find(el => el.id === this.id) !== undefined){
       branch.push(<ClickAwayListener onClickAway={this.close.bind(this)}>{el}</ClickAwayListener> );
     }
     else{
