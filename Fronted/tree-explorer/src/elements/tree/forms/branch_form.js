@@ -82,9 +82,9 @@ class Branch extends React.Component{
       }
     }
 
-    let el = <div  className={styles.single_branch} > {fields} </div>;
+    let el = <div  className={styles.single_branch} key={"sb" + this.id}> {fields} </div>;
     if(List.tree.find(el => el.id === this.id) !== undefined){
-      branch.push(<ClickAwayListener onClickAway={this.close.bind(this)}>{el}</ClickAwayListener> );
+      branch.push(<ClickAwayListener onClickAway={this.close.bind(this)} >{el}</ClickAwayListener> );
     }
     else{
       branch.push(el);

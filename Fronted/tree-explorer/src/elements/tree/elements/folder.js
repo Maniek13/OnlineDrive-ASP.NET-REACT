@@ -78,9 +78,9 @@ class Folder extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div className={styles.branch}>
+        <div className={styles.branch} >
           
-          <div className={styles.folder_contener}>
+          <div className={styles.folder_contener} >
             <div className={styles.folder} >
               <p className={styles.name}>{this.props.name}</p>
               <button id={this.props.id}  name={this.props.name} className={styles.del_btn} onClick={this.delForm.bind(this)}></button>  
