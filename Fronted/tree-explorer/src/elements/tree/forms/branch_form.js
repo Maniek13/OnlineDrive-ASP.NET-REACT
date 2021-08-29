@@ -6,7 +6,6 @@ import Folder from '../elements/folder'
 import styles from '../styles/tree.module.css'
 import TreeController from '../../../controllers/tree/tree_controller'
 import Responde from '../../../objects/responde'
-import Styles from '../provider/styles'
 import ClickAwayListener from 'react-click-away-listener'
 
 class Branch extends React.Component{
@@ -34,10 +33,6 @@ class Branch extends React.Component{
     this.props.show();
   }
 
-  componentDidMount(){
-    Styles.zIndex += 1;
-  }
-
   show(){
     let fields = [];
     let branch = [];
@@ -56,7 +51,6 @@ class Branch extends React.Component{
         );
       }
     }
-      
     
     if(List.tree.length === 0){
       fields.push(<Empty tree_calback = {this.tree_calback} id={this.id} key={"empty"}/> )
@@ -88,15 +82,13 @@ class Branch extends React.Component{
       }
     }
 
-
-    let el = <div  className={styles.single_branch} style={{zIndex:Styles.zIndex}}> {fields} </div>;
+    let el = <div  className={styles.single_branch} > {fields} </div>;
     if(List.tree.find(el => el.id === this.id) != undefined){
       branch.push(<ClickAwayListener onClickAway={this.close.bind(this)}>{el}</ClickAwayListener> );
     }
     else{
       branch.push(el);
     }
-   
     
     return branch;
   } 
