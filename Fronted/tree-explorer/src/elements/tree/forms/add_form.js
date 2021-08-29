@@ -49,8 +49,7 @@ class AddForm extends React.Component{
       }
       else
       {
-        
-      this.setState({error : true});
+        this.setState({error : true});
       }
     }
     
