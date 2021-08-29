@@ -233,7 +233,6 @@ select{
 }
 
 .folder_contener + .single_branch{
-    width: 50%;
     height: auto;
     position: absolute;
     border: 1px solid grey;

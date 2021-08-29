@@ -24,17 +24,10 @@ node -v: 14.4.0
 4. Copy files from repo to your app folder
 5. Start server: npm start
 
-![image](https://user-images.githubusercontent.com/47826375/131103764-ea90d64f-8637-4527-af08-76cb7922223c.png)
 
-![image](https://user-images.githubusercontent.com/47826375/131124773-65c16d8d-09d1-46c5-9bf0-e5b7cdf14722.png)
+![image](https://user-images.githubusercontent.com/47826375/131267365-14391242-8f58-4fc7-acd2-322ab369782a.png)
 
-![image](https://user-images.githubusercontent.com/47826375/131133013-ddeadbaf-4bed-4ed6-9bc4-fff70b44714c.png)
-
-![image](https://user-images.githubusercontent.com/47826375/131140056-7206e1e7-d107-47c5-b5b6-91352140a605.png)
-
-![image](https://user-images.githubusercontent.com/47826375/131140154-9bc70ae3-97c9-4887-ba7c-f22d6bf2d030.png)
-
-![image](https://user-images.githubusercontent.com/47826375/131140089-75b60e0e-3224-4003-8664-591080d98afe.png)
+![image](https://user-images.githubusercontent.com/47826375/131267612-ef25b18f-27fa-485c-ad8c-9f86d3bf26e0.png)
 
 _____________________IN PROGRES________________________
 -- Under tests
