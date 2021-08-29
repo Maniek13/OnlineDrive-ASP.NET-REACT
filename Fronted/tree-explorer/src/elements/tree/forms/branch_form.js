@@ -7,6 +7,7 @@ import styles from '../styles/tree.module.css'
 import TreeController from '../../../controllers/tree/tree_controller'
 import Responde from '../../../objects/responde'
 import Styles from '../provider/styles'
+import ClickAwayListener from 'react-click-away-listener'
 
 class Branch extends React.Component{
   constructor(props) {
@@ -36,7 +37,7 @@ class Branch extends React.Component{
   componentDidMount(){
     Styles.zIndex += 1;
   }
- 
+
   show(){
     let fields = [];
     let branch = [];
@@ -45,15 +46,16 @@ class Branch extends React.Component{
     }
     else{
       if(List.tree.find(el => el.id === this.id) != undefined){
-        let name = List.tree.find(el => el.id === this.id).name;      
-      fields.push(
+        let name = List.tree.find(el => el.id === this.id).name;  
+        fields.push(
         <div className={styles.sort_bar} key={"sort"}>
           <div className={styles.bar_name}>{name}</div>
           <button className={styles.sort} onClick={this.sortBranch.bind(this)}></button>
           <div  className={styles.exit} onClick={this.close.bind(this)}></div>
-        </div>);
-    }
+        </div>
+        );
       }
+    }
       
     
     if(List.tree.length === 0){
@@ -85,7 +87,16 @@ class Branch extends React.Component{
         fields.push(<Empty tree_calback = {this.tree_calback} id={this.id} key={"empty"}/>)
       }
     }
-    branch.push(<div  className={styles.single_branch} style={{zIndex:Styles.zIndex}}> {fields} </div>);
+
+
+    let el = <div  className={styles.single_branch} style={{zIndex:Styles.zIndex}}> {fields} </div>;
+    if(List.tree.find(el => el.id === this.id) != undefined){
+      branch.push(<ClickAwayListener onClickAway={this.close.bind(this)}>{el}</ClickAwayListener> );
+    }
+    else{
+      branch.push(el);
+    }
+   
     
     return branch;
   } 

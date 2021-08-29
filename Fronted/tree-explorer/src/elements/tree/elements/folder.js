@@ -77,8 +77,6 @@ class Folder extends React.Component {
     this.showBranch();
   }
 
-
-
   render() {
     return (
       <React.Fragment>
