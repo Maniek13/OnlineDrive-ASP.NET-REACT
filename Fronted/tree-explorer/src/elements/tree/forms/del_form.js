@@ -37,7 +37,9 @@ class DelForm extends React.Component{
           this.setState({error : true});
         }
       }  
-      this.setState({error : true});
+      else{
+        this.setState({error : true});
+      }
     }
 
     exit(){
