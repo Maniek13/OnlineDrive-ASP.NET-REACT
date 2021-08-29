@@ -316,4 +316,6 @@ select{
     top: 50%;
     left: 5px;
     transform: translate(0%, -50%);
+    text-align: center;
+    width: 90px;
 }
