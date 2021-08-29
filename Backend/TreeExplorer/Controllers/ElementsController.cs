@@ -457,7 +457,7 @@ namespace TreeExplorer.Controllers
         [HttpPost]
         public JsonResult Sort([Bind("Id")] int id, [Bind("Type")] string type, [Bind("UsserId")] int usserId, [Bind("Password")] string password)
         {
-            var els = UsserElementsQuery(id, usserId, password);
+            var els = UsserQuery(usserId, password);
 
             if (els != 0)
             {
