@@ -68,13 +68,11 @@ class Folder extends React.Component {
   onEdit(){
     Provider.modal = false;
     this.setState({edit : false});
-    this.showBranch();
   }
 
   onDelete(){
     Provider.modal = false;
     this.setState({delete : false});
-    this.showBranch();
   }
 
   render() {
