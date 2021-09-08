@@ -19,12 +19,12 @@ class Explorer  extends React.Component {
   }
 
   async componentDidMount(){
-    await AccountController.is_saved();
-      if(Responde.code === 200 && Responde.data !== 0){
-        Element.element.UsserId = Responde.data.id;
-        Element.element.Name = Responde.data.name;
-        this.setState({loged : true});
-      }
+    // await AccountController.is_saved();
+    //   if(Responde.code === 200 && Responde.data !== 0){
+    //     Element.element.UsserId = Responde.data.id;
+    //     Element.element.Name = Responde.data.name;
+    //     this.setState({loged : true});
+    //   }
   }
 
   login(){

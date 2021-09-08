@@ -67,10 +67,10 @@ class Form extends React.Component {
           <input className={styles.input_form} id="password" placeholder="Password" onChange={this.password_data.bind(this)}></input>
         </div>
           
-        <div className={styles.remember_me_form}>
+        {/* <div className={styles.remember_me_form}>
               <label>Remember me</label> 
               <input value={this.state.remember} type="checkbox" id="type"  defaultChecked={false} onChange={this.remember.bind(this)} className={styles.input}/>
-        </div>
+        </div> */}
         <div className={styles.btn_container}>
           <button className={styles.btn} onClick={this.login.bind(this)}>Login</button>
           <button className={styles.btn} onClick={this.register.bind(this)}>Register</button>

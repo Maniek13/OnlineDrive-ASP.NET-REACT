@@ -95,7 +95,6 @@ namespace TreeExplorer.Controllers
         [HttpPost]
         public async Task<JsonResult> Add([Bind("Name,Type,IdW,UsserId")] Element element, [Bind("File")] IFormFile file, [Bind("Password")] string password)
         {
-
             var els = UsserQuery(element.UsserId, password);
 
             if (els != 0)
