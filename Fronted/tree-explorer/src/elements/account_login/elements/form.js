@@ -20,7 +20,7 @@ class Form extends React.Component {
   }
 
   componentDidMount(){
-    if(Cookies.get('login') != undefined){
+    if(Cookies.get('login') !== undefined){
       Usser.usser.Name = Cookies.get('login');
       Usser.usser.Password = Cookies.get('password');
       this.login()
@@ -58,9 +58,9 @@ class Form extends React.Component {
   }
 
   async register(){
+    this.save_data();
     await AccountController.add();
     if(Usser.id.Id !== "" && Responde.code === 200){
-      this.save_data();
       this.login_callback();
     }
     else{
