@@ -13,11 +13,11 @@ namespace TreeExplorer.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Element>()
-                .HasOne(p => p.Usser)
+                .HasOne<Usser>()
                 .WithMany(b => b.Elements);
 
             modelBuilder.Entity<UsserData>()
-                .HasOne(p => p.Usser)
+                .HasOne<Usser>()
                 .WithMany(b => b.UsserDatas);
         }
 
