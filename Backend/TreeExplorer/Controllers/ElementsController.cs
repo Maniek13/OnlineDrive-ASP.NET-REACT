@@ -199,29 +199,28 @@ namespace TreeExplorer.Controllers
                     try
                     {
                         List<Element> listToDel = JsonConvert.DeserializeObject<List<Element>>(responde.Message);
+                        var el = listToDel.Find(el => el.Id == id);
+                        
+                       
+                        string name = el.Name;
 
-                        foreach (Element el in listToDel)
+
+                        string path = this.path + el.UsserId + "\\";
+
+                        List<string> fileStructure = Tree.FindPath(el.IdW);
+
+                        foreach (string folder in fileStructure)
                         {
-                            string name = el.Name;
+                            path += folder + "\\";
+                        }
 
-
-                            string path = this.path + el.UsserId + "\\";
-
-                            List<string> fileStructure = Tree.FindPath(el.IdW);
-
-                            foreach (string folder in fileStructure)
-                            {
-                                path += folder + "\\";
-                            }
-
-                            if (el.Type == "file") { 
-                                path += name;
-                                System.IO.File.Delete(path);
-                            }
-                            else
-                            {
-                                Directory.Delete(path + name, true);
-                            }
+                        if (el.Type == "file") { 
+                            path += name;
+                            System.IO.File.Delete(path);
+                        }
+                        else
+                        {
+                            Directory.Delete(path + name, true);
                         }
 
                         _context.Elements.RemoveRange(listToDel);

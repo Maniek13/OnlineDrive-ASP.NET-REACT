@@ -14,11 +14,13 @@ namespace TreeExplorer.Data
         {
             modelBuilder.Entity<Element>()
                 .HasOne(p => p.Usser)
-                .WithMany(b => b.Elements);
+                .WithMany(b => b.Elements)
+                .IsRequired();
 
             modelBuilder.Entity<UsserData>()
                 .HasOne(p => p.Usser)
-                .WithMany(b => b.UsserDatas);
+                .WithMany(b => b.UsserDatas)
+                .IsRequired();
         }
 
         public DbSet<TreeExplorer.Models.Usser> Ussers { get; set; }
