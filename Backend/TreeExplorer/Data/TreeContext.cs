@@ -15,12 +15,14 @@ namespace TreeExplorer.Data
             modelBuilder.Entity<Element>()
                 .HasOne(p => p.Usser)
                 .WithMany(b => b.Elements)
-                .IsRequired();
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<UsserData>()
                 .HasOne(p => p.Usser)
                 .WithMany(b => b.UsserDatas)
-                .IsRequired();
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade); 
         }
 
         public DbSet<TreeExplorer.Models.Usser> Ussers { get; set; }
