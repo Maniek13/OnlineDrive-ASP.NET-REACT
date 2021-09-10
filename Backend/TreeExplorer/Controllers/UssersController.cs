@@ -31,7 +31,7 @@ namespace TreeExplorer.Controllers
                 {
                     try
                     {
-                        Usser finded = _context.Usser.Where(el => el.Name == usser.Name).FirstOrDefault();
+                        Usser finded = _context.Ussers.Where(el => el.Name == usser.Name).FirstOrDefault();
 
                         if (finded == null)
                         {
@@ -74,7 +74,7 @@ namespace TreeExplorer.Controllers
                     try
                     {
                         string password = Crypto.EncryptSha256(usser.Password);
-                        Usser finded = _context.Usser.Where(el => el.Name == usser.Name && el.Password == password).FirstOrDefault();
+                        Usser finded = _context.Ussers.Where(el => el.Name == usser.Name && el.Password == password).FirstOrDefault();
                         
                         if(finded != null)
                         {

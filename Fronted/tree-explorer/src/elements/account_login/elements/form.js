@@ -4,6 +4,7 @@ import Responde from '../../../objects/responde'
 import Usser from '../objects/usser'
 import styles from '../styles/account.module.css'
 import Error from './error'
+import Cookies from 'js-cookie'
 
 class Form extends React.Component {
   constructor(props){
@@ -18,6 +19,14 @@ class Form extends React.Component {
     this.login_callback = this.props.login_callback.bind(this);
   }
 
+  componentDidMount(){
+    if(Cookies.get('login') != undefined){
+      Usser.usser.Name = Cookies.get('login');
+      Usser.usser.Password = Cookies.get('password');
+      this.login()
+    }
+  }
+
   login_data(evt){
     Usser.usser.Name = evt.target.value;
   }
@@ -27,9 +36,9 @@ class Form extends React.Component {
   }
 
   async login(){
+    this.save_data();
     await AccountController.confirm();
       if(Usser.id.Id !== "" && Responde.code === 200){
-        await this.save_data();
         this.login_callback();
       }
       else{
@@ -37,20 +46,21 @@ class Form extends React.Component {
       }
   }
 
-  async save_data(){
+  save_data(){
     if(this.state.remember === true){
-      await AccountController.save_usser_data();
+      Cookies.set('login', Usser.usser.Name, { expires: 7 });
+      Cookies.set('password', Usser.usser.Password, { expires: 7 });
     }
   }
 
-  async remember(evt){
+  remember(evt){
     this.setState({remember : !this.state.remember});
   }
 
   async register(){
     await AccountController.add();
     if(Usser.id.Id !== "" && Responde.code === 200){
-      await this.save_data();
+      this.save_data();
       this.login_callback();
     }
     else{
@@ -67,10 +77,10 @@ class Form extends React.Component {
           <input className={styles.input_form} id="password" placeholder="Password" onChange={this.password_data.bind(this)}></input>
         </div>
           
-        {/* <div className={styles.remember_me_form}>
+        <div className={styles.remember_me_form}>
               <label>Remember me</label> 
               <input value={this.state.remember} type="checkbox" id="type"  defaultChecked={false} onChange={this.remember.bind(this)} className={styles.input}/>
-        </div> */}
+        </div>
         <div className={styles.btn_container}>
           <button className={styles.btn} onClick={this.login.bind(this)}>Login</button>
           <button className={styles.btn} onClick={this.register.bind(this)}>Register</button>

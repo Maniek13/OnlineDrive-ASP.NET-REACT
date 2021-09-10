@@ -13,9 +13,9 @@ namespace TreeExplorer.Controllers
         [Produces("application/json")]
         public class UsserDatasController : Controller
         {
-            private readonly UsserDataContext _context;
+            private readonly UsserContext _context;
 
-            public UsserDatasController(UsserDataContext context)
+            public UsserDatasController(UsserContext context)
             {
                 _context = context;
             }
@@ -80,11 +80,11 @@ namespace TreeExplorer.Controllers
             {
                 try
                 {
-                    UsserData? data = _context.UsserData.SingleOrDefault(el => el.IpV4 == ipV4 && el.Browser == browser);
+                    UsserData? data = _context.UsserDatas.SingleOrDefault(el => el.IpV4 == ipV4 && el.Browser == browser);
 
                     if (data != null)
                     {
-                        _context.UsserData.RemoveRange(data);
+                        _context.UsserDatas.RemoveRange(data);
                         await _context.SaveChangesAsync();
 
                         return Json(new { Message = "Usser was succesfully deleted", Status = 200 });

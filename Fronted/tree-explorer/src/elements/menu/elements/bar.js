@@ -1,11 +1,11 @@
 import React from 'react'
-import AccountController from '../../../controllers/account/account_controller'
-import Usser from '../../account_login/objects/usser';
+import Usser from '../../account_login/objects/usser'
 import styles from '../styles/menu.module.css'
+import Cookies from 'js-cookie'
 
 class Bar extends React.Component {
     async logout(){
-        await AccountController.remove_data();
+        Cookies.remove('login', { path: '' })
         window.location.reload();
     }
 

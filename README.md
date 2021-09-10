@@ -5,9 +5,9 @@ Backend
 2. Copy files from repo
 3. In menager nuget packet console run: 
 
-Add-Migration Usser -Context UsserContext
+Add-Migration -init
 
-Update-Database -Context UsserContext
+Update-Database
 
 4. Start app
 5. Please set data first

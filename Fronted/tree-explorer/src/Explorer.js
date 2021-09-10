@@ -1,11 +1,9 @@
 import Tree from './elements/tree'
-import React from 'react';
-import Element from './elements/tree/objects/element';
-import Usser from './elements/account_login/objects/usser';
-import AccountLogin from './elements/account_login';
-import AccountController from './controllers/account/account_controller';
-import Responde from './objects/responde';
-import Menu from './elements/menu';
+import React from 'react'
+import Element from './elements/tree/objects/element'
+import Usser from './elements/account_login/objects/usser'
+import AccountLogin from './elements/account_login'
+import Menu from './elements/menu'
 
 class Explorer  extends React.Component {
   constructor(props){
@@ -16,15 +14,6 @@ class Explorer  extends React.Component {
     };
 
     this.login = this.login.bind(this);
-  }
-
-  async componentDidMount(){
-    // await AccountController.is_saved();
-    //   if(Responde.code === 200 && Responde.data !== 0){
-    //     Element.element.UsserId = Responde.data.id;
-    //     Element.element.Name = Responde.data.name;
-    //     this.setState({loged : true});
-    //   }
   }
 
   login(){
@@ -38,7 +27,8 @@ class Explorer  extends React.Component {
       <React.Fragment>
         <Menu/>
         <Tree/>
-      </React.Fragment> : <AccountLogin login_callback={this.login} />
+      </React.Fragment> :
+      <AccountLogin login_callback={this.login} />
     );
   }
 }

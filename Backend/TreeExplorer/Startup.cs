@@ -24,14 +24,7 @@ namespace TreeExplorer
         {
             services.AddCors();
             services.AddControllersWithViews();
-
-            services.AddDbContext<ElementContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("Database")));
-
             services.AddDbContext<UsserContext>(options =>
-                   options.UseSqlServer(Configuration.GetConnectionString("Database")));
-
-            services.AddDbContext<UsserDataContext>(options =>
                    options.UseSqlServer(Configuration.GetConnectionString("Database")));
         }
 

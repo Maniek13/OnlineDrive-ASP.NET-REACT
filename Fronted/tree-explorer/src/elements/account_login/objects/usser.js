@@ -6,10 +6,6 @@ class Usser{
     static id ={
         Id: ""
     }
-    static usser_data ={
-        IpV4: "",
-        Browser: ""
-    }
 }
 
 export default Usser;

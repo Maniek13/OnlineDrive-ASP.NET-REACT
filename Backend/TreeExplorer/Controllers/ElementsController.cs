@@ -17,10 +17,10 @@ namespace TreeExplorer.Controllers
     [Produces("application/json")]
     public class ElementsController : Controller
     {
-        private readonly ElementContext _context;
+        private readonly UsserContext _context;
         private readonly string path = @System.IO.Directory.GetCurrentDirectory().ToString() + "\\Disk\\UssersFiles\\";
 
-        public ElementsController(ElementContext context)
+        public ElementsController(UsserContext context)
         {
             _context = context;
         }
@@ -36,7 +36,7 @@ namespace TreeExplorer.Controllers
             List<Element> list;
             try
             {
-                list = _context.Element.ToListAsync().Result;
+                list = _context.Elements.ToListAsync().Result;
                 Tree.Set(new(list));
             }
             catch (Exception e)
@@ -151,7 +151,7 @@ namespace TreeExplorer.Controllers
                             }
                             else
                             {
-                                _context.Element.Remove(element);
+                                _context.Elements.Remove(element);
                                 await _context.SaveChangesAsync();
                                 return Json(new { responde.Message, Status = 400 });
                             }
@@ -224,7 +224,7 @@ namespace TreeExplorer.Controllers
                             }
                         }
 
-                        _context.Element.RemoveRange(listToDel);
+                        _context.Elements.RemoveRange(listToDel);
                         await _context.SaveChangesAsync();
 
                         return Json(new { Message = true, Status = 200 });
@@ -235,7 +235,7 @@ namespace TreeExplorer.Controllers
                         Console.WriteLine(e.Message);
 
 
-                        Element el = _context.Element.ElementAt(id);
+                        Element el = _context.Elements.ElementAt(id);
                         Tree.Add(el.Id, el.Name, el.Type, el.IdW, el.UsserId);
 
                         return Json(new { Message = "Delete err", Status = 500 });
@@ -261,7 +261,7 @@ namespace TreeExplorer.Controllers
             {
                 if (elementNew.Name != null)
                 {
-                    Element element = _context.Element.SingleOrDefault(x => x.Id == elementNew.Id);
+                    Element element = _context.Elements.SingleOrDefault(x => x.Id == elementNew.Id);
 
                     List<Element> branch = Tree.Branch(elementNew.Id);
 
@@ -333,7 +333,7 @@ namespace TreeExplorer.Controllers
                                 Console.WriteLine("Edit err");
                                 Console.WriteLine(e.Message);
 
-                                element = _context.Element.SingleOrDefault(x => x.Id == elementNew.Id);
+                                element = _context.Elements.SingleOrDefault(x => x.Id == elementNew.Id);
 
                                 Tree.Edit(element);
 
@@ -369,7 +369,7 @@ namespace TreeExplorer.Controllers
 
                 if (els != 0)
                 {
-                    Element element = _context.Element.SingleOrDefault(x => x.Id == id);
+                    Element element = _context.Elements.SingleOrDefault(x => x.Id == id);
                     int idWOld = element.IdW;
 
                     List<Element> branch = Tree.Branch(id);
@@ -423,7 +423,7 @@ namespace TreeExplorer.Controllers
                                 Directory.Move(oldPath + name, path + name);
                             }
 
-                            _context.Element.Update(element);
+                            _context.Elements.Update(element);
                             await _context.SaveChangesAsync();
 
                             return Json(new { Message = true, Status = 200 });
@@ -479,7 +479,7 @@ namespace TreeExplorer.Controllers
             {
                 try
                 {
-                    string path = _context.Element.SingleOrDefault(el => el.Id == id).Path;
+                    string path = _context.Elements.SingleOrDefault(el => el.Id == id).Path;
                     int index = path.LastIndexOf("\\");
                     string fileName = path[(index + 1)..];
 
@@ -504,7 +504,7 @@ namespace TreeExplorer.Controllers
         [HttpPost]
         public async Task<ActionResult> GetFile([Bind("Id")] int id, [Bind("UsserId")] int usserId, [Bind("Password")] string password)
         {
-            string path = _context.Element.SingleOrDefault(el => el.Id == id).Path;
+            string path = _context.Elements.SingleOrDefault(el => el.Id == id).Path;
 
             var els = UsserElementsQuery(id, usserId, password);
 
