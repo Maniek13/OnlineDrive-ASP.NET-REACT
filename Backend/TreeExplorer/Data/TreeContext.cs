@@ -3,9 +3,9 @@ using TreeExplorer.Models;
 
 namespace TreeExplorer.Data
 {
-    public class UsserContext : DbContext
+    public class TreeContext : DbContext
     {
-        public UsserContext(DbContextOptions<UsserContext> options)
+        public TreeContext(DbContextOptions<TreeContext> options)
            : base(options)
         {
         }

@@ -16,10 +16,10 @@ namespace TreeExplorer.Controllers
         [Produces("application/json")]
         public class UssersController : Controller
         {
-            private readonly UsserContext _context;
+            private readonly TreeContext _context;
             private readonly string path = System.IO.Directory.GetCurrentDirectory();
 
-            public UssersController(UsserContext context)
+            public UssersController(TreeContext context)
             {
                 _context = context;
             }

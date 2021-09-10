@@ -13,9 +13,9 @@ namespace TreeExplorer.Controllers
         [Produces("application/json")]
         public class UsserDatasController : Controller
         {
-            private readonly UsserContext _context;
+            private readonly TreeContext _context;
 
-            public UsserDatasController(UsserContext context)
+            public UsserDatasController(TreeContext context)
             {
                 _context = context;
             }

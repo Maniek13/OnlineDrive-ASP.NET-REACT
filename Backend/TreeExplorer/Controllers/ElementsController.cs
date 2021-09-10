@@ -17,10 +17,10 @@ namespace TreeExplorer.Controllers
     [Produces("application/json")]
     public class ElementsController : Controller
     {
-        private readonly UsserContext _context;
+        private readonly TreeContext _context;
         private readonly string path = @System.IO.Directory.GetCurrentDirectory().ToString() + "\\Disk\\UssersFiles\\";
 
-        public ElementsController(UsserContext context)
+        public ElementsController(TreeContext context)
         {
             _context = context;
         }
