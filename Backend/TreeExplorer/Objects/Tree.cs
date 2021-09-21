@@ -30,7 +30,7 @@ namespace TreeExplorer.Objects
             return query.ToList();
         }
 
-        public static List<Element>? Get(int usserId)
+        public static List<Element> Get(int usserId)
         {
             List<Element> list = new();
             try
@@ -159,7 +159,7 @@ namespace TreeExplorer.Objects
 
             while(stop == false){
 
-                Element? el = _list.Find(el => el.Id == idW);
+                Element el = _list.Find(el => el.Id == idW);
                 if(el != null)
                 {
                     path.Add(el.Name);
@@ -183,6 +183,7 @@ namespace TreeExplorer.Objects
         public static Responde Edit(Element element) 
         {
             Responde responde = new();
+
             if (_list is null)
             {
                 responde.Message = "No list (Server error)";

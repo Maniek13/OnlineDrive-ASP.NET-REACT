@@ -80,7 +80,7 @@ namespace TreeExplorer.Controllers
             {
                 try
                 {
-                    UsserData? data = _context.UsserDatas.SingleOrDefault(el => el.IpV4 == ipV4 && el.Browser == browser);
+                    UsserData data = _context.UsserDatas.SingleOrDefault(el => el.IpV4 == ipV4 && el.Browser == browser);
 
                     if (data != null)
                     {

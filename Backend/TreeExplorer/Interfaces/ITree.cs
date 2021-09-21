@@ -16,7 +16,7 @@ namespace TreeExplorer.Interfaces
         virtual IEnumerable<Element> Sort(int idW, string type, int usserId) => throw new NotImplementedException();
         virtual void Set() => throw new NotImplementedException();
         virtual List<Element> Get() => throw new NotImplementedException();
-        virtual List<Element>? Get(int userId) => throw new NotImplementedException();
+        virtual List<Element> Get(int userId) => throw new NotImplementedException();
         virtual List<string> FindPath(int idW) => throw new NotImplementedException();
     }
 }
