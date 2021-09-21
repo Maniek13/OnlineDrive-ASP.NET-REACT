@@ -87,7 +87,6 @@ namespace TreeExplorer.Controllers
             }
         }
 
-
         // Post: Elements/Add
         [HttpPost]
         public async Task<JsonResult> Add([Bind("Name,Type,IdW,UsserId")] Element element, [Bind("File")] IFormFile file, [Bind("Password")] string password)
@@ -103,7 +102,6 @@ namespace TreeExplorer.Controllers
                         try
                         {
                             string path = this.path + element.UsserId + "\\";
-
                             List<string> fileStructure = Tree.FindPath(element.IdW);
 
                             foreach (string folder in fileStructure)
@@ -192,11 +190,7 @@ namespace TreeExplorer.Controllers
                     {
                         List<Element> listToDel = JsonConvert.DeserializeObject<List<Element>>(responde.Message);
                         var el = listToDel.Find(el => el.Id == id);
-                        
-                       
                         string name = el.Name;
-
-
                         string path = this.path + el.UsserId + "\\";
 
                         List<string> fileStructure = Tree.FindPath(el.IdW);
@@ -224,7 +218,6 @@ namespace TreeExplorer.Controllers
                     {
                         Console.WriteLine("Delete err");
                         Console.WriteLine(e.Message);
-
 
                         Element el = _context.Elements.ElementAt(id);
                         Tree.Add(el.Id, el.Name, el.Type, el.IdW, el.UsserId);
@@ -320,10 +313,8 @@ namespace TreeExplorer.Controllers
                         {
                             return Json(new { responde.Message, Status = 400 });
                         }
-
                     }
                     return Json(new { Message = "Can't move folder to child", Status = 400 });
-
                 }
                 return Json(new { Message = "Element must be a name", Status = 400 });
             }
@@ -332,7 +323,6 @@ namespace TreeExplorer.Controllers
                 return Json(new { Message = "Wrong data", Status = 400 });
             }
         }
-
 
         // Post: Elements/Move
         [HttpPost]
@@ -416,7 +406,6 @@ namespace TreeExplorer.Controllers
             {
                 return Json(new { responde.Message, Status = 400 });
             }
-               
         }
 
         // Post: Elements/Sort
@@ -433,8 +422,6 @@ namespace TreeExplorer.Controllers
             {
                 return Json(new { Message = "Wrong data", Status = 400 });
             }
-
-
         }
 
         [HttpPost]
@@ -464,20 +451,16 @@ namespace TreeExplorer.Controllers
             {
                 return Json(new { Message = "Wrong data", Status = 400 });
             }
-
-            
         }
 
         [HttpPost]
         public async Task<ActionResult> GetFile([Bind("Id")] int id, [Bind("UsserId")] int usserId, [Bind("Password")] string password)
         {
             string path = _context.Elements.SingleOrDefault(el => el.Id == id).Path;
-
             var els = UsserElementsQuery(id, usserId, password);
 
             if(els != 0)
             {
-
                 var provider = new FileExtensionContentTypeProvider();
                 if (!provider.TryGetContentType(path, out var contentType))
                 {
@@ -490,17 +473,15 @@ namespace TreeExplorer.Controllers
             }
 
             return Json(new { Message = "Not found", Status = 500 });
-        
-
         }
 
         private int UsserElementsQuery(int id, int usserId, string password)
         {
             var query = from el in _context.Set<Element>()
-            join usser in _context.Set<Usser>()
-             on el.UsserId equals usser.Id
-            where el.Id == id && el.UsserId == usserId && usser.Password == password
-            select new { el.Id };
+                        join usser in _context.Set<Usser>()
+                        on el.UsserId equals usser.Id
+                        where el.Id == id && el.UsserId == usserId && usser.Password == password
+                        select new { el.Id };
 
             if (query.Any())
             {
@@ -526,7 +507,6 @@ namespace TreeExplorer.Controllers
             {
                 return 0;
             }
-           
         }
     }
 }

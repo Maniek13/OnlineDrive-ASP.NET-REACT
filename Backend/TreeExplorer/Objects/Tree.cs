@@ -9,7 +9,6 @@ namespace TreeExplorer.Objects
 {
     public class Tree : ITree
     {
-
         private static HashSet<Element> _list;
 
         public static void Set(List<Element> list)
@@ -46,7 +45,6 @@ namespace TreeExplorer.Objects
             {
                 list = null;
             }
-
 
             return list;
         }
@@ -90,14 +88,7 @@ namespace TreeExplorer.Objects
             List<Element> branch = new();
             branch.Add(query.First());
 
-            HashSet<Element> list = new();
-
-          
-            foreach (Element el in _list)
-            {
-                list.Add(el);
-            }
-
+            HashSet<Element> list = _list;
             list.Remove(query.First());
 
             bool end = false;
@@ -128,7 +119,6 @@ namespace TreeExplorer.Objects
                         branch.Add(element);
                     });
                 }
-              
 
                 temp.ForEach(e =>
                 {
@@ -158,7 +148,6 @@ namespace TreeExplorer.Objects
         {
             List<string> path = new();
             bool stop = false;
-            
 
             while(stop == false){
 
@@ -177,7 +166,6 @@ namespace TreeExplorer.Objects
                 {
                     stop = true;
                 }
-                
             }
             path.Reverse();
             return path;
@@ -278,15 +266,12 @@ namespace TreeExplorer.Objects
                         responde.Message = "Element alredy exist in this folder";
                         responde.Error = true;
                     }
-           
                 }
                 else
                 {
                     responde.Message = "New node is in branch";
                     responde.Error = true;
                 }
-
-               
             }
             return responde;
         }
@@ -307,7 +292,6 @@ namespace TreeExplorer.Objects
                             orderby el.Name descending
                                 select el;
                     break;
-             
             }
 
             IEnumerable<Element> list;
@@ -322,7 +306,6 @@ namespace TreeExplorer.Objects
                     select el;
 
             list = list.Concat(query);
-
 
             return list;
         }

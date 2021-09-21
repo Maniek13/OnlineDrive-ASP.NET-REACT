@@ -30,7 +30,6 @@ namespace TreeExplorer.Controllers
                         _context.Add(usserData);
                         await _context.SaveChangesAsync();
 
-
                         return Json(new { Message = "Data is saved", Status = 200 });
                     }
                     catch (Exception e)
@@ -55,7 +54,7 @@ namespace TreeExplorer.Controllers
                 {
                     var query = from usserData in _context.Set<UsserData>()
                                 join usser in _context.Set<Usser>()
-                                 on usserData.UsserId equals usser.Id
+                                on usserData.UsserId equals usser.Id
                                 where usserData.IpV4 == ipV4 && usserData.Browser == browser
                                 select new {  usser.Id, usser.Name, usser.Password };
 
@@ -93,8 +92,6 @@ namespace TreeExplorer.Controllers
                     {
                         return Json(new { Message = "Usser not found", Status = 404 });
                     }
-                    
-
                 }
                 catch (Exception e)
                 {
