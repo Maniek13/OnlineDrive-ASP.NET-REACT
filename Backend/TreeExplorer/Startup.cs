@@ -50,10 +50,12 @@ namespace TreeExplorer
 
             app.UseAuthorization();
 
+            /*
             app.UseContentLengthRestriction(new ContentLengthRestrictionOptions
             {
-               // ContentLengthLimit = 10000
+                ContentLengthLimit = 10000
             });
+            */
 
             app.UseEndpoints(endpoints =>
             {

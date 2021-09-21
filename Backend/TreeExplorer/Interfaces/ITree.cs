@@ -17,6 +17,6 @@ namespace TreeExplorer.Interfaces
         virtual void Set() => throw new NotImplementedException();
         virtual HashSet<Element> Get() => throw new NotImplementedException();
         virtual HashSet<Element> Get(int userId) => throw new NotImplementedException();
-        virtual HashSet<string> FindPath(int idW) => throw new NotImplementedException();
+        virtual List<string> FindPath(int idW) => throw new NotImplementedException();
     }
 }

@@ -107,7 +107,7 @@ namespace TreeExplorer.Controllers
                         {
                             string path = this.path + element.UsserId + "\\";
 
-                            HashSet<string> fileStructure = Tree.FindPath(element.IdW);
+                            List<string> fileStructure = Tree.FindPath(element.IdW);
 
                             foreach (string folder in fileStructure)
                             {
@@ -207,7 +207,7 @@ namespace TreeExplorer.Controllers
 
                         string path = this.path + el.UsserId + "\\";
 
-                        HashSet<string> fileStructure = Tree.FindPath(el.IdW);
+                        List<string> fileStructure = Tree.FindPath(el.IdW);
 
                         foreach (string folder in fileStructure)
                         {
@@ -288,7 +288,7 @@ namespace TreeExplorer.Controllers
                             {
                                 string name = element.Name;
 
-                                HashSet<string> fileStructureOld = Tree.FindPath(element.IdW);
+                                List<string> fileStructureOld = Tree.FindPath(element.IdW);
                                 string oldPath = this.path + element.UsserId + "\\";
 
                                 foreach (string folder in fileStructureOld)
@@ -302,7 +302,7 @@ namespace TreeExplorer.Controllers
 
                                 string path = this.path + element.UsserId + "\\";
 
-                                HashSet<string> fileStructure = Tree.FindPath(element.IdW);
+                                List<string> fileStructure = Tree.FindPath(element.IdW);
 
                                 foreach (string folder in fileStructure)
                                 {
@@ -389,7 +389,7 @@ namespace TreeExplorer.Controllers
                         {
                             string name = element.Name;
 
-                            HashSet<string> fileStructureOld = Tree.FindPath(element.IdW);
+                            List<string> fileStructureOld = Tree.FindPath(element.IdW);
 
                             string oldPath = this.path + element.UsserId + "\\";
 
@@ -402,7 +402,7 @@ namespace TreeExplorer.Controllers
 
                             string path = this.path + element.UsserId + "\\";
 
-                            HashSet<string> fileStructure = Tree.FindPath(idW);
+                            List<string> fileStructure = Tree.FindPath(idW);
 
                             foreach (string folder in fileStructure)
                             {

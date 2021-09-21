@@ -92,6 +92,7 @@ namespace TreeExplorer.Objects
 
             HashSet<Element> list = new();
 
+          
             foreach (Element el in _list)
             {
                 list.Add(el);
@@ -153,9 +154,9 @@ namespace TreeExplorer.Objects
             return query.ToHashSet<Element>();
         }
 
-        public static HashSet<string> FindPath(int idW)
+        public static List<string> FindPath(int idW)
         {
-            HashSet<string> path = new();
+            List<string> path = new();
             bool stop = false;
             
 
@@ -178,8 +179,8 @@ namespace TreeExplorer.Objects
                 }
                 
             }
-            ;
-            return path.Reverse().ToHashSet();
+            path.Reverse();
+            return path;
         }
 
         public static Responde Edit(Element element) 
