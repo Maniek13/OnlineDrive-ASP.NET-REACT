@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using TreeExplorer.Models;
 
-#nullable enable
-
 namespace TreeExplorer.Interfaces
 {
     interface ITree
