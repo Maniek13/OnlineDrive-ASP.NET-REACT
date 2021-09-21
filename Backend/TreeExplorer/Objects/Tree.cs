@@ -10,7 +10,7 @@ namespace TreeExplorer.Objects
     public class Tree : ITree
     {
 
-        private static List<Element> _list;
+        private static HashSet<Element> _list;
 
         public static void Set(List<Element> list)
         {
@@ -18,30 +18,29 @@ namespace TreeExplorer.Objects
                                          orderby el.Type descending
                                          select el;
 
-            _list = query.ToList();
+            _list = query.ToHashSet();
         }
 
-        public static List<Element> Get()
+        public static HashSet<Element> Get()
         {
             IEnumerable<Element> query = from el in _list
                                          orderby el.Type descending
                                          select el;
 
-            return query.ToList();
+            return query.ToHashSet();
         }
 
-        public static List<Element> Get(int usserId)
+        public static HashSet<Element> Get(int usserId)
         {
-            List<Element> list = new();
+            HashSet<Element> list = new();
             try
             {
-                list =  _list.Where(el => el.UsserId == usserId).ToList();
+                list =  _list.Where(el => el.UsserId == usserId).ToHashSet();
 
                 IEnumerable<Element> query = from el in list
                                              orderby el.Type descending
                                              select el;
-                list = query.ToList();
-
+                list = query.ToHashSet();
             }
             catch
             {
@@ -64,9 +63,9 @@ namespace TreeExplorer.Objects
             {
                 Element element = new() { Id = id, Name = name, Type = type, IdW = idW, UsserId = usserId };
 
-                List<Element> els = Folder(idW, type);
+                HashSet<Element> els = Folder(idW, type);
 
-                if(els.Find(el => el.Name == name && el.IdW == idW && el.UsserId == usserId) == null)
+                if(els.FirstOrDefault(el => el.Name == name && el.IdW == idW && el.UsserId == usserId) == null)
                 {
                     _list.Add(element);
                     responde.Message = "Ok";
@@ -91,11 +90,13 @@ namespace TreeExplorer.Objects
             List<Element> branch = new();
             branch.Add(query.First());
 
-            List<Element> list = new();
-            _list.ForEach(el =>
+            HashSet<Element> list = new();
+
+            foreach (Element el in _list)
             {
                 list.Add(el);
-            });
+            }
+
             list.Remove(query.First());
 
             bool end = false;
@@ -106,14 +107,14 @@ namespace TreeExplorer.Objects
 
                 int i = 0;
                 List<Element> temp = new();
-                list.ForEach(elem =>
+
+                foreach(Element elem in list)
                 {
                     List<Element> branchEl = new();
                     branch.ForEach(el =>
                     {
                         if (list.ElementAt(i).IdW == el.Id)
                         {
-
                             branchEl.Add(list.ElementAt(i));
                             next++;
                         }
@@ -125,7 +126,8 @@ namespace TreeExplorer.Objects
                         temp.Add(element);
                         branch.Add(element);
                     });
-                });
+                }
+              
 
                 temp.ForEach(e =>
                 {
@@ -142,24 +144,24 @@ namespace TreeExplorer.Objects
             return branch;
         }
 
-        private static List<Element> Folder(int idW, string type)
+        private static HashSet<Element> Folder(int idW, string type)
         {
             IEnumerable<Element> query = from el in _list
                                          where el.IdW == idW && el.Type == type
                                          select el;
 
-            return query.ToList<Element>();
+            return query.ToHashSet<Element>();
         }
 
-        public static List<string> FindPath(int idW)
+        public static HashSet<string> FindPath(int idW)
         {
-            List<string> path = new();
+            HashSet<string> path = new();
             bool stop = false;
             
 
             while(stop == false){
 
-                Element el = _list.Find(el => el.Id == idW);
+                Element el = _list.FirstOrDefault(el => el.Id == idW);
                 if(el != null)
                 {
                     path.Add(el.Name);
@@ -176,8 +178,8 @@ namespace TreeExplorer.Objects
                 }
                 
             }
-            path.Reverse();
-            return path;
+            ;
+            return path.Reverse().ToHashSet();
         }
 
         public static Responde Edit(Element element) 
@@ -191,11 +193,11 @@ namespace TreeExplorer.Objects
             }
             else
             {
-                Element toChange = _list.Find(el => el.Id == element.Id);
+                Element toChange = _list.FirstOrDefault(el => el.Id == element.Id);
 
-                List<Element> els = Folder(element.IdW, element.Type);
+                HashSet<Element> els = Folder(element.IdW, element.Type);
 
-                if (els.Find(el => el.Name == element.Name) == null)
+                if (els.FirstOrDefault(el => el.Name == element.Name) == null)
                 {
                     toChange.Name = element.Name;
                     toChange.Type = element.Type;
@@ -226,10 +228,10 @@ namespace TreeExplorer.Objects
                 {
                     List<Element> toDel = Branch(id);
 
-                    toDel.ForEach(el =>
+                    foreach(Element el in toDel)
                     {
                         _list.Remove(el);
-                    });
+                    }
 
 
                     responde.Message = JsonSerializer.Serialize(toDel);
@@ -257,14 +259,16 @@ namespace TreeExplorer.Objects
             {
                
 
-                Element toChange = _list.Find(el => el.Id == id);
+                Element toChange = _list.FirstOrDefault(el => el.Id == id);
 
                 List<Element> branch = Branch(id);
 
 
                 bool ok = true;
-                branch.ForEach(el =>
+
+                foreach(Element el in branch)
                 {
+
                     if (el != toChange)
                     {
                         if (el.IdW == toChange.Id)
@@ -272,13 +276,13 @@ namespace TreeExplorer.Objects
                             ok = false;
                         }
                     }
-                });
+                }
 
                 if(ok == true)
                 {
-                    List<Element> els = Folder(idW, toChange.Type);
+                    HashSet<Element> els = Folder(idW, toChange.Type);
 
-                    if (els.Find(el => el.Name == toChange.Name) == null)
+                    if (els.FirstOrDefault(el => el.Name == toChange.Name) == null)
                     {
                         toChange.IdW = idW;
                         responde.Message = "Ok";

@@ -67,7 +67,7 @@ namespace TreeExplorer.Controllers
             {
                 if (usserId != 0)
                 {
-                    List<Element> list = Tree.Get(usserId);
+                    HashSet<Element> list = Tree.Get(usserId);
 
                     if (list != null)
                     {
@@ -107,7 +107,7 @@ namespace TreeExplorer.Controllers
                         {
                             string path = this.path + element.UsserId + "\\";
 
-                            List<string> fileStructure = Tree.FindPath(element.IdW);
+                            HashSet<string> fileStructure = Tree.FindPath(element.IdW);
 
                             foreach (string folder in fileStructure)
                             {
@@ -207,7 +207,7 @@ namespace TreeExplorer.Controllers
 
                         string path = this.path + el.UsserId + "\\";
 
-                        List<string> fileStructure = Tree.FindPath(el.IdW);
+                        HashSet<string> fileStructure = Tree.FindPath(el.IdW);
 
                         foreach (string folder in fileStructure)
                         {
@@ -269,13 +269,13 @@ namespace TreeExplorer.Controllers
 
                     if (elementNew.IdW != element.IdW)
                     {
-                        branch.ForEach(el =>
+                        foreach(Element el in branch)
                         {
                             if (el.Id == elementNew.IdW)
                             {
                                 ok = false;
                             }
-                        });
+                        }
                     }
 
 
@@ -288,7 +288,7 @@ namespace TreeExplorer.Controllers
                             {
                                 string name = element.Name;
 
-                                List<string> fileStructureOld = Tree.FindPath(element.IdW);
+                                HashSet<string> fileStructureOld = Tree.FindPath(element.IdW);
                                 string oldPath = this.path + element.UsserId + "\\";
 
                                 foreach (string folder in fileStructureOld)
@@ -302,7 +302,7 @@ namespace TreeExplorer.Controllers
 
                                 string path = this.path + element.UsserId + "\\";
 
-                                List<string> fileStructure = Tree.FindPath(element.IdW);
+                                HashSet<string> fileStructure = Tree.FindPath(element.IdW);
 
                                 foreach (string folder in fileStructure)
                                 {
@@ -373,15 +373,15 @@ namespace TreeExplorer.Controllers
 
                     List<Element> branch = Tree.Branch(id);
 
-
                     bool ok = true;
-                    branch.ForEach(el =>
+
+                    foreach(Element el in branch)
                     {
                         if (el.Id == idW)
                         {
                             ok = false;
                         }
-                    });
+                    }
 
                     if (ok == true)
                     {
@@ -389,7 +389,7 @@ namespace TreeExplorer.Controllers
                         {
                             string name = element.Name;
 
-                            List<string> fileStructureOld = Tree.FindPath(element.IdW);
+                            HashSet<string> fileStructureOld = Tree.FindPath(element.IdW);
 
                             string oldPath = this.path + element.UsserId + "\\";
 
@@ -402,7 +402,7 @@ namespace TreeExplorer.Controllers
 
                             string path = this.path + element.UsserId + "\\";
 
-                            List<string> fileStructure = Tree.FindPath(idW);
+                            HashSet<string> fileStructure = Tree.FindPath(idW);
 
                             foreach (string folder in fileStructure)
                             {
