@@ -88,7 +88,14 @@ namespace TreeExplorer.Objects
             List<Element> branch = new();
             branch.Add(query.First());
 
-            HashSet<Element> list = _list;
+            HashSet<Element> list = new();
+
+          
+            foreach (Element el in _list)
+            {
+                list.Add(el);
+            }
+
             list.Remove(query.First());
 
             bool end = false;

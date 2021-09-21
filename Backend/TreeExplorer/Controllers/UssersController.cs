@@ -2,7 +2,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TreeExplorer.Data;
 using TreeExplorer.Models;
@@ -72,12 +71,9 @@ namespace TreeExplorer.Controllers
                         string password = Crypto.EncryptSha256(usser.Password);
                         Usser finded = _context.Ussers.Where(el => el.Name == usser.Name && el.Password == password).FirstOrDefault();
                         
-                        if(finded != null)
-                        {
-                            return Json(new { Message = new { finded.Id, password }, Status = 200 });
-                        }
-
-                        return Json(new {  Message = "Usser no exist", Status = 400 });
+                        return finded != null ?
+                            Json(new { Message = new { finded.Id, password }, Status = 200 }):
+                            Json(new { Message = "Usser no exist", Status = 400 });
                     }
                     catch (Exception e)
                     {

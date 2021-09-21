@@ -58,12 +58,9 @@ namespace TreeExplorer.Controllers
                                 where usserData.IpV4 == ipV4 && usserData.Browser == browser
                                 select new {  usser.Id, usser.Name, usser.Password };
 
-                    if (query.Any())
-                    {
-                        return Json(new { Message  = new { query.First().Id , query.First().Name, query.First().Password }, Status = 200 });
-                    }
-
-                    return Json(new { Message = 0, Status = 200 });
+                    return query.Any() ?
+                        Json(new { Message = new { query.First().Id, query.First().Name, query.First().Password }, Status = 200 }):
+                        Json(new { Message = 0, Status = 200 });
                 }
                 catch (Exception e)
                 {

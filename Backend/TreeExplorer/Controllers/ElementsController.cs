@@ -67,14 +67,9 @@ namespace TreeExplorer.Controllers
                 {
                     HashSet<Element> list = Tree.Get(usserId);
 
-                    if (list != null)
-                    {
-                        return Json(new { Message = list, Status = 200 });
-                    }
-                    else
-                    {
-                        return Json(new { Message = "Server not responde. If you are administrator please set the data first", Status = 500 });
-                    }
+                    return list != null ?
+                        Json(new { Message = list, Status = 200 }) :
+                        Json(new { Message = "Server not responde. If you are administrator please set the data first", Status = 500 });
                 }
                 else
                 {
@@ -412,16 +407,9 @@ namespace TreeExplorer.Controllers
         [HttpPost]
         public JsonResult Sort([Bind("Id")] int id, [Bind("Type")] string type, [Bind("UsserId")] int usserId, [Bind("Password")] string password)
         {
-            var els = UsserQuery(usserId, password);
-
-            if (els != 0)
-            {
-                return Json(new { Message = Tree.Sort(id, type, usserId), Status = 200 });
-            }
-            else
-            {
-                return Json(new { Message = "Wrong data", Status = 400 });
-            }
+            return UsserQuery(usserId, password) != 0 ?
+                Json(new { Message = Tree.Sort(id, type, usserId), Status = 200 }):
+                Json(new { Message = "Wrong data", Status = 400 });
         }
 
         [HttpPost]
@@ -483,14 +471,7 @@ namespace TreeExplorer.Controllers
                         where el.Id == id && el.UsserId == usserId && usser.Password == password
                         select new { el.Id };
 
-            if (query.Any())
-            {
-                return 1;
-            }
-            else
-            {
-                return 0;
-            }
+            return query.Any() ? 1 : 0;
         }
 
         private int UsserQuery(int usserId, string password)
@@ -499,14 +480,7 @@ namespace TreeExplorer.Controllers
                         where usser.Id == usserId && usser.Password == password
                         select new { usser.Id };
 
-            if(query.Any())
-            {
-                return 1;
-            }
-            else
-            {
-                return 0;
-            }
+            return query.Any() ? 1 : 0;
         }
     }
 }
