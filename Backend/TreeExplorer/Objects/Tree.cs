@@ -81,7 +81,7 @@ namespace TreeExplorer.Objects
             return responde;
         }
 
-        public static List<Element> Branch(int id)
+        public static HashSet<Element> Branch(int id)
         {
             IEnumerable<Element> query = from el in _list
                                          where el.Id == id
@@ -142,7 +142,7 @@ namespace TreeExplorer.Objects
                 }
             }
 
-            return branch;
+            return branch.ToHashSet();
         }
 
         private static HashSet<Element> Folder(int idW, string type)
@@ -227,13 +227,12 @@ namespace TreeExplorer.Objects
             {
                 try
                 {
-                    List<Element> toDel = Branch(id);
+                    HashSet<Element> toDel = Branch(id);
 
                     foreach(Element el in toDel)
                     {
                         _list.Remove(el);
                     }
-
 
                     responde.Message = JsonSerializer.Serialize(toDel);
                     responde.Error = false;
@@ -258,26 +257,11 @@ namespace TreeExplorer.Objects
             }
             else
             {
-               
-
                 Element toChange = _list.FirstOrDefault(el => el.Id == id);
 
-                List<Element> branch = Branch(id);
+                HashSet<Element> branch = Branch(id);
 
-
-                bool ok = true;
-
-                foreach(Element el in branch)
-                {
-
-                    if (el != toChange)
-                    {
-                        if (el.IdW == toChange.Id)
-                        {
-                            ok = false;
-                        }
-                    }
-                }
+                bool ok = branch.FirstOrDefault(el => el != toChange && el.IdW == toChange.Id) == null;
 
                 if(ok == true)
                 {

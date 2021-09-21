@@ -10,7 +10,6 @@ using TreeExplorer.Objects;
 
 namespace TreeExplorer.Controllers
 {
-
     namespace TreeExplorer.Controllers
     {
         [Produces("application/json")]
@@ -48,9 +47,6 @@ namespace TreeExplorer.Controllers
                         {
                             return Json(new { Message = "Usser alredy exist", Status = 400 });
                         }
-
-
-                       
                     }
                     catch (Exception e)
                     {

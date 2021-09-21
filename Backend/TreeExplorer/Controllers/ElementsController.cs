@@ -59,9 +59,7 @@ namespace TreeExplorer.Controllers
         [HttpPost]
         public JsonResult Show([Bind("UsserId")] int usserId, [Bind("Password")] string password)
         {
-
             var els = UsserQuery(usserId, password);
-
 
             if (els != 0)
             {
@@ -77,7 +75,6 @@ namespace TreeExplorer.Controllers
                     {
                         return Json(new { Message = "Server not responde. If you are administrator please set the data first", Status = 500 });
                     }
-
                 }
                 else
                 {
@@ -114,7 +111,6 @@ namespace TreeExplorer.Controllers
                                 path += folder + "\\";
                             }
 
-
                             if (element.Type == "file")
                             {
                                 if (file != null)
@@ -133,7 +129,6 @@ namespace TreeExplorer.Controllers
                                 {
                                     return Json(new { Message = "Please chose a file", Status = 400 });
                                 }
-
                             }
                             else
                             {
@@ -169,7 +164,6 @@ namespace TreeExplorer.Controllers
                     {
                         return Json(new { Message = "Folder must hava a name", Status = 400 });
                     }
-                    
                 }
                 else
                 {
@@ -180,9 +174,7 @@ namespace TreeExplorer.Controllers
             {
                 return Json(new { Message = "Wrong data", Status = 400 });
             }
-           
         }
-
 
         // Post: Elements/Delete
         [HttpPost]
@@ -239,7 +231,6 @@ namespace TreeExplorer.Controllers
 
                         return Json(new { Message = "Delete err", Status = 500 });
                     }
-
                 }
                 return Json(new { responde.Message, Status = 400 });
             }
@@ -247,7 +238,6 @@ namespace TreeExplorer.Controllers
             {
                 return Json(new { Message = "Wrong data", Status = 400 });
             }
-           
         }
 
         // Post: Elements/Edit
@@ -262,22 +252,9 @@ namespace TreeExplorer.Controllers
                 {
                     Element element = _context.Elements.SingleOrDefault(x => x.Id == elementNew.Id);
 
-                    List<Element> branch = Tree.Branch(elementNew.Id);
+                    HashSet<Element> branch = Tree.Branch(elementNew.Id);
 
-
-                    bool ok = true;
-
-                    if (elementNew.IdW != element.IdW)
-                    {
-                        foreach(Element el in branch)
-                        {
-                            if (el.Id == elementNew.IdW)
-                            {
-                                ok = false;
-                            }
-                        }
-                    }
-
+                    bool ok = elementNew.IdW == element.IdW || branch.FirstOrDefault(el => el.Id == elementNew.IdW) == null;
 
                     if (ok == true)
                     {
@@ -371,17 +348,8 @@ namespace TreeExplorer.Controllers
                     Element element = _context.Elements.SingleOrDefault(x => x.Id == id);
                     int idWOld = element.IdW;
 
-                    List<Element> branch = Tree.Branch(id);
-
-                    bool ok = true;
-
-                    foreach(Element el in branch)
-                    {
-                        if (el.Id == idW)
-                        {
-                            ok = false;
-                        }
-                    }
+                    HashSet<Element> branch = Tree.Branch(id);
+                    bool ok = branch.FirstOrDefault(el => el.Id == idW) == null;
 
                     if (ok == true)
                     {
