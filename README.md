@@ -1,4 +1,4 @@
-# Online drive Beta(in progres)
+# Online drive
 
 Backend
 1. Create new project: ASP.NET Core (Model-View-Controller) instal pasckage: use this from nuget console: Install-Package Microsoft.EntityFrameworkCore.Design
@@ -28,8 +28,4 @@ node -v: 14.4.0
 ![image](https://user-images.githubusercontent.com/47826375/131267365-14391242-8f58-4fc7-acd2-322ab369782a.png)
 
 ![image](https://user-images.githubusercontent.com/47826375/131267612-ef25b18f-27fa-485c-ad8c-9f86d3bf26e0.png)
-
-_____________________IN PROGRES________________________
--- Under tests
-
 
