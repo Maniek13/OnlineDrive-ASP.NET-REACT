@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using TreeExplorer.Classes;
 using TreeExplorer.Data;
 using TreeExplorer.Models;
 using TreeExplorer.Objects;

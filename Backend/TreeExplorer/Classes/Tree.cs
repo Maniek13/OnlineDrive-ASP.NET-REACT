@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
-using TreeExplorer.Interfaces;
+using TreeExplorer.VirtualClasses;
 using TreeExplorer.Models;
+using TreeExplorer.Objects;
 
-namespace TreeExplorer.Objects
+namespace TreeExplorer.Classes
 {
-    public class Tree : ITree
+    public class Tree : VirtulTree
     {
-        private static HashSet<Element> _list;
+        new private static HashSet<Element> _list;
 
-        public static void Set(List<Element> list)
+        new public static void Set(List<Element> list)
         {
             IEnumerable<Element> query = from el in list
                                          orderby el.Type descending
@@ -20,7 +21,7 @@ namespace TreeExplorer.Objects
             _list = query.ToHashSet();
         }
 
-        public static HashSet<Element> Get()
+        new public static HashSet<Element> Get()
         {
             IEnumerable<Element> query = from el in _list
                                          orderby el.Type descending
@@ -29,7 +30,7 @@ namespace TreeExplorer.Objects
             return query.ToHashSet();
         }
 
-        public static HashSet<Element> Get(int usserId)
+        new public static HashSet<Element> Get(int usserId)
         {
             HashSet<Element> list = new();
             try
@@ -49,7 +50,7 @@ namespace TreeExplorer.Objects
             return list;
         }
 
-        public static Responde Add(int id, string name, string type, int idW, int usserId)
+        new public static Responde Add(int id, string name, string type, int idW, int usserId)
         {
             Responde responde = new();
             if (_list is null)
@@ -79,7 +80,7 @@ namespace TreeExplorer.Objects
             return responde;
         }
 
-        public static HashSet<Element> Branch(int id)
+        new public static HashSet<Element> Branch(int id)
         {
             IEnumerable<Element> query = from el in _list
                                          where el.Id == id
@@ -142,7 +143,7 @@ namespace TreeExplorer.Objects
             return branch.ToHashSet();
         }
 
-        private static HashSet<Element> Folder(int idW, string type)
+        new private static HashSet<Element> Folder(int idW, string type)
         {
             IEnumerable<Element> query = from el in _list
                                          where el.IdW == idW && el.Type == type
@@ -151,7 +152,7 @@ namespace TreeExplorer.Objects
             return query.ToHashSet<Element>();
         }
 
-        public static List<string> FindPath(int idW)
+        new public static List<string> FindPath(int idW)
         {
             List<string> path = new();
             bool stop = false;
@@ -178,7 +179,7 @@ namespace TreeExplorer.Objects
             return path;
         }
 
-        public static Responde Edit(Element element) 
+        new public static Responde Edit(Element element) 
         {
             Responde responde = new();
 
@@ -210,7 +211,7 @@ namespace TreeExplorer.Objects
             }
             return responde;
         }
-        public static Responde Delete(int id)
+        new public static Responde Delete(int id)
         {
             Responde responde = new();
             if (_list is null)
@@ -242,7 +243,7 @@ namespace TreeExplorer.Objects
             }
             return responde;
         }
-        public static Responde Move(int id, int idW)
+        new public static Responde Move(int id, int idW)
         {
             Responde responde = new();
             if (_list is null)
@@ -282,7 +283,7 @@ namespace TreeExplorer.Objects
             }
             return responde;
         }
-        public static IEnumerable<Element> Sort(int idW, string type, int usserId)
+        new public static IEnumerable<Element> Sort(int idW, string type, int usserId)
         {
             IEnumerable<Element> query = Array.Empty<Element>();
             switch (type)
