@@ -20,10 +20,12 @@ namespace TreeExplorer.Controllers
     {
         private readonly TreeContext _context;
         private readonly string path = @System.IO.Directory.GetCurrentDirectory().ToString() + "\\Disk\\UssersFiles\\";
+        private readonly Tree _tree;
 
         public ElementsController(TreeContext context)
         {
             _context = context;
+            _tree = new();
         }
 
         public IActionResult Index()
@@ -38,7 +40,7 @@ namespace TreeExplorer.Controllers
             try
             {
                 list = _context.Elements.ToListAsync().Result;
-                Tree.Set(new(list));
+                _tree.Set(new(list));
             }
             catch (Exception e)
             {
@@ -47,14 +49,14 @@ namespace TreeExplorer.Controllers
 
                 return Json(new { e.Message, Status = 500 });
             }
-            
+
             return Json(new { Message = true, Status = 200 });
         }
 
         // GET: Elements/Show
         public JsonResult Show()
         {
-            return Json(new { Message = Tree.Get(), Status = 200});
+            return Json(new { Message = _tree.Get(), Status = 200});
         }
 
         [HttpPost]
@@ -66,7 +68,7 @@ namespace TreeExplorer.Controllers
             {
                 if (usserId != 0)
                 {
-                    HashSet<Element> list = Tree.Get(usserId);
+                    HashSet<Element> list = _tree.Get(usserId);
 
                     return list != null ?
                         Json(new { Message = list, Status = 200 }) :
@@ -98,7 +100,7 @@ namespace TreeExplorer.Controllers
                         try
                         {
                             string path = this.path + element.UsserId + "\\";
-                            List<string> fileStructure = Tree.FindPath(element.IdW);
+                            List<string> fileStructure = _tree.FindPath(element.IdW);
 
                             foreach (string folder in fileStructure)
                             {
@@ -132,7 +134,7 @@ namespace TreeExplorer.Controllers
                             _context.Add(element);
                             await _context.SaveChangesAsync();
 
-                            Responde responde = Tree.Add(element.Id, element.Name, element.Type, element.IdW, element.UsserId);
+                            Responde responde = _tree.Add(element.Id, element.Name, element.Type, element.IdW, element.UsserId);
 
                             if (responde.Error == false)
                             {
@@ -178,7 +180,7 @@ namespace TreeExplorer.Controllers
 
             if (els != 0)
             {
-                Responde responde = Tree.Delete(id);
+                Responde responde = _tree.Delete(id);
 
                 if (responde.Error == false)
                 {
@@ -189,7 +191,7 @@ namespace TreeExplorer.Controllers
                         string name = el.Name;
                         string path = this.path + el.UsserId + "\\";
 
-                        List<string> fileStructure = Tree.FindPath(el.IdW);
+                        List<string> fileStructure = _tree.FindPath(el.IdW);
 
                         foreach (string folder in fileStructure)
                         {
@@ -216,7 +218,7 @@ namespace TreeExplorer.Controllers
                         Console.WriteLine(e.Message);
 
                         Element el = _context.Elements.ElementAt(id);
-                        Tree.Add(el.Id, el.Name, el.Type, el.IdW, el.UsserId);
+                        _tree.Add(el.Id, el.Name, el.Type, el.IdW, el.UsserId);
 
                         return Json(new { Message = "Delete err", Status = 500 });
                     }
@@ -241,20 +243,20 @@ namespace TreeExplorer.Controllers
                 {
                     Element element = _context.Elements.SingleOrDefault(x => x.Id == elementNew.Id);
 
-                    HashSet<Element> branch = Tree.Branch(elementNew.Id);
+                    HashSet<Element> branch = _tree.Branch(elementNew.Id);
 
                     bool ok = elementNew.IdW == element.IdW || branch.FirstOrDefault(el => el.Id == elementNew.IdW) == null;
 
                     if (ok == true)
                     {
-                        Responde responde = Tree.Edit(elementNew);
+                        Responde responde = _tree.Edit(elementNew);
                         if (responde.Error == false)
                         {
                             try
                             {
                                 string name = element.Name;
 
-                                List<string> fileStructureOld = Tree.FindPath(element.IdW);
+                                List<string> fileStructureOld = _tree.FindPath(element.IdW);
                                 string oldPath = this.path + element.UsserId + "\\";
 
                                 foreach (string folder in fileStructureOld)
@@ -268,7 +270,7 @@ namespace TreeExplorer.Controllers
 
                                 string path = this.path + element.UsserId + "\\";
 
-                                List<string> fileStructure = Tree.FindPath(element.IdW);
+                                List<string> fileStructure = _tree.FindPath(element.IdW);
 
                                 foreach (string folder in fileStructure)
                                 {
@@ -300,7 +302,7 @@ namespace TreeExplorer.Controllers
 
                                 element = _context.Elements.SingleOrDefault(x => x.Id == elementNew.Id);
 
-                                Tree.Edit(element);
+                                _tree.Edit(element);
 
                                 return Json(new { Message = "Edit err", Status = 500 });
                             }
@@ -324,7 +326,7 @@ namespace TreeExplorer.Controllers
         [HttpPost]
         public async Task<JsonResult> Move([Bind("Id")] int id, [Bind("IdW")] int idW, [Bind("UsserId")] int usserId, [Bind("Password")] string password)
         {
-            Responde responde = Tree.Move(id, idW);
+            Responde responde = _tree.Move(id, idW);
             if (responde.Error == false)
             {
                 var els = UsserElementsQuery(id, usserId, password);
@@ -334,7 +336,7 @@ namespace TreeExplorer.Controllers
                     Element element = _context.Elements.SingleOrDefault(x => x.Id == id);
                     int idWOld = element.IdW;
 
-                    HashSet<Element> branch = Tree.Branch(id);
+                    HashSet<Element> branch = _tree.Branch(id);
                     bool ok = branch.FirstOrDefault(el => el.Id == idW) == null;
 
                     if (ok == true)
@@ -343,7 +345,7 @@ namespace TreeExplorer.Controllers
                         {
                             string name = element.Name;
 
-                            List<string> fileStructureOld = Tree.FindPath(element.IdW);
+                            List<string> fileStructureOld = _tree.FindPath(element.IdW);
 
                             string oldPath = this.path + element.UsserId + "\\";
 
@@ -356,7 +358,7 @@ namespace TreeExplorer.Controllers
 
                             string path = this.path + element.UsserId + "\\";
 
-                            List<string> fileStructure = Tree.FindPath(idW);
+                            List<string> fileStructure = _tree.FindPath(idW);
 
                             foreach (string folder in fileStructure)
                             {
@@ -386,7 +388,7 @@ namespace TreeExplorer.Controllers
                             Console.WriteLine("Move err");
                             Console.WriteLine(e.Message);
 
-                            Tree.Move(id, idWOld);
+                            _tree.Move(id, idWOld);
 
                             return Json(new { Message = "Move err", Status = 500 });
                         }
@@ -409,7 +411,7 @@ namespace TreeExplorer.Controllers
         public JsonResult Sort([Bind("Id")] int id, [Bind("Type")] string type, [Bind("UsserId")] int usserId, [Bind("Password")] string password)
         {
             return UsserQuery(usserId, password) != 0 ?
-                Json(new { Message = Tree.Sort(id, type, usserId), Status = 200 }):
+                Json(new { Message = _tree.Sort(id, type, usserId), Status = 200 }):
                 Json(new { Message = "Wrong data", Status = 400 });
         }
 

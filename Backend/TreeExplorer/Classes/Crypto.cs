@@ -1,12 +1,12 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
-using TreeExplorer.VirtualClasses;
+using TreeExplorer.Interfaces;
 
 namespace TreeExplorer.Classes
 {
-    public class Crypto : VirtualCrypto
+    public class Crypto : ICrypto
     {
-        new public static string EncryptSha256(string stringToEncrypt)
+        public string EncryptSha256(string stringToEncrypt)
         {
             SHA256 sha256Hash = SHA256.Create();
 

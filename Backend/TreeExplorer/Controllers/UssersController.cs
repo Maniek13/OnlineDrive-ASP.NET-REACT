@@ -33,7 +33,8 @@ namespace TreeExplorer.Controllers
 
                         if (finded == null)
                         {
-                            string password = Crypto.EncryptSha256(usser.Password);
+                            Crypto crypto = new();
+                            string password = crypto.EncryptSha256(usser.Password);
                             usser.Password = password;
                             _context.Add(usser);
                             await _context.SaveChangesAsync();
@@ -68,7 +69,8 @@ namespace TreeExplorer.Controllers
                 {
                     try
                     {
-                        string password = Crypto.EncryptSha256(usser.Password);
+                        Crypto crypto = new();
+                        string password = crypto.EncryptSha256(usser.Password);
                         Usser finded = _context.Ussers.Where(el => el.Name == usser.Name && el.Password == password).FirstOrDefault();
                         
                         return finded != null ?
