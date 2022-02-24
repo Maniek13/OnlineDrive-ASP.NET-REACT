@@ -1,4 +1,4 @@
-# Online drive
+# Dysk online ASP.NET CORE / REACT
 
 Backend
 1. Create new project: ASP.NET Core (Model-View-Controller) instal pasckage: use this from nuget console: Install-Package Microsoft.EntityFrameworkCore.Design
