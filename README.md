@@ -1,12 +1,12 @@
 # Dysk online ASP.NET CORE / REACT
 
+Project
+1.  Copy files from repo
+
 Backend
-1. Create new project: ASP.NET Core (Model-View-Controller) instal pasckage: use this from nuget console: Install-Package Microsoft.EntityFrameworkCore.Design
-2. Copy files from repo
-3. In menager nuget packet console run: 
+1. In menager nuget packet console run: 
 
-Add-Migration -init
-
+Add-Migration init
 Update-Database
 
 4. Start app
@@ -18,11 +18,10 @@ Frontend
 npm -v: 6.14.5
 node -v: 14.4.0
 
-1. Create new React project: npx create-react-app tree-explorer
-2. Delete folders public and src
-3. Install ClickAwayListener: npm i react-click-away-listener
-4. Copy files from repo to your app folder
-5. Start server: npm start
+1. In cmd go to Fronted\tree-explorer
+2. Run command: npm inatall
+3. Run command: npm start
+4. Have fun! :)
 
 
 ![image](https://user-images.githubusercontent.com/47826375/131267365-14391242-8f58-4fc7-acd2-322ab369782a.png)
