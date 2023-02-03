@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace TreeExplorer.Controllers
 
     namespace TreeExplorer.Controllers
     {
+        [EnableCors("AllowSpecificOrigin")]
         [Produces("application/json")]
         public class UsserDatasController : Controller
         {

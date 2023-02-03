@@ -1,12 +1,5 @@
 # Dysk online ASP.NET CORE / REACT
 
-
-
-To see please visit (work if my pc is on):
-http://178.235.60.107:81/
-
-
-
 Project
 1.  Copy files from repo
 

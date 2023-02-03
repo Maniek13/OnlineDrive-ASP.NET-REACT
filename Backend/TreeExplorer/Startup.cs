@@ -22,7 +22,20 @@ namespace TreeExplorer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                        builder => builder.WithOrigins("http://178.235.60.107:3000"));
+            });
+
+            services.AddCors(o => o.AddPolicy("AllowAnyOrigin",
+                      builder =>
+                      {
+                          builder.AllowAnyOrigin()
+                                 .AllowAnyMethod()
+                                 .AllowAnyHeader();
+                      }));
+
             services.AddControllersWithViews();
             services.AddDbContext<TreeContext>(options =>
                    options.UseSqlServer(Configuration.GetConnectionString("Database")));
@@ -41,13 +54,14 @@ namespace TreeExplorer
 
             app.UseRouting();
 
-            app.UseCors(x => x
+    /*        app.UseCors(x => x
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .SetIsOriginAllowed(origin => true)
                 .AllowCredentials());
+    */
 
-
+            app.UseCors("AllowSpecificOrigin");
             app.UseAuthorization();
 
             /*

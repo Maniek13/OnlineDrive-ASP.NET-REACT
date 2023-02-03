@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
@@ -16,6 +17,7 @@ using TreeExplorer.Objects;
 
 namespace TreeExplorer.Controllers
 {
+    [EnableCors("AllowSpecificOrigin")]
     [Produces("application/json")]
     public class ElementsController : Controller
     {
@@ -324,6 +326,7 @@ namespace TreeExplorer.Controllers
         }
 
         // Post: Elements/Move
+        [EnableCors("AllowSpecificOrigin")]
         [HttpPost]
         public async Task<JsonResult> Move([Bind("Id")] int id, [Bind("IdW")] int idW, [Bind("UsserId")] int usserId, [Bind("Password")] string password)
         {
