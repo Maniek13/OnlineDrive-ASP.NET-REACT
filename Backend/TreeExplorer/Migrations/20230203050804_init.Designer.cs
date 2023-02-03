@@ -9,7 +9,7 @@ using TreeExplorer.Data;
 namespace TreeExplorer.Migrations
 {
     [DbContext(typeof(TreeContext))]
-    [Migration("20220617160349_init")]
+    [Migration("20230203050804_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

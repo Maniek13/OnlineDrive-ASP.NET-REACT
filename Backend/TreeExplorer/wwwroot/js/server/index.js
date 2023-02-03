@@ -1,5 +1,5 @@
 ﻿function set() {
-    fetch('https://localhost:5001/Elements/Set')
+    fetch('http://178.235.60.107:5002/Elements/Set')
         .then(response => response.json())
         .then(data => {
             console.log(data)

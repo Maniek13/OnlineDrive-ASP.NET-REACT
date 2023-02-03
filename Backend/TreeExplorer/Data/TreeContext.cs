@@ -25,8 +25,8 @@ namespace TreeExplorer.Data
                 .OnDelete(DeleteBehavior.Cascade); 
         }
 
-        public DbSet<TreeExplorer.Models.Usser> Ussers { get; set; }
-        public DbSet<TreeExplorer.Models.Element> Elements { get; set; }
-        public DbSet<TreeExplorer.Models.UsserData> UsserDatas { get; set; }
+        public DbSet<Usser> Ussers { get; set; }
+        public DbSet<Element> Elements { get; set; }
+        public DbSet<UsserData> UsserDatas { get; set; }
     }
 }
