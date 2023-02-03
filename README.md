@@ -2,7 +2,7 @@
 
 
 
-To see please visit:
+To see please visit (work if my pc is on):
 http://178.235.60.107:81/
 
 
