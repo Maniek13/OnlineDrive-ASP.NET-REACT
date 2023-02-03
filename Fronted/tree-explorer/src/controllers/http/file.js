@@ -6,7 +6,6 @@ async function File(adres, object){
     for (var i in object){
         formData.append(i, object[i]);
     }
-
     try{
         fetch(adres, {
             method: 'POST',

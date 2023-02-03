@@ -326,7 +326,6 @@ namespace TreeExplorer.Controllers
         }
 
         // Post: Elements/Move
-        [EnableCors("AllowSpecificOrigin")]
         [HttpPost]
         public async Task<JsonResult> Move([Bind("Id")] int id, [Bind("IdW")] int idW, [Bind("UsserId")] int usserId, [Bind("Password")] string password)
         {

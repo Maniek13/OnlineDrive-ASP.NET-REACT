@@ -4,14 +4,36 @@ Project
 1.  Copy files from repo
 
 Backend
-1. In menager nuget packet console run: 
+
+create file in wwwroot/js/server named index.js like:
+
+___________________________________________________________________________________________
+function set() {
+    fetch('serverURL/Elements/Set')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            if (data.status === 200) {
+                document.getElementById("responde").innerText = "Data is set";
+                document.getElementById("set_button").disabled = true;
+            }
+            else {
+                document.getElementById("responde").innerText = "Server not responde";
+            }
+        });
+}
+_____________________________________________________________________________________________
+
+change serverURL to serverURL
+
+2. In menager nuget packet console run: 
 
 Run command: Add-Migration init
 
 Run command: Update-Database
 
-4. Start app
-5. Please set data first
+3. Start app
+4. Please set data first
 
 ![image](https://user-images.githubusercontent.com/47826375/130889690-d0f1c302-386e-4d5b-a257-f1a44729659e.png)
 
