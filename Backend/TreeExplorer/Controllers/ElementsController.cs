@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Mime;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Microsoft.AspNetCore.Cors;
@@ -65,103 +66,23 @@ namespace TreeExplorer.Controllers
         [HttpPost]
         public JsonResult Show([Bind("UsserId")] int usserId, [Bind("Password")] string password)
         {
-            var els = UsserQuery(usserId, password);
-
-            if (els != 0)
+            try
             {
-                if (usserId != 0)
-                {
-                    HashSet<Element> list = _tree.Get(usserId);
+                var els = UsserQuery(usserId, password);
 
-                    return list != null ?
-                        Json(new { Message = list, Status = 200 }) :
-                        Json(new { Message = "Server not responde. If you are administrator please set the data first", Status = 500 });
-                }
-                else
+                if (els != 0)
                 {
-                    return Json(new { Message = "Wrong index of usser", Status = 400 });
-                }
-            }
-            else
-            {
-                return Json(new { Message = "Wrong data", Status = 400 });
-            }
-        }
-
-        // Post: Elements/Add
-        [HttpPost]
-        public async Task<JsonResult> Add([Bind("Name,Type,IdW,UsserId")] Element element, [Bind("File")] IFormFile file, [Bind("Password")] string password)
-        {
-            var els = UsserQuery(element.UsserId, password);
-
-            if (els != 0)
-            {
-                if (TryValidateModel(element, nameof(element)))
-                {
-                    if(element.Name != "" || element.Type == "file")
+                    if (usserId != 0)
                     {
-                        try
-                        {
-                            string path = this.path + element.UsserId + "\\";
-                            List<string> fileStructure = _tree.FindPath(element.IdW);
+                        HashSet<Element> list = _tree.Get(usserId);
 
-                            foreach (string folder in fileStructure)
-                            {
-                                path += folder + "\\";
-                            }
-
-                            if (element.Type == "file")
-                            {
-                                if (file != null)
-                                {
-                                    path += file.FileName;
-                                    element.Path = path;
-
-                                    if (file.Length > 0)
-                                    {
-                                        using var stream = System.IO.File.Create(path);
-                                        await file.CopyToAsync(stream);
-                                        stream.Dispose();
-                                    }
-                                }
-                                else
-                                {
-                                    return Json(new { Message = "Please chose a file", Status = 400 });
-                                }
-                            }
-                            else
-                            {
-                                Directory.CreateDirectory(path + element.Name);
-                            }
-
-                            _context.Add(element);
-                            await _context.SaveChangesAsync();
-
-                            Responde responde = _tree.Add(element.Id, element.Name, element.Type, element.IdW, element.UsserId);
-
-                            if (responde.Error == false)
-                            {
-                                return Json(new { Message = true, Status = 200 });
-                            }
-                            else
-                            {
-                                _context.Elements.Remove(element);
-                                await _context.SaveChangesAsync();
-                                return Json(new { responde.Message, Status = 400 });
-                            }
-
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine("Add err");
-                            Console.WriteLine(e.Message);
-
-                            return Json(new { e.Message, Status = 500 });
-                        }
+                        return list != null ?
+                            Json(new { Message = list, Status = 200 }) :
+                            Json(new { Message = "Server not responde. If you are administrator please set the data first", Status = 500 });
                     }
                     else
                     {
-                        return Json(new { Message = "Folder must hava a name", Status = 400 });
+                        return Json(new { Message = "Wrong index of usser", Status = 400 });
                     }
                 }
                 else
@@ -169,9 +90,103 @@ namespace TreeExplorer.Controllers
                     return Json(new { Message = "Wrong data", Status = 400 });
                 }
             }
-            else
+            catch (Exception e)
             {
-                return Json(new { Message = "Wrong data", Status = 400 });
+                return Json(new { e.Message, Status = 500 });
+            }
+        }
+
+        // Post: Elements/Add
+        [HttpPost]
+        public async Task<JsonResult> Add([Bind("Name,Type,IdW,UsserId")] Element element, [Bind("File")] IFormFile file, [Bind("Password")] string password)
+        {
+            try 
+            { 
+                var els = UsserQuery(element.UsserId, password);
+
+                if (els != 0)
+                {
+                    if (TryValidateModel(element, nameof(element)))
+                    {
+                        if(element.Name != "" || element.Type == "file")
+                        {
+                            try
+                            {
+                                string path = this.path + element.UsserId + "\\";
+                                List<string> fileStructure = _tree.FindPath(element.IdW);
+
+                                foreach (string folder in fileStructure)
+                                {
+                                    path += folder + "\\";
+                                }
+
+                                if (element.Type == "file")
+                                {
+                                    if (file != null)
+                                    {
+                                        path += file.FileName;
+                                        element.Path = path;
+
+                                        if (file.Length > 0)
+                                        {
+                                            using var stream = System.IO.File.Create(path);
+                                            await file.CopyToAsync(stream);
+                                            stream.Dispose();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        return Json(new { Message = "Please chose a file", Status = 400 });
+                                    }
+                                }
+                                else
+                                {
+                                    Directory.CreateDirectory(path + element.Name);
+                                }
+
+                                _context.Add(element);
+                                await _context.SaveChangesAsync();
+
+                                Responde responde = _tree.Add(element.Id, element.Name, element.Type, element.IdW, element.UsserId);
+
+                                if (responde.Error == false)
+                                {
+                                    return Json(new { Message = true, Status = 200 });
+                                }
+                                else
+                                {
+                                    _context.Elements.Remove(element);
+                                    await _context.SaveChangesAsync();
+                                    return Json(new { responde.Message, Status = 400 });
+                                }
+
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine("Add err");
+                                Console.WriteLine(e.Message);
+
+                                return Json(new { e.Message, Status = 500 });
+                            }
+                        }
+                        else
+                        {
+                            return Json(new { Message = "Folder must hava a name", Status = 400 });
+                        }
+                    }
+                    else
+                    {
+                        return Json(new { Message = "Wrong data", Status = 400 });
+                    }
+                }
+                else
+                {
+                    return Json(new { Message = "Wrong data", Status = 400 });
+                }
+            }
+            catch (Exception e)
+            {
+                return Json(new { e.Message, Status = 500 });
             }
         }
 
@@ -179,58 +194,65 @@ namespace TreeExplorer.Controllers
         [HttpPost]
         public async Task<JsonResult> Delete([Bind("Id")] int id, [Bind("UsserId")] int usserId, [Bind("Password")] string password)
         {
-            var els = UsserElementsQuery(id, usserId, password);
+            try 
+            { 
+                var els = UsserElementsQuery(id, usserId, password);
 
-            if (els != 0)
-            {
-                Responde responde = _tree.Delete(id);
-
-                if (responde.Error == false)
+                if (els != 0)
                 {
-                    try
+                    Responde responde = _tree.Delete(id);
+
+                    if (responde.Error == false)
                     {
-                        List<Element> listToDel = JsonConvert.DeserializeObject<List<Element>>(responde.Message);
-                        var el = listToDel.Find(el => el.Id == id);
-                        string name = el.Name;
-                        string path = this.path + el.UsserId + "\\";
-
-                        List<string> fileStructure = _tree.FindPath(el.IdW);
-
-                        foreach (string folder in fileStructure)
+                        try
                         {
-                            path += folder + "\\";
-                        }
+                            List<Element> listToDel = JsonConvert.DeserializeObject<List<Element>>(responde.Message);
+                            var el = listToDel.Find(el => el.Id == id);
+                            string name = el.Name;
+                            string path = this.path + el.UsserId + "\\";
 
-                        if (el.Type == "file") { 
-                            path += name;
-                            System.IO.File.Delete(path);
+                            List<string> fileStructure = _tree.FindPath(el.IdW);
+
+                            foreach (string folder in fileStructure)
+                            {
+                                path += folder + "\\";
+                            }
+
+                            if (el.Type == "file") { 
+                                path += name;
+                                System.IO.File.Delete(path);
+                            }
+                            else
+                            {
+                                Directory.Delete(path + name, true);
+                            }
+
+                            _context.Elements.RemoveRange(listToDel);
+                            await _context.SaveChangesAsync();
+
+                            return Json(new { Message = true, Status = 200 });
                         }
-                        else
+                        catch (Exception e)
                         {
-                            Directory.Delete(path + name, true);
+                            Console.WriteLine("Delete err");
+                            Console.WriteLine(e.Message);
+
+                            Element el = _context.Elements.ElementAt(id);
+                            _tree.Add(el.Id, el.Name, el.Type, el.IdW, el.UsserId);
+
+                            return Json(new { Message = "Delete err", Status = 500 });
                         }
-
-                        _context.Elements.RemoveRange(listToDel);
-                        await _context.SaveChangesAsync();
-
-                        return Json(new { Message = true, Status = 200 });
                     }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine("Delete err");
-                        Console.WriteLine(e.Message);
-
-                        Element el = _context.Elements.ElementAt(id);
-                        _tree.Add(el.Id, el.Name, el.Type, el.IdW, el.UsserId);
-
-                        return Json(new { Message = "Delete err", Status = 500 });
-                    }
+                    return Json(new { responde.Message, Status = 400 });
                 }
-                return Json(new { responde.Message, Status = 400 });
+                else
+                {
+                    return Json(new { Message = "Wrong data", Status = 400 });
+                }
             }
-            else
+            catch (Exception e)
             {
-                return Json(new { Message = "Wrong data", Status = 400 });
+                return Json(new { e.Message, Status = 500 });
             }
         }
 
@@ -329,83 +351,90 @@ namespace TreeExplorer.Controllers
         [HttpPost]
         public async Task<JsonResult> Move([Bind("Id")] int id, [Bind("IdW")] int idW, [Bind("UsserId")] int usserId, [Bind("Password")] string password)
         {
-            Responde responde = _tree.Move(id, idW);
-            if (responde.Error == false)
+            try
             {
-                var els = UsserElementsQuery(id, usserId, password);
-
-                if (els != 0)
+                Responde responde = _tree.Move(id, idW);
+                if (responde.Error == false)
                 {
-                    Element element = _context.Elements.SingleOrDefault(x => x.Id == id);
-                    int idWOld = element.IdW;
+                    var els = UsserElementsQuery(id, usserId, password);
 
-                    HashSet<Element> branch = _tree.Branch(id);
-                    bool ok = branch.FirstOrDefault(el => el.Id == idW) == null;
-
-                    if (ok == true)
+                    if (els != 0)
                     {
-                        try
+                        Element element = _context.Elements.SingleOrDefault(x => x.Id == id);
+                        int idWOld = element.IdW;
+
+                        HashSet<Element> branch = _tree.Branch(id);
+                        bool ok = branch.FirstOrDefault(el => el.Id == idW) == null;
+
+                        if (ok == true)
                         {
-                            string name = element.Name;
-
-                            List<string> fileStructureOld = _tree.FindPath(element.IdW);
-
-                            string oldPath = this.path + element.UsserId + "\\";
-
-                            foreach (string folder in fileStructureOld)
+                            try
                             {
-                                oldPath += folder + "\\";
+                                string name = element.Name;
+
+                                List<string> fileStructureOld = _tree.FindPath(element.IdW);
+
+                                string oldPath = this.path + element.UsserId + "\\";
+
+                                foreach (string folder in fileStructureOld)
+                                {
+                                    oldPath += folder + "\\";
+                                }
+
+                                element.IdW = idW;
+
+                                string path = this.path + element.UsserId + "\\";
+
+                                List<string> fileStructure = _tree.FindPath(idW);
+
+                                foreach (string folder in fileStructure)
+                                {
+                                    path += folder + "\\";
+                                }
+
+                                if (element.Type == "file")
+                                {
+                                    oldPath += name;
+                                    path += name;
+
+                                    System.IO.File.Copy(oldPath, path);
+                                    System.IO.File.Delete(oldPath);
+                                }
+                                else
+                                {
+                                    Directory.Move(oldPath + name, path + name);
+                                }
+
+                                _context.Elements.Update(element);
+                                await _context.SaveChangesAsync();
+
+                                return Json(new { Message = true, Status = 200 });
                             }
-
-                            element.IdW = idW;
-
-                            string path = this.path + element.UsserId + "\\";
-
-                            List<string> fileStructure = _tree.FindPath(idW);
-
-                            foreach (string folder in fileStructure)
+                            catch (Exception e)
                             {
-                                path += folder + "\\";
+                                Console.WriteLine("Move err");
+                                Console.WriteLine(e.Message);
+
+                                _tree.Move(id, idWOld);
+
+                                return Json(new { Message = "Move err", Status = 500 });
                             }
-
-                            if (element.Type == "file")
-                            {
-                                oldPath += name;
-                                path += name;
-
-                                System.IO.File.Copy(oldPath, path);
-                                System.IO.File.Delete(oldPath);
-                            }
-                            else
-                            {
-                                Directory.Move(oldPath + name, path + name);
-                            }
-
-                            _context.Elements.Update(element);
-                            await _context.SaveChangesAsync();
-
-                            return Json(new { Message = true, Status = 200 });
                         }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine("Move err");
-                            Console.WriteLine(e.Message);
-
-                            _tree.Move(id, idWOld);
-
-                            return Json(new { Message = "Move err", Status = 500 });
-                        }
+                        return Json(new { Message = false, Status = 400 });
                     }
-                    return Json(new { Message = false, Status = 400 });
+                    else
+                    {
+                        return Json(new { Message = "Wrong data", Status = 400 });
+                    }
                 }
                 else
                 {
-                    return Json(new { Message = "Wrong data", Status = 400 });
+                    return Json(new { responde.Message, Status = 400 });
                 }
             }
-            else
+            catch (Exception e)
             {
-                return Json(new { responde.Message, Status = 400 });
+                return Json(new { e.Message, Status = 500 });
             }
         }
 
@@ -421,52 +450,66 @@ namespace TreeExplorer.Controllers
         [HttpPost]
         public JsonResult NameOfFile([Bind("Id")] int id, [Bind("UsserId")] int usserId, [Bind("Password")] string password)
         {
-            var els = UsserElementsQuery(id, usserId, password);
-
-            if (els != 0)
+            try
             {
-                try
-                {
-                    string path = _context.Elements.SingleOrDefault(el => el.Id == id).Path;
-                    int index = path.LastIndexOf("\\");
-                    string fileName = path[(index + 1)..];
+                var els = UsserElementsQuery(id, usserId, password);
 
-                    return Json(new { Message = fileName, Status = 200 });
+                if (els != 0)
+                {
+                    try
+                    {
+                        string path = _context.Elements.SingleOrDefault(el => el.Id == id).Path;
+                        int index = path.LastIndexOf("\\");
+                        string fileName = path[(index + 1)..];
+
+                        return Json(new { Message = fileName, Status = 200 });
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Name of file err");
+                        Console.WriteLine(e.Message);
+
+                        return Json(new { Message = "Name of file err", Status = 500 });
+                    }
                 }
-                catch (Exception e)
+                else
                 {
-                    Console.WriteLine("Name of file err");
-                    Console.WriteLine(e.Message);
-
-                    return Json(new { Message = "Name of file err", Status = 500 });
+                    return Json(new { Message = "Wrong data", Status = 400 });
                 }
             }
-            else
+            catch(Exception e)
             {
-                return Json(new { Message = "Wrong data", Status = 400 });
+                return Json(new { e.Message, Status = 500 });
             }
         }
 
         [HttpPost]
         public async Task<ActionResult> GetFile([Bind("Id")] int id, [Bind("UsserId")] int usserId, [Bind("Password")] string password)
         {
-            string path = _context.Elements.SingleOrDefault(el => el.Id == id).Path;
-            var els = UsserElementsQuery(id, usserId, password);
-
-            if(els != 0)
+            try
             {
-                var provider = new FileExtensionContentTypeProvider();
-                if (!provider.TryGetContentType(path, out var contentType))
+                string path = _context.Elements.SingleOrDefault(el => el.Id == id).Path;
+                var els = UsserElementsQuery(id, usserId, password);
+
+                if (els != 0)
                 {
-                    contentType = "application/octet-stream";
+                    var provider = new FileExtensionContentTypeProvider();
+                    if (!provider.TryGetContentType(path, out string contentType))
+                    {
+                        contentType = "application/octet-stream";
+                    }
+
+                    var bytes = await System.IO.File.ReadAllBytesAsync(path);
+
+                    return File(bytes, contentType, Path.GetFileName(path));
                 }
 
-                var bytes = await System.IO.File.ReadAllBytesAsync(path);
-
-                return File(bytes, contentType, Path.GetFileName(path));
+                return Json(new { Message = $"Error: file path{path} {els}", Status = 500 });
             }
-
-            return Json(new { Message = "Not found", Status = 500 });
+            catch (Exception e)
+            {
+                return Json(new { e.Message, Status = 500 });
+            }
         }
 
         private int UsserElementsQuery(int id, int usserId, string password)

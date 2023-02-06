@@ -1,4 +1,13 @@
 # Dysk online ASP.NET CORE / REACT
+To see visit (my pc must running, sory I do not have other server):
+https://178.235.60.107:444/
+
+login: admin
+password: 12345
+
+or create one
+
+
 
 Project
 1.  Copy files from repo
