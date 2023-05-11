@@ -8,6 +8,10 @@ password: 12345
 or create one
 
 
+If a server error is displayed, please check if the website below is working and click if necessary clic set data.
+https://178.235.60.107:5002/
+
+
 
 Project
 1.  Copy files from repo
