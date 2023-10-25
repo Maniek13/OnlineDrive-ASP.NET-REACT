@@ -13,7 +13,6 @@ class Start extends React.Component {
       error: false
     };
   }
-
   async componentDidMount(){
     await TreeController.get_tree();
     if(Responde.code === 200){
