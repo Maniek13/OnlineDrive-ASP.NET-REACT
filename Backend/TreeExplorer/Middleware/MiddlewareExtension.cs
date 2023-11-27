@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using TreeExplorer.Objects;
+using TreeExplorer.Models;
 
 namespace TreeExplorer.Middleware
 {

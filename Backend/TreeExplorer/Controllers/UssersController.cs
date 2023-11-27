@@ -40,10 +40,10 @@ namespace TreeExplorer.Controllers
                             usser.Password = password;
                             _context.Add(usser);
                             await _context.SaveChangesAsync();
-                            
+
                             Directory.CreateDirectory(this.path + "\\Disk\\UssersFiles\\" + usser.Id);
 
-                            return Json(new { Message = new { usser.Id, password},  Status = 200 });
+                            return Json(new { Message = new { usser.Id, password }, Status = 200 });
                         }
                         else
                         {
@@ -74,9 +74,9 @@ namespace TreeExplorer.Controllers
                         Crypto crypto = new();
                         string password = crypto.EncryptSha256(usser.Password);
                         Usser finded = _context.Ussers.Where(el => el.Name == usser.Name && el.Password == password).FirstOrDefault();
-                        
+
                         return finded != null ?
-                            Json(new { Message = new { finded.Id, password }, Status = 200 }):
+                            Json(new { Message = new { finded.Id, password }, Status = 200 }) :
                             Json(new { Message = "Usser no exist", Status = 400 });
                     }
                     catch (Exception e)

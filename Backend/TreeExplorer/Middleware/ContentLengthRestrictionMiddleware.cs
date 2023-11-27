@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
-using TreeExplorer.Objects;
+using TreeExplorer.Models;
 
 namespace TreeExplorer.Middleware
 {
@@ -19,7 +19,7 @@ namespace TreeExplorer.Middleware
         }
         public async Task InvokeAsync(HttpContext httpContext)
         {
-            if(_contentLengthRestrictionOptions != null && _contentLengthRestrictionOptions.ContentLengthLimit > 0 && httpContext.Request.ContentLength > _contentLengthRestrictionOptions.ContentLengthLimit)
+            if (_contentLengthRestrictionOptions != null && _contentLengthRestrictionOptions.ContentLengthLimit > 0 && httpContext.Request.ContentLength > _contentLengthRestrictionOptions.ContentLengthLimit)
             {
                 _logger.LogWarning("Rejecting request with Content-Length {0} more then allowed {1}.", httpContext.Request.ContentLength, _contentLengthRestrictionOptions.ContentLengthLimit);
                 httpContext.Response.StatusCode = StatusCodes.Status413RequestEntityTooLarge;

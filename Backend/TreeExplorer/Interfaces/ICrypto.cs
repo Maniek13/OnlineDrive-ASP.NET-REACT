@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TreeExplorer.Interfaces
+﻿namespace TreeExplorer.Interfaces
 {
     interface ICrypto
     {

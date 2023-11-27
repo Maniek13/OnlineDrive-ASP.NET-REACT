@@ -22,7 +22,7 @@ namespace TreeExplorer.Data
                 .HasOne(p => p.Usser)
                 .WithMany(b => b.UsserDatas)
                 .IsRequired()
-                .OnDelete(DeleteBehavior.Cascade); 
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
         public DbSet<Usser> Ussers { get; set; }

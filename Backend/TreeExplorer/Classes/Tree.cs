@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text.Json;
 using TreeExplorer.Interfaces;
 using TreeExplorer.Models;
-using TreeExplorer.Objects;
 using TreeExplorer.VirtualClasses;
 
 namespace TreeExplorer.Classes
@@ -34,7 +33,7 @@ namespace TreeExplorer.Classes
             HashSet<Element> list = new();
             try
             {
-                list =  _list.Where(el => el.UsserId == usserId).ToHashSet();
+                list = _list.Where(el => el.UsserId == usserId).ToHashSet();
 
                 IEnumerable<Element> query = from el in list
                                              orderby el.Type descending
@@ -63,7 +62,7 @@ namespace TreeExplorer.Classes
 
                 HashSet<Element> els = Folder(idW, type);
 
-                if(els.FirstOrDefault(el => el.Name == name && el.IdW == idW && el.UsserId == usserId) == null)
+                if (els.FirstOrDefault(el => el.Name == name && el.IdW == idW && el.UsserId == usserId) == null)
                 {
                     _list.Add(element);
                     responde.Message = "Ok";
@@ -90,7 +89,7 @@ namespace TreeExplorer.Classes
 
             HashSet<Element> list = new();
 
-          
+
             foreach (Element el in _list)
             {
                 list.Add(el);
@@ -107,7 +106,7 @@ namespace TreeExplorer.Classes
                 int i = 0;
                 List<Element> temp = new();
 
-                foreach(Element elem in list)
+                foreach (Element elem in list)
                 {
                     List<Element> branchEl = new();
                     branch.ForEach(el =>
@@ -156,15 +155,16 @@ namespace TreeExplorer.Classes
             List<string> path = new();
             bool stop = false;
 
-            while(stop == false){
+            while (stop == false)
+            {
 
                 Element el = _list.FirstOrDefault(el => el.Id == idW);
-                if(el != null)
+                if (el != null)
                 {
                     path.Add(el.Name);
                     idW = el.IdW;
 
-                    if(idW == 0)
+                    if (idW == 0)
                     {
                         stop = true;
                     }
@@ -178,7 +178,7 @@ namespace TreeExplorer.Classes
             return path;
         }
 
-        public Responde Edit(Element element) 
+        public Responde Edit(Element element)
         {
             Responde responde = new();
 
@@ -224,7 +224,7 @@ namespace TreeExplorer.Classes
                 {
                     HashSet<Element> toDel = Branch(id);
 
-                    foreach(Element el in toDel)
+                    foreach (Element el in toDel)
                     {
                         _list.Remove(el);
                     }
@@ -258,7 +258,7 @@ namespace TreeExplorer.Classes
 
                 bool ok = branch.FirstOrDefault(el => el != toChange && el.IdW == toChange.Id) == null;
 
-                if(ok == true)
+                if (ok == true)
                 {
                     HashSet<Element> els = Folder(idW, toChange.Type);
 
@@ -289,15 +289,15 @@ namespace TreeExplorer.Classes
             {
                 case "ASC":
                     query = from el in _list
-                                where el.IdW == idW && el.UsserId == usserId
-                                orderby el.Name ascending
-                                select el;
+                            where el.IdW == idW && el.UsserId == usserId
+                            orderby el.Name ascending
+                            select el;
                     break;
                 case "DESC":
                     query = from el in _list
-                                where el.IdW == idW && el.UsserId == usserId
+                            where el.IdW == idW && el.UsserId == usserId
                             orderby el.Name descending
-                                select el;
+                            select el;
                     break;
             }
 

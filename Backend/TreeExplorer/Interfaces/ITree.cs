@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TreeExplorer.Models;
-using TreeExplorer.Objects;
 
 namespace TreeExplorer.Interfaces
 {

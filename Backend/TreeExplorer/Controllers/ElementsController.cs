@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net.Mime;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using Microsoft.AspNetCore.Cors;
+﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using TreeExplorer.Classes;
 using TreeExplorer.Data;
 using TreeExplorer.Models;
-using TreeExplorer.Objects;
 
 namespace TreeExplorer.Controllers
 {
@@ -60,7 +57,7 @@ namespace TreeExplorer.Controllers
         // GET: Elements/Show
         public JsonResult Show()
         {
-            return Json(new { Message = _tree.Get(), Status = 200});
+            return Json(new { Message = _tree.Get(), Status = 200 });
         }
 
         [HttpPost]
@@ -100,15 +97,15 @@ namespace TreeExplorer.Controllers
         [HttpPost]
         public async Task<JsonResult> Add([Bind("Name,Type,IdW,UsserId")] Element element, [Bind("File")] IFormFile file, [Bind("Password")] string password)
         {
-            try 
-            { 
+            try
+            {
                 var els = UsserQuery(element.UsserId, password);
 
                 if (els != 0)
                 {
                     if (TryValidateModel(element, nameof(element)))
                     {
-                        if(element.Name != "" || element.Type == "file")
+                        if (element.Name != "" || element.Type == "file")
                         {
                             try
                             {
@@ -194,8 +191,8 @@ namespace TreeExplorer.Controllers
         [HttpPost]
         public async Task<JsonResult> Delete([Bind("Id")] int id, [Bind("UsserId")] int usserId, [Bind("Password")] string password)
         {
-            try 
-            { 
+            try
+            {
                 var els = UsserElementsQuery(id, usserId, password);
 
                 if (els != 0)
@@ -218,7 +215,8 @@ namespace TreeExplorer.Controllers
                                 path += folder + "\\";
                             }
 
-                            if (el.Type == "file") { 
+                            if (el.Type == "file")
+                            {
                                 path += name;
                                 System.IO.File.Delete(path);
                             }
@@ -299,13 +297,13 @@ namespace TreeExplorer.Controllers
 
                                 foreach (string folder in fileStructure)
                                 {
-                                    path += folder+ "\\";
+                                    path += folder + "\\";
                                 }
 
-                                if(element.Type == "file")
+                                if (element.Type == "file")
                                 {
                                     oldPath += name;
-                                    path +=  element.Name;
+                                    path += element.Name;
 
                                     System.IO.File.Copy(oldPath, path);
                                     System.IO.File.Delete(oldPath);
@@ -443,7 +441,7 @@ namespace TreeExplorer.Controllers
         public JsonResult Sort([Bind("Id")] int id, [Bind("Type")] string type, [Bind("UsserId")] int usserId, [Bind("Password")] string password)
         {
             return UsserQuery(usserId, password) != 0 ?
-                Json(new { Message = _tree.Sort(id, type, usserId), Status = 200 }):
+                Json(new { Message = _tree.Sort(id, type, usserId), Status = 200 }) :
                 Json(new { Message = "Wrong data", Status = 400 });
         }
 
@@ -477,7 +475,7 @@ namespace TreeExplorer.Controllers
                     return Json(new { Message = "Wrong data", Status = 400 });
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Json(new { e.Message, Status = 500 });
             }
