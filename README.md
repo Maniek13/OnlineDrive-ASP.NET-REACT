@@ -29,11 +29,11 @@ function set() {
             .then(response => response.json())
             .then(data => {
             if (data.status === 200) {
-                document.getElementById("responde").innerText = "Data is set";
+                document.getElementById("responde").innerText = "The data has been set";
                 document.getElementById("set_button").disabled = true;
             }
             else {
-                document.getElementById("responde").innerText = "Server not responde";
+                document.getElementById("responde").innerText = "The server is not responding";
                 document.getElementById("set_button").disabled = false;
             }    
     });
