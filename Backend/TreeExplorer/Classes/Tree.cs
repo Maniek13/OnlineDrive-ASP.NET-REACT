@@ -16,12 +16,12 @@ namespace TreeExplorer.Classes
                                          orderby el.Type descending
                                          select el;
 
-            _list = query.ToHashSet();
+            elementsList = query.ToHashSet();
         }
 
         public HashSet<Element> Get()
         {
-            IEnumerable<Element> query = from el in _list
+            IEnumerable<Element> query = from el in elementsList
                                          orderby el.Type descending
                                          select el;
 
@@ -33,7 +33,7 @@ namespace TreeExplorer.Classes
             HashSet<Element> list = new();
             try
             {
-                list = _list.Where(el => el.UsserId == usserId).ToHashSet();
+                list = elementsList.Where(el => el.UsserId == usserId).ToHashSet();
 
                 IEnumerable<Element> query = from el in list
                                              orderby el.Type descending
@@ -51,7 +51,7 @@ namespace TreeExplorer.Classes
         public Responde Add(int id, string name, string type, int idW, int usserId)
         {
             Responde responde = new();
-            if (_list is null)
+            if (elementsList is null)
             {
                 responde.Message = "No list (Server error)";
                 responde.Error = true;
@@ -64,7 +64,7 @@ namespace TreeExplorer.Classes
 
                 if (els.FirstOrDefault(el => el.Name == name && el.IdW == idW && el.UsserId == usserId) == null)
                 {
-                    _list.Add(element);
+                    elementsList.Add(element);
                     responde.Message = "Ok";
                     responde.Error = false;
                 }
@@ -80,17 +80,19 @@ namespace TreeExplorer.Classes
 
         public HashSet<Element> Branch(int id)
         {
-            IEnumerable<Element> query = from el in _list
+            IEnumerable<Element> query = from el in elementsList
                                          where el.Id == id
                                          select el;
 
-            List<Element> branch = new();
-            branch.Add(query.First());
+            List<Element> branch = new()
+            {
+                query.First()
+            };
 
             HashSet<Element> list = new();
 
 
-            foreach (Element el in _list)
+            foreach (Element el in elementsList)
             {
                 list.Add(el);
             }
@@ -143,7 +145,7 @@ namespace TreeExplorer.Classes
 
         public HashSet<Element> Folder(int idW, string type)
         {
-            IEnumerable<Element> query = from el in _list
+            IEnumerable<Element> query = from el in elementsList
                                          where el.IdW == idW && el.Type == type
                                          select el;
 
@@ -158,7 +160,7 @@ namespace TreeExplorer.Classes
             while (stop == false)
             {
 
-                Element el = _list.FirstOrDefault(el => el.Id == idW);
+                Element el = elementsList.FirstOrDefault(el => el.Id == idW);
                 if (el != null)
                 {
                     path.Add(el.Name);
@@ -182,14 +184,14 @@ namespace TreeExplorer.Classes
         {
             Responde responde = new();
 
-            if (_list is null)
+            if (elementsList is null)
             {
                 responde.Message = "No list (Server error)";
                 responde.Error = true;
             }
             else
             {
-                Element toChange = _list.FirstOrDefault(el => el.Id == element.Id);
+                Element toChange = elementsList.FirstOrDefault(el => el.Id == element.Id);
 
                 HashSet<Element> els = Folder(element.IdW, element.Type);
 
@@ -213,7 +215,7 @@ namespace TreeExplorer.Classes
         public Responde Delete(int id)
         {
             Responde responde = new();
-            if (_list is null)
+            if (elementsList is null)
             {
                 responde.Message = "No list (Server error)";
                 responde.Error = true;
@@ -226,7 +228,7 @@ namespace TreeExplorer.Classes
 
                     foreach (Element el in toDel)
                     {
-                        _list.Remove(el);
+                        elementsList.Remove(el);
                     }
 
                     responde.Message = JsonSerializer.Serialize(toDel);
@@ -245,14 +247,14 @@ namespace TreeExplorer.Classes
         public Responde Move(int id, int idW)
         {
             Responde responde = new();
-            if (_list is null)
+            if (elementsList is null)
             {
                 responde.Message = "No list (Server error)";
                 responde.Error = true;
             }
             else
             {
-                Element toChange = _list.FirstOrDefault(el => el.Id == id);
+                Element toChange = elementsList.FirstOrDefault(el => el.Id == id);
 
                 HashSet<Element> branch = Branch(id);
 
@@ -288,13 +290,13 @@ namespace TreeExplorer.Classes
             switch (type)
             {
                 case "ASC":
-                    query = from el in _list
+                    query = from el in elementsList
                             where el.IdW == idW && el.UsserId == usserId
                             orderby el.Name ascending
                             select el;
                     break;
                 case "DESC":
-                    query = from el in _list
+                    query = from el in elementsList
                             where el.IdW == idW && el.UsserId == usserId
                             orderby el.Name descending
                             select el;
@@ -303,7 +305,7 @@ namespace TreeExplorer.Classes
 
             IEnumerable<Element> list;
 
-            list = from el in _list
+            list = from el in elementsList
                    where el.IdW != idW && el.UsserId == usserId
                    orderby el.Type descending
                    select el;

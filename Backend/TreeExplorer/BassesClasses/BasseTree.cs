@@ -5,6 +5,6 @@ namespace TreeExplorer.VirtualClasses
 {
     public class BasseTree
     {
-        internal static HashSet<Element> _list;
+        internal HashSet<Element> elementsList;
     }
 }

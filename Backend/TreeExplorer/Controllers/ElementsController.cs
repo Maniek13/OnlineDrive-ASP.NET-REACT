@@ -22,11 +22,15 @@ namespace TreeExplorer.Controllers
         private readonly TreeContext _context;
         private readonly string path = @System.IO.Directory.GetCurrentDirectory().ToString() + "\\Disk\\UssersFiles\\";
         private readonly Tree _tree;
-
         public ElementsController(TreeContext context)
         {
             _context = context;
             _tree = new();
+
+            if (_tree.elementsList != null)
+            {
+                _tree.Set(_context.Elements.ToListAsync().Result);
+            }
         }
 
         public IActionResult Index()

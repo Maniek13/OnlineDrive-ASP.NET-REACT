@@ -13,6 +13,7 @@ namespace TreeExplorer
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            System.Net.ServicePointManager.SecurityProtocol =   System.Net.SecurityProtocolType.Tls12;
         }
 
         public IConfiguration Configuration { get; }

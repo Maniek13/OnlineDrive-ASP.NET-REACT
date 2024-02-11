@@ -5,12 +5,6 @@ https://178.235.60.107:444/
 login: admin
 password: 12345
 
-or create one
-
-
-If a server error is displayed, please check if the website below is working and click if necessary clic set data.
-https://178.235.60.107:5002/
-
 
 
 Project
@@ -18,24 +12,24 @@ Project
 
 Backend
 
-create file in wwwroot/js/server named index.js like:
+create file in wwwroot/js/server named index.js like to add action to reset data:
 
 ___________________________________________________________________________________________
 function set() {
 
     document.getElementById("set_button").disabled = true;
+    document.getElementById("responde").innerText = "Working in progres";   
 
-    fetch('serverURL/Elements/Set')
-            .then(response => response.json())
-            .then(data => {
+    fetch('https://.../Elements/Set')
+        .then(response => response.json())
+        .then(data => {
             if (data.status === 200) {
-                document.getElementById("responde").innerText = "The data has been set";
-                document.getElementById("set_button").disabled = true;
+                document.getElementById("responde").innerText = "The data has been reset";    
             }
             else {
                 document.getElementById("responde").innerText = "The server is not responding";
-                document.getElementById("set_button").disabled = false;
-            }    
+            }
+            document.getElementById("set_button").disabled = false;
     });
 }
 _____________________________________________________________________________________________
