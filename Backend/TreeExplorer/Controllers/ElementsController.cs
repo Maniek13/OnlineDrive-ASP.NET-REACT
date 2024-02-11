@@ -26,12 +26,9 @@ namespace TreeExplorer.Controllers
         {
             _context = context;
             _tree = new();
-
-            if (_tree.elementsList != null)
-            {
-                _tree.Set(_context.Elements.ToListAsync().Result);
-            }
         }
+
+
 
         public IActionResult Index()
         {

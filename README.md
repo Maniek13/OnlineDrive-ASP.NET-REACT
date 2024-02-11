@@ -5,9 +5,8 @@ https://178.235.60.107:444/
 login: admin
 password: 12345
 
-
-
 Project
+
 1.  Copy files from repo
 
 Backend
@@ -43,9 +42,6 @@ Run command: Add-Migration init
 Run command: Update-Database
 
 3. Start app
-4. Please set data first
-
-![image](https://user-images.githubusercontent.com/47826375/130889690-d0f1c302-386e-4d5b-a257-f1a44729659e.png)
 
 Frontend
 
